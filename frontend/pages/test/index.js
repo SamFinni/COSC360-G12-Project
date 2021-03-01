@@ -34,8 +34,13 @@ export default function TestPage() {
       setData([]);
       axios.post(backend + '/test/' + type);
     } else selectAPI();
-
   }
+
+  useEffect(() => console.log("Called once on first load"), []);
+
+  useEffect(() => console.log("Called every time `clicked` state variable is updated"), [clicked]);
+
+  useEffect(() => console.log("Called every time `data` OR `error` state variables are updated"), [data, error]);
 
   let errorDiv = <></>;
   if (error !== '') {
