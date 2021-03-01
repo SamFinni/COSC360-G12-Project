@@ -29,10 +29,12 @@ export default function TestPage() {
 
     if (type != 'select' && type != 'drop')
       await axios.post(backend + '/test/' + type)
-      .then(() => selectAPI());
+      .then(() => selectAPI())
+      .catch((err) => setError("Table doesn't exist! Try using `Create Table` first."));
     else if (type == 'drop') {
       setData([]);
-      axios.post(backend + '/test/' + type);
+      axios.post(backend + '/test/' + type)
+      .catch((err) => setError("Table doesn't exist! Try using `Create Table` first."));
     } else selectAPI();
   }
 
