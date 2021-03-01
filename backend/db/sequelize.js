@@ -1,8 +1,8 @@
-const env = require('../config');
+const cfg = require('../config');
 
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize(env.DATABASE_NAME, env.DATABASE_USER, env.DATABASE_PASS, {
-    host: env.DATABASE_IP,
+const sequelize = new Sequelize(cfg.DATABASE_NAME, cfg.DATABASE_USER, cfg.DATABASE_PASS, {
+    host: cfg.DATABASE_IP,
     dialect: 'mariadb',
     pool: {
       max: 5,

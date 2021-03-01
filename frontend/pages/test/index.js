@@ -19,7 +19,7 @@ export default function TestPage() {
     })
     .then((res) => {
       setData(JSON.stringify(res.data, null, 2)); // update our data state
-      setError(''); // reset the error state
+      if (error != '') setError(''); // reset the error state
     })
     .catch((err) => setError("Table doesn't exist! Try using `Create Table` first."));
   }
@@ -54,7 +54,7 @@ export default function TestPage() {
   return (
     <div className={styles.page}>
       <Head>
-        <title>MyBlogPost - Test</title>
+        <title>MyBlogPost - API Test</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -82,7 +82,7 @@ export default function TestPage() {
             <div
               className={styles.apiButton}
               role="button"
-              tabIndex={0}
+              tabIndex={1}
               onClick={() => handleAPI('insert')}
               onKeyDown={() => handleAPI('insert')}
             >
@@ -91,7 +91,7 @@ export default function TestPage() {
             <div
               className={styles.apiButton}
               role="button"
-              tabIndex={0}
+              tabIndex={2}
               onClick={() => handleAPI('update')}
               onKeyDown={() => handleAPI('update')}
             >
@@ -100,7 +100,7 @@ export default function TestPage() {
             <div
               className={styles.apiButton}
               role="button"
-              tabIndex={0}
+              tabIndex={3}
               onClick={() => handleAPI('delete')}
               onKeyDown={() => handleAPI('delete')}
             >
@@ -109,7 +109,7 @@ export default function TestPage() {
             <div
               className={styles.apiButton}
               role="button"
-              tabIndex={0}
+              tabIndex={4}
               onClick={() => handleAPI('create')}
               onKeyDown={() => handleAPI('create')}
             >
@@ -118,7 +118,7 @@ export default function TestPage() {
             <div
               className={styles.apiButton}
               role="button"
-              tabIndex={0}
+              tabIndex={5}
               onClick={() => handleAPI('drop')}
               onKeyDown={() => handleAPI('drop')}
             >
