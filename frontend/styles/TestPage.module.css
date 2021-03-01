@@ -1,0 +1,56 @@
+.page {
+  width: 100%;
+  height: 100vh;
+  background-color: #2b503d;
+}
+
+.card {
+  width: 60vw;
+  background-color: #3a7759;
+  color: #8debc0;
+  border: 1px solid #153022;
+  border-radius: 8px;
+  margin: 2em auto;
+  text-align: center;
+}
+
+.apiForm {
+  width: 75%;
+  border: 1px solid #8debc0;
+  border-radius: 8px;
+  margin: auto auto 2em auto;
+  padding: 1em;
+}
+
+.apiTextarea {
+  width: 80%;
+  max-width: 80%;
+  height: 500px;
+  margin-top: 2em;
+}
+
+.apiButtonContainer {
+  display: flex;
+  margin-top: 2em;
+}
+
+.apiButton {
+  border: none;
+  padding: 8px;
+  border: 1px solid #569675;
+  border-radius: 32px;
+  cursor: pointer;
+  background-color: #23523a;
+  color: white;
+  width: 15%;
+  margin: auto;
+  text-align: center;
+}
+
+.error {
+  display: inline-block;
+  border: 1px solid whitesmoke;
+  border-radius: 8px;
+  margin: 2em auto auto auto;
+  padding: 8px;
+}

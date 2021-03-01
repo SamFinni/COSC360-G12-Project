@@ -1,0 +1,44 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  background-color: #3a7759;
+  border-bottom: 1px solid #153022;
+  color: #8debc0;
+  font-size: 1.5em;
+}
+
+.headerL {
+  display: flex;
+  justify-content: flex-start;
+  padding-top: .5em;
+  padding-bottom: .5em;
+}
+
+.headerR {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: .5em;
+  padding-bottom: .5em;
+}
+
+.logo {
+  margin: 0 0 0 1em;
+}
+
+.email {
+  font-size: 0.6em;
+  margin: auto 2em auto 0;
+}
+
+.headerButton {
+  cursor: pointer;
+  font-size: 0.85em;
+  margin: auto 1em auto 0;
+  padding: 2px 0 2px 0;
+}
+
+.headerButton:hover {
+  border-bottom: 2px solid rgb(103, 192, 143);
+  padding-bottom: 0;
+}

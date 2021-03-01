@@ -1,0 +1,16 @@
+{
+  "name": "frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 3000 -H localhost",
+    "build": "next build",
+    "start": "next start -p 3000 -H localhost"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "next": "10.0.7",
+    "react": "17.0.1",
+    "react-dom": "17.0.1"
+  }
+}
