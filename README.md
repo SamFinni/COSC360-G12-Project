@@ -17,6 +17,11 @@ It is created with the following technologies.
 2. In both /frontend and /backend, run `npm install`. This will need to be done whenever another developer has added a new library since you last ran the command. You'll know this by an error message that comes up when you try to follow steps 1 or 2 in 'How to run' below.
 
 3. Install a database client such as [HeidiSQL](https://www.heidisql.com/), used to interact with the database directly
+    - To access the database, use this info:
+      - IP/Port: finnigan.me:3306
+      - Database: COSC360
+      - Username: cosc360
+      - Password: cosc360
 
 4. <i>(optional)</i> For writing code, [VS Code](https://code.visualstudio.com/) is recommended.
 
