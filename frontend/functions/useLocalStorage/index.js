@@ -26,6 +26,7 @@ Structure of local storage:
 {
   auth: {
     email: string,
+    username: string,
     authkey: string
   }
 }

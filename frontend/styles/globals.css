@@ -1,9 +1,18 @@
+@font-face {
+  font-family: Montserrat;
+  src: local("Montserrat"), url(/fonts/Montserrat-Regular.woff2) format("woff2");
+}
+
+@font-face {
+  font-family: PTSerif;
+  src: local("PTSerif"), url(/fonts/pt-serif-v12-latin-regular.woff2) format("woff2");
+}
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: Montserrat;
 }
 
 a {
@@ -13,4 +22,8 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+.Toastify__toast-container--top-right {
+  margin-top: 10em;
 }

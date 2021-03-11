@@ -1,57 +1,19 @@
 import Link from 'next/link';
 import useLocalStorage from '../../functions/useLocalStorage';
-import { useRouter } from 'next/router';
-import styles from '../../styles/Header.module.css';
+import styles from '../../styles/components/Header.module.css';
+import Searchbar from '../Searchbar';
 
 export default function Header() {
-  const [auth, setAuth] = useLocalStorage('auth', { email: null, authkey: null });
-  const router = useRouter();
-
-  function logout() {
-    setAuth({
-      email: null,
-      authkey: null,
-    });
-    router.push('/');
-  }
-
-  function fakeLogin() {
-    setAuth({
-      email: 'test@email.com',
-      authkey: '9GJ43GHG923GJ427'
-    });
-  }
+  const [auth, ] = useLocalStorage('auth', { email: null, username: null, authkey: null });
 
   return (
     <>
-      <div className={styles.header}>
-        <div className={styles.headerL}>
-          <p className={styles.logo}>MyBlogPost</p>
-        </div>
-        <div className={styles.headerR}>
-          {auth.email != null ? (
-            <p className={styles.email}>{auth.email}</p>
-          ) : <></>}
-          <Link href="/">
-            <div className={styles.headerButton}>Home</div>
-          </Link>
-          {auth.email == null ? (
-            <>
-              <div role="button" tabIndex={0} className={styles.headerButton} onClick={() => fakeLogin()} onKeyDown={() => fakeLogin()}>
-                Login
-              </div>
-              <Link href="/signup">
-                <div className={styles.headerButton}>Sign Up</div>
-              </Link>
-            </>
-          ) : (
-            <>
-              <div role="button" tabIndex={0} className={styles.headerButton} onClick={() => logout()} onKeyDown={() => logout()}>
-                Logout
-              </div>
-            </>
-          )}
-        </div>
+      <div className={styles.container}>
+        { auth.email != null ? <p className={styles.name}>Logged in as: <Link href='/profile'><a><b>@{auth.username}</b></a></Link></p> : <></> }
+        <Link href="/">
+          <a><img className={styles.logo} src="./logo.png" /></a>
+        </Link>
+        <Searchbar />
       </div>
     </>
   );

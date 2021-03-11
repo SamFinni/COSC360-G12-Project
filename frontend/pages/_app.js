@@ -1,7 +1,9 @@
 import '../styles/globals.css'
 import Head from 'next/head';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-function MyApp({ Component, pageProps }) {
+export default function Blogaru({ Component, pageProps }) {
   return (
   <>
     <Head>
@@ -9,9 +11,9 @@ function MyApp({ Component, pageProps }) {
       <link rel="icon" href="/favicon.ico" />
     </Head>
 
+    <ToastContainer />
+
     <Component {...pageProps} />
   </>
   );
 }
-
-export default MyApp

@@ -1,0 +1,143 @@
+.container {
+  display: flex;
+  background: #FFFFFF;
+  border-radius: 16px;
+  margin-top: 4em;
+  padding: 1em 0;
+  box-shadow: 0 0 6px gray;
+  color: #616161;
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  user-select: none;
+}
+
+.user {
+  text-align: center;
+  cursor: pointer;
+  margin: 0 1em;
+}
+
+.pic {
+  width: 128px;
+  border-radius: 128px;
+  box-shadow: 1px 1px 6px gray;
+  margin-bottom: 0.5em;
+}
+
+.username {
+  margin: 0;
+  padding: 0;
+  word-wrap: break-word;
+}
+
+.interact {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.score {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  cursor: default;
+}
+
+.scoreText {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #ee8e67;
+  margin: 0;
+}
+
+.arrow {
+  color: #ee8e67;
+  height: 2em;
+  cursor: pointer;
+}
+
+.arrow:hover {
+  filter: drop-shadow(0 0 2px #555);
+}
+
+.share {
+  margin: auto 0;
+  color: #ee8e67;
+  cursor: pointer;
+}
+
+.share:hover {
+  filter: drop-shadow(0 0 2px #555);
+}
+
+
+.right {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  margin-left: 1em;
+}
+
+.head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title {
+  display: inline-block;
+  margin: 0;
+  hyphens: auto;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-all;
+  word-break: break-word;
+  cursor: pointer;
+}
+
+.date {
+  min-width: 8em;
+  text-align: right;
+  font-size: 0.85em;
+  font-weight: bold;
+  margin: 0 1em 0 0;
+  user-select: none;
+}
+
+.bodyContainer {
+  background: #FFFFFF;
+  border-radius: 16px;
+  padding: 0.8em 1em 1em 1em;
+  margin: 1em 3em 0 0;
+  box-shadow: 0 0 6px gray;
+  max-height: 10em;
+  overflow: hidden;
+}
+
+.body {
+  font-family: PTSerif;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.readMore {
+  border: 2px solid #ee8e67;
+  color: #ee8e67;
+  padding: 0.5em 1em;
+  margin: 1em 3em 0 0;
+  float: right;
+  border-radius: 2em;
+  box-shadow: 0 0 6px gray;
+  font-weight: bold;
+  user-select: none;
+}
+
+.readMore:hover {
+  background: rgb(255,255,255);
+  background: linear-gradient(225deg, rgba(255,255,255,1) 0%, rgba(167,238,232,1) 75%);
+}

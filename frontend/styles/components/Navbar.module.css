@@ -1,0 +1,35 @@
+.container {
+  position: fixed;
+  top: 20%;
+  left: 5%;
+  width: 6em;
+  padding-bottom: 1em;
+  border-radius: 6em;
+  box-shadow: 0 0 12px gray;
+}
+
+.circle {
+  width: 4em;
+  height: 4em;
+  border: 2px solid #ee8e67;
+  border-radius: 4em;
+  margin: 1em auto 0 auto;
+  box-shadow: 0 0 6px gray;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.circle:hover {
+  background: rgb(255,255,255);
+  background: linear-gradient(225deg, rgba(255,255,255,1) 0%, rgba(167,238,232,1) 75%);
+}
+
+.icon {
+  height: 2em;
+  width: 2em;
+  color: #ee8e67;
+}
+
+.icon svg {
+  color: #ee8e67;
+}

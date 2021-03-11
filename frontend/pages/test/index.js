@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import axios from 'axios';
-import Header from '../../components/Header';
-import styles from '../../styles/TestPage.module.css';
+import Header from '../../components/TestHeader';
+import styles from '../../styles/pages/TestPage.module.css';
 import * as cfg from '../../config';
 
 export default function TestPage() {

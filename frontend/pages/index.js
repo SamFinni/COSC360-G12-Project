@@ -1,65 +1,55 @@
-import Head from 'next/head'
-import styles from '../styles/HomePage.module.css'
+import Head from 'next/head';
+import dynamic from "next/dynamic";
+import styles from '../styles/pages/HomePage.module.css';
+import Footer from '../components/Footer';
+import PostPreview from '../components/PostPreview';
+const Header = dynamic(() => import('../components/Header'), {
+  ssr: false
+});
+const Navbar = dynamic(() => import('../components/Navbar'), {
+  ssr: false
+});
 
-export default function HomePage() {
+export default function HomePage(props) {
   return (
-    <div className={styles.container}>
+    <div className={styles.page}>
       <Head>
-        <title>Create Next App</title>
+        <title>Blogaru</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+      <Header />
 
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
+      <Navbar />
 
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+      <div className={styles.container}>
+        <div className={styles.postlist}>
+          {props.posts.map((post, idx) => (
+            <PostPreview key={`postpreview-${idx}`} data={post} />
+          ))}
         </div>
-      </main>
+      </div>
 
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
+      <Footer />
     </div>
   )
+}
+
+export async function getStaticProps() {
+  const posts = [
+    { pid: 1647, title: "Blog Post Title",
+    body: `	Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    Vestibulum sed arcu non odio euismod lacinia at quis risus. Vulputate dignissim suspendisse in est ante in. Mattis ullamcorper velit sed ullamcorper morbi tincidunt ornare massa. Tincidunt tortor aliquam nulla facilisi cras fermentum odio eu. At erat pellentesque adipiscing commodo elit at. In nibh mauris cursus mattis. Magnis dis parturient montes nascetur ridiculus mus mauris vitae. Id nibh tortor id aliquet lectus. Enim nec dui nunc enim ut. Elementum facilisis leo vel fringilla est ullamcorper eget dui sapien eget mi proin. Faucibus purus in massa... `,
+    score: 226, date: 'Sep. 23, 2020', uid: 132624, username: "KangaRupert", pic: "/pic1.png" },
+    { pid: 1634, title: "VeryVeryVeryVeryVeryVeryVeryVeryVery Long and Wordy Blog Post Title",
+    body: `	Elit sed vulputate mi sit. Posuere sollicitudin aliquam ultrices sagittis orci a scelerisque purus semper. Sit amet risus nullam eget felis eget. Leo vel fringilla est ullamcorper eget. Leo in vitae turpis massa sed elementum tempus egestas sed. Consectetur adipiscing elit duis tristique sollicitudin nibh. Egestas congue quisque egestas diam in arcu cursus euismod. Aliquam purus sit amet luctus venenatis lectus magna fringilla. Ultrices dui sapien eget mi proin. Faucibus purus in massa tempor nec feugiat nisl pretium. Tellus elementum sagittis vitae et leo duis ut. Eget egestas purus viverra accumsan in nisl nisi scelerisque. Feugiat nisl pretium fusce id velit ut tortor pretium. Et tortor at risus viverra adipiscing at in tellus integer. Etiam sit amet nisl purus in mollis nunc sed id. Hac habitasse platea dictumst quisque. Convallis tellus id interdum velit laoreet id donec ultrices tincidunt.
+    Scelerisque in dictum non consectetur a. Potenti nullam ac tortor vitae. Gravida quis blandit turpis cursus. Et netus et malesuada fames ac...`,
+    score: 3, date: 'Aug. 8, 2020', uid: 458543, username: "HenryHops", pic: "/pic2.png" }
+  ];
+
+  return {
+    props: {
+      posts
+    }
+  }
 }

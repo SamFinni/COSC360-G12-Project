@@ -1,0 +1,18 @@
+.container {
+  position: relative;
+  display: flex;
+  height: 5vh;
+  min-height: 2em;
+  width: 100%;
+  background: rgb(238,142,103);
+  background: linear-gradient(90deg, rgba(238,142,103,1) 0%, rgba(236,137,76,1) 70%);
+  box-shadow: 0 4px 3px -3px gray;
+  align-items: center;
+  user-select: none;
+}
+
+.container a {
+  margin-left: 3em;
+  font-size: 0.9em;
+  font-weight: bold;
+}

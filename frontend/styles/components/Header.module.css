@@ -1,0 +1,30 @@
+.container {
+  position: relative;
+  display: flex;
+  height: 10vh;
+  min-height: 3em;
+  width: 100%;
+  background: rgb(255,255,255);
+  background: linear-gradient(315deg, rgba(255,255,255,1) 0%, rgba(167,238,232,1) 75%);
+  box-shadow: 0 4px 3px -3px gray;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  position: absolute;
+  height: 100%;
+  margin: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  user-select: none;
+}
+
+.name {
+  margin-left: 2em;
+  font-size: 1.25em;
+  color: #ee8e67;
+  user-select: none;
+}
