@@ -61,7 +61,7 @@
 }
 
 .arrow:hover {
-  filter: drop-shadow(0 0 2px #555);
+  filter: drop-shadow(0 0 4px rgb(167, 238, 232));
 }
 
 .share {
@@ -71,7 +71,7 @@
 }
 
 .share:hover {
-  filter: drop-shadow(0 0 2px #555);
+  filter: drop-shadow(0 0 4px rgb(167, 238, 232));
 }
 
 
