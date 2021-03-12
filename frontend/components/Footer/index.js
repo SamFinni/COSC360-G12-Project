@@ -14,6 +14,13 @@ export default function Header() {
         <Link href="/contact">
           <a>Contact Us</a>
         </Link>
+
+      { /*============================================================
+          TODO: Make this link ONLY visible when logged in as an admin
+          ============================================================*/}
+        <Link href="/admin">
+          <a>Admin</a>
+        </Link>
       </div>
     </>
   );
