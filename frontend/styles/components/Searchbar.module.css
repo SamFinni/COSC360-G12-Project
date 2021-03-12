@@ -48,7 +48,7 @@
   color: #ee8e67;
 }
 
-.textInput:focus {
+.textInput:focus, .textInput:hover {
   outline: none;
   background: rgba(167,238,232,1);
   background: linear-gradient(315deg, rgba(167,238,232,1) 25%, rgba(255,255,255,1) 100%);
