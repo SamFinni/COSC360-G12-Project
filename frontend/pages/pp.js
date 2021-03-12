@@ -46,7 +46,7 @@ export default function HomePage() {
           <h4>9. Customer Access</h4>
           <p>Upon request, you will be informed of the existence, use and disclosure of your Personal Information, and will be given access to it. You may verify the accuracy and completeness of your Personal Information, and may request that it be amended, if appropriate. However, in certain circumstances permitted by law, we will not disclose certain information to you. For example, we may not disclose information relating to you if other individuals are referenced or if there are legal, security or commercial proprietary restrictions.</p>
           <h4>10. Handling Customer Complaints and Suggestions</h4>
-          <p>You may direct any questions or enquiries with respect to our privacy policy or our practices by contacting </p>
+          <p>Please send all questions, comments and feedback directly back to yourself. We don't read our emails.</p>
           <br></br>
           <h4>Additional Information</h4>
           <p>Sample privacy policy provided by <a href="https://developer.moneris.com/More/Compliance/Sample%20Privacy%20Policy">Moneris</a></p>

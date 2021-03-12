@@ -53,7 +53,7 @@ export default function HomePage() {
           <h4>8. Entire Agreement</h4>
           <p>The Terms and any documents expressly referred to in them represent the entire agreement between you and us in relation to the subject matter of the Terms and supersede any prior agreement, understanding or arrangement between you and us, whether oral or in writing. Both you and we acknowledge that, in entering into these Terms, neither you nor we have relied on any representation, undertaking or promise given by the other or implied from anything said or written between you and us prior to such Terms, except as expressly stated in the Terms.</p>
           <h4>10. Handling Customer Complaints and Suggestions</h4>
-          <p>You may direct any questions or enquiries with respect to our privacy policy or our practices by contacting </p>
+          <p>Please send all questions, comments and feedback directly back to yourself. We don't read our emails.</p>
           <br></br>
           <h4>Additional Information</h4>
           <p>Sample terms of service provided by <a href="https://developer.moneris.com/en/More/Compliance/Sample%20Terms%20of%20Use">Moneris</a></p>
