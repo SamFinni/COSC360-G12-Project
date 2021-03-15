@@ -64,9 +64,14 @@ export default function MessagesPage(props) {
   }
 
   function sendMessage() {
-    console.log("Send the message!", sendMsg);
+    const msg = sendMsg.trim();
+    if (msg == '') return;
+
+    // todo
+    console.log("Send the message!", msg);
+
     let temp = convo.messages;
-    temp.push({ from: false, text: sendMsg });
+    temp.push({ from: false, text: msg });
     setConvo({ ...convo, messages: temp });
     setSendMsg('');
   }
