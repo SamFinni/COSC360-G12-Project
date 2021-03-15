@@ -36,8 +36,6 @@ export default function Searchbar() {
       // reload necessary to update Header (Logged in as). maybe find a better way in the future
   }
 
-  console.log(mounted);
-
   return (
     <div className={styles.container}>
       { mounted

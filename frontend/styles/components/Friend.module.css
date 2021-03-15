@@ -1,0 +1,32 @@
+.container {
+  width: calc(128px + 2em);
+  background: #FFFFFF;
+  border-radius: 16px;
+  border: 1px solid #CCCCCC;
+  cursor: pointer;
+  margin: 1em;
+}
+
+.container:hover {
+  background: rgb(255,255,255);
+  background: linear-gradient(225deg, rgba(255,255,255,1) 0%, rgba(167,238,232,1) 75%);
+}
+
+.user {
+  text-align: center;
+  cursor: pointer;
+  margin: 1em 1em;
+}
+
+.pic {
+  width: 128px;
+  border-radius: 128px;
+  box-shadow: 1px 1px 6px gray;
+  margin-bottom: 0.5em;
+}
+
+.username {
+  margin: 0;
+  padding: 0;
+  word-wrap: break-word;
+}
