@@ -1,0 +1,32 @@
+.container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background: #FFFFFF;
+  border-bottom: 1px solid #CCCCCC;
+  cursor: pointer;
+  padding: 0.5em;
+}
+
+.container:hover {
+  background: rgb(255,255,255);
+  background: linear-gradient(225deg, rgba(255,255,255,1) 0%, rgba(167,238,232,1) 75%);
+}
+
+.pic {
+  width: 32px;
+  border-radius: 128px;
+  box-shadow: 1px 1px 6px gray;
+}
+
+.username {
+  margin: 0;
+  padding: 0;
+  margin-left: 1em;
+  word-wrap: break-word;
+}
+
+.selected {
+  background: rgb(255,255,255);
+  background: linear-gradient(225deg, rgba(255,255,255,1) 0%, rgba(167,238,232,1) 75%);
+}
