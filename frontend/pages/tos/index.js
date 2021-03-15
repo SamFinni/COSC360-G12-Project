@@ -1,11 +1,11 @@
 import Head from 'next/head';
 import dynamic from "next/dynamic";
-import styles from '../styles/pages/HomePage.module.css';
-import Footer from '../components/Footer';
-const Header = dynamic(() => import('../components/Header'), {
+import styles from '../../styles/pages/HomePage.module.css';
+import Footer from '../../components/Footer';
+const Header = dynamic(() => import('../../components/Header'), {
   ssr: false
 });
-const Navbar = dynamic(() => import('../components/Navbar'), {
+const Navbar = dynamic(() => import('../../components/Navbar'), {
   ssr: false
 });
 

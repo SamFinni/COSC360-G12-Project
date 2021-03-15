@@ -1,11 +1,11 @@
 import Head from 'next/head';
 import dynamic from "next/dynamic";
-import styles from '../styles/pages/HomePage.module.css';
-import Footer from '../components/Footer';
-const Header = dynamic(() => import('../components/Header'), {
+import styles from '../../styles/pages/HomePage.module.css';
+import Footer from '../../components/Footer';
+const Header = dynamic(() => import('../../components/Header'), {
   ssr: false
 });
-const Navbar = dynamic(() => import('../components/Navbar'), {
+const Navbar = dynamic(() => import('../../components/Navbar'), {
   ssr: false
 });
 
@@ -23,8 +23,7 @@ export default function HomePage() {
 
       <div className={styles.container}>
         <div className={styles.postlist}>
-          <h2>Contact Us</h2>
-          <p>Please send all questions, comments and feedback directly back to yourself. We don't read our emails.</p>
+          <h2>Admin</h2>
         </div>
       </div>
 
