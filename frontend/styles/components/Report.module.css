@@ -1,0 +1,71 @@
+.container {
+  width:auto;
+  background: #FFFFFF;
+  border-radius: 8px;
+  border: 1px solid #CCCCCC;
+  cursor: pointer;
+  margin: 0.25em;
+  display: flex;
+}
+
+.container:hover {
+  background: rgb(255,255,255);
+  background: linear-gradient(225deg, rgba(255,255,255,1) 0%, rgba(167,238,232,1) 75%);
+}
+
+.reported {
+  position: relative;
+  top: 20%;
+}
+
+/* USER A (reporter) */
+.usera {
+  width: 50%;
+  text-align: center;
+  cursor: pointer;
+  margin: 0.5em 0.5em;
+  float: left;
+}
+
+.pica {
+  width: 64px;
+  border-radius: 64px;
+  box-shadow: 1px 1px 6px gray;
+  margin-bottom: 0.5em;
+}
+
+.usernamea {
+  position: relative;
+  top: 35%;
+  margin: 0;
+  padding: 0;
+  word-wrap: break-word;
+  float: left;
+}
+
+
+
+/* USER B (reported) */
+.userb {
+  width: 50%;
+  text-align: center;
+  cursor: pointer;
+  margin: 0.5em 0.5em;
+  float: right;
+}
+
+.picb {
+  width: 64px;
+  border-radius: 64px;
+  box-shadow: 1px 1px 6px gray;
+  margin-bottom: 0.5em;
+}
+
+.usernameb {
+  position: relative;
+  top: 35%;
+  margin: 0;
+  padding: 0;
+  word-wrap: break-word;
+  float: right;
+}

@@ -13,7 +13,7 @@ export default function HomePage() {
   return (
     <div className={styles.page}>
       <Head>
-        <title>Blogaru</title>
+        <title>Blogaru - Privacy Policy</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
