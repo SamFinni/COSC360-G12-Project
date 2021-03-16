@@ -50,7 +50,7 @@ export default function Searchbar() {
             </div>
           </div>
         </Link>
-        <Link href='/new'>
+        <Link href='/newPost'>
           <div className={styles.circle} data-tip="New Post">
             <div className={styles.icon}>
               <BiMessageSquareAdd size={'2.5em'} />
