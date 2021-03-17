@@ -11,10 +11,6 @@ const User = sequelize.define('user', {
         type: DataTypes.STRING(64),
         allowNull: false
     },
-    passwordHash: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
     bio: {
         type: DataTypes.STRING(2048),
     },
@@ -37,7 +33,19 @@ const User = sequelize.define('user', {
         type: DataTypes.DATE(3),
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP(3)'),
     },
-});
+    password: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },}, {
+        instanceMethods: {
+            generateHash(password) {
+                return bcrypt.hash(password, bcrypt.genSaltSync(8));
+            },
+            validPassword(password) {
+                return bcrypt.compare(password, this.password);
+            }
+        }
+    });
 
 // automatically creates the database table if it doesn't exist (with letter 's' appended)
 // modifies schema if table exists and schema above was updated
