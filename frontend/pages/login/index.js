@@ -22,8 +22,8 @@ export default function Login(props) {
     return username.length > 0 && password.length > 0;
   }
 
-  function submitHandler(){
-    if(!validateForm()){
+  function submitHandler() {
+    if (!validateForm()) {
       alert("Please fill out the form!");
       return;
     }
@@ -73,7 +73,6 @@ export default function Login(props) {
                 required
               ></input>
             </div>
-
             <button type="submit">Login</button>
           </form>
         </div>

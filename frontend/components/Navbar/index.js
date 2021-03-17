@@ -20,8 +20,9 @@ export default function Searchbar() {
   // only render the tooltip after mount, to prevent errors
   useEffect(() => { setMounted(true); }, []);
 
-  // for testing. comment out to test site as guest user
-
+  // NOTE: login page now functional for any given username/password. below not really necessary now
+  
+  // for testing. comment out to use site as guest user.
   // useEffect(() => {
   //   if (auth.email == null) {
   //     setAuth({ email: "test@test.com", username: "Tester", authkey: "abc123" });

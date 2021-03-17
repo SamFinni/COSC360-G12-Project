@@ -21,6 +21,7 @@
   margin: 0;
   padding: 0;
 }
+
 .content {
   display: flex;
   flex-wrap: wrap;
@@ -32,25 +33,29 @@
   box-shadow: 0 0 6px gray;
   color: #616161;
 }
-.label{
+
+.label {
  display: inline;
   width: 7em;
   text-align: left;
 }
-.input input{
+
+.input input {
   flex-grow: 1;
 }
-.input{
+
+.input {
   display: flex;
   margin-bottom: 1em;
+}
 
-}
-.form{
- max-width: 90%;
+.form {
+ width: 90%;
+ max-width: 24em;
  margin: auto;
- 
 }
-.formContainer{
+
+.formContainer {
   max-width: 60%;
   border: 1px solid #CCCCCC;
   background-color: white;
