@@ -14,7 +14,7 @@ export default function ViewPostPage(props) {
   return (
     <div className={styles.page}>
       <Head>
-        <title>Blogaru</title>
+        <title>Blogaru - View Post</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 

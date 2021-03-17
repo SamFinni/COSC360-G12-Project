@@ -4,7 +4,7 @@ import Link from 'next/link';
 import useLocalStorage from '../../functions/useLocalStorage';
 import styles from '../../styles/components/Navbar.module.css';
 import ReactTooltip from 'react-tooltip';
-import { BiMessageSquareAdd } from 'react-icons/bi';
+import { BiMessageSquareAdd, BiSearch } from 'react-icons/bi';
 import { HiOutlineMail, HiOutlineUserGroup } from 'react-icons/hi';
 import { FiLogOut, FiLogIn } from 'react-icons/fi';
 import { AiOutlineUser, AiOutlineUserAdd } from 'react-icons/ai';
@@ -68,6 +68,13 @@ export default function Searchbar() {
           <div className={styles.circle} data-tip="Messages">
             <div className={styles.icon}>
               <HiOutlineMail size={'2.5em'} />
+            </div>
+          </div>
+        </Link>
+        <Link href='/search'>
+          <div className={styles.circle} data-tip="Search">
+            <div className={styles.icon}>
+              <BiSearch size={'2.5em'} />
             </div>
           </div>
         </Link>
