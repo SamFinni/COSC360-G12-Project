@@ -1,8 +1,8 @@
 import Head from 'next/head';
 import dynamic from "next/dynamic";
-import styles from '../../styles/pages/ViewProfilePage.module.css';
+import styles from '../../styles/pages/ProfilePage.module.css';
 import Footer from '../../components/Footer';
-import Profile from '../../components/ViewProfile';
+import Profile from '../../components/Profile';
 const Header = dynamic(() => import('../../components/Header'), {
   ssr: false
 });
@@ -25,9 +25,7 @@ export default function ProfilePage(props) {
       <div className={styles.container}>
         <h1 className={styles.title}>Profile</h1>
         <div className={styles.friendlist}>
-          {props.friends.map((user, idx) => (
-            <Profile key={`user-${idx}`} data={user} />
-          ))}
+          <Profile data={props.user} />
         </div>
       </div>
 
@@ -37,14 +35,11 @@ export default function ProfilePage(props) {
 }
 
 export async function getStaticProps() {
-  const friends = [
-    { uid: 132624, username: 'KangaRupert', pic: '/pic1.png' },
-  
-  ];
+  const user = { uid: 132624, username: 'KangaRupert', pic: '/pic1.png', bio: 'I\'m a cool dude, and I like to blog!' };
 
   return {
     props: {
-      friends
+      user
     }
   }
 }
