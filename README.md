@@ -47,6 +47,7 @@ If an error occurs, see step 2 in 'How to develop'.
 ### Sequelize (database connection)
 - [Data types](https://codewithhugo.com/sequelize-data-types-a-practical-guide/)
 - [Query functions](https://sequelize.org/master/manual/model-querying-basics.html)
+- [Foreign keys](https://stackoverflow.com/a/23035179/1807012)
 
 ## Database
 ### MariaDB (MySQL)
