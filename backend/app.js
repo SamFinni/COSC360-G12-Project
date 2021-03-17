@@ -29,6 +29,9 @@ app.use(morgan('combined'));
 const testRouter = require('./routes/test');
 app.use('/test', testRouter);
 
+const commentRouter = require('./routes/comment');
+app.use('/comment', commentRouter);
+
 //const abcRouter = require('./routes/abc');
 //app.use('/abc', abcRouter);
 

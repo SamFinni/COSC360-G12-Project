@@ -21,13 +21,14 @@ export default function Searchbar() {
   useEffect(() => { setMounted(true); }, []);
 
   // for testing. comment out to test site as guest user
-  useEffect(() => {
-    if (auth.email == null) {
-      setAuth({ email: "test@test.com", username: "Tester", authkey: "abc123" });
-      router.push('/')
-        .then(() => router.reload());
-    }
-  }, []);
+
+  // useEffect(() => {
+  //   if (auth.email == null) {
+  //     setAuth({ email: "test@test.com", username: "Tester", authkey: "abc123" });
+  //     router.push('/')
+  //       .then(() => router.reload());
+  //   }
+  // }, []);
   
   function logout() {
     setAuth({ email: null, username: null, authkey: null });
