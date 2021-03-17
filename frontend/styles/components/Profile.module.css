@@ -1,0 +1,18 @@
+ .user {
+    text-align: center;
+    cursor: pointer;
+    margin: 1em 1em;
+  }
+  
+  .pic {
+    width: 300px;
+    border-radius: 300px;
+    box-shadow: 1px 1px 6px gray;
+    margin-bottom: 0.5em;
+  }
+  
+  .username {
+    margin: 0;
+    padding: 0;
+    word-wrap: break-word;
+  }
