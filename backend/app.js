@@ -32,6 +32,12 @@ app.use('/test', testRouter);
 const commentRouter = require('./routes/comment');
 app.use('/comment', commentRouter);
 
+const userRouter = require('./routes/user');
+app.use('/user', userRouter);
+
+const postreportRouter = require('./routes/postreport');
+app.use('/postreport', postreportRouter);
+
 //const abcRouter = require('./routes/abc');
 //app.use('/abc', abcRouter);
 
