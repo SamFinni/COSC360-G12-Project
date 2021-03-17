@@ -62,7 +62,9 @@ export default function PostPreview({ data }) {
           </div>
         </div>
         <div>
-          <Link href={`/post/${data.pid}`}>
+          {/* <Link href={`/post/${data.pid}`}> */}
+          {/* temporary link */}
+          <Link href={`/viewPost`}>
             <a className={styles.readMore}>Read More</a>
           </Link>
         </div>
