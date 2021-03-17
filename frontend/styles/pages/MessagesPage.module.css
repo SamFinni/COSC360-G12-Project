@@ -24,6 +24,7 @@
 .messages {
   display: flex;
   width: 75%;
+  height: 60vh;
   background: #FFFFFF;
   border-radius: 16px;
   margin: 4em auto;
@@ -94,7 +95,6 @@
 .convo {
   flex-grow: 1;
   width: 100%;
-  max-height: 50vh;
   overflow-y: auto;
   padding-bottom: 1em;
 }
