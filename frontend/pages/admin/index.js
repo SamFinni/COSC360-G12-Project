@@ -2,7 +2,7 @@ import Head from 'next/head';
 import dynamic from "next/dynamic";
 import styles from '../../styles/pages/AdminPage.module.css';
 import Footer from '../../components/Footer';
-import User from '../../components/Report';
+import User from '../../components/AdminReport';
 
 {/*
   Feature Tree:
