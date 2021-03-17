@@ -175,7 +175,6 @@
 
 .sendText {
   flex-grow: 2;
-  height: 100%;
   border: none;
   outline: none;
   resize: none;
