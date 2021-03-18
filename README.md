@@ -1,7 +1,7 @@
 # COSC360-G12-Project
 
 ## Overview
-This project is a web blog called MyBlogPost, allowing users to post, view, and comment on blog posts.
+This project is a web blog called Blogaru, allowing users to post, view, and comment on blog posts.
 
 It is created with the following technologies.
 
