@@ -33,3 +33,23 @@
     box-shadow: 0 0 6px gray;
     color: #616161;
 }
+
+.search {
+    height: 100%;
+    width: 20em;
+    border-radius: 2em;
+    margin-left: 2em;
+    border: 0;
+    background: transparent;
+    color: #ee8e67;
+}
+
+.searchInput {
+    height: 100%;
+    width: 20em;
+    border-radius: 2em;
+    margin-left: 2em;
+    border: 0;
+    background: transparent;
+    color: #ee8e67;
+}

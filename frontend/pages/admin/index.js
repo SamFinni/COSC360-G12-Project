@@ -3,6 +3,7 @@ import dynamic from "next/dynamic";
 import styles from '../../styles/pages/AdminPage.module.css';
 import Footer from '../../components/Footer';
 import User from '../../components/AdminReport';
+import Searchbar from '../../components/Searchbar';
 
 {/*
   Feature Tree:
@@ -25,23 +26,30 @@ const Navbar = dynamic(() => import('../../components/Navbar'), {
 export default function HomePage(props) {
   return (
     <div className={styles.page}>
+
         <Head>
           <title>Blogaru - Admin</title>
           <link rel="icon" href="/favicon.ico" />
         </Head>
-
         <Header />
-
         <Navbar />
+
 
         <div className={styles.container}>
           <h1 className={styles.title}>Search Users</h1>
+          <form>
+            <label>
+              Username:
+              <input type="text" name="name" />
+            </label>
+            <input type="submit" value="Submit" />
+          </form>
         </div>
 
-
         
+
         <div className={styles.container}>
-          <h1 className={styles.title}>Active Reports</h1>
+          <h1 className={styles.title}>Active Reports ({props.reports.length})</h1>
               <div className={styles.report}>
                       {props.reports.map((user, idx) => (
                           <User key={`user-${idx}`} data={user} />
@@ -49,7 +57,11 @@ export default function HomePage(props) {
               </div>
 
          </div>
+
+
       <Footer />
+
+
     </div>
   )
 }
@@ -59,53 +71,66 @@ export default function HomePage(props) {
 export async function getStaticProps() {
   const reports = [
     { rid: 120000, username: 'KangaRupert', pic: '/pic1.png', date: '3/17/2021' },
-    { rid: 120000, username: 'KangaRupert', pic: '/pic2.png', date: '3/17/2021' },
+    { rid: 120000, username: 'HenryHops', pic: '/pic2.png', date: '3/17/2021' },
     { rid: 120000, username: 'KangaRupert', pic: '/pic1.png', date: '3/17/2021' },
-    { rid: 120000, username: 'KangaRupert', pic: '/pic2.png', date: '3/17/2021' },
+    { rid: 120000, username: 'HenryHops', pic: '/pic2.png', date: '3/17/2021' },
     { rid: 120000, username: 'KangaRupert', pic: '/pic1.png', date: '3/17/2021' },
-    { rid: 120000, username: 'KangaRupert', pic: '/pic2.png', date: '3/17/2021' },
+    { rid: 120000, username: 'HenryHops', pic: '/pic2.png', date: '3/17/2021' },
     { rid: 120000, username: 'KangaRupert', pic: '/pic1.png', date: '3/17/2021' },
-    { rid: 120000, username: 'KangaRupert', pic: '/pic2.png', date: '3/17/2021' },
+    { rid: 120000, username: 'HenryHops', pic: '/pic2.png', date: '3/17/2021' },
     { rid: 120000, username: 'KangaRupert', pic: '/pic1.png', date: '3/17/2021' },
-    { rid: 120000, username: 'KangaRupert', pic: '/pic2.png', date: '3/17/2021' },
+    { rid: 120000, username: 'HenryHops', pic: '/pic2.png', date: '3/17/2021' },
     { rid: 120000, username: 'KangaRupert', pic: '/pic1.png', date: '3/17/2021' },
-    { rid: 120000, username: 'KangaRupert', pic: '/pic2.png', date: '3/17/2021' },
+    { rid: 120000, username: 'HenryHops', pic: '/pic2.png', date: '3/17/2021' },
     { rid: 120000, username: 'KangaRupert', pic: '/pic1.png', date: '3/17/2021' },
-    { rid: 120000, username: 'KangaRupert', pic: '/pic2.png', date: '3/17/2021' },
+    { rid: 120000, username: 'HenryHops', pic: '/pic2.png', date: '3/17/2021' },
     { rid: 120000, username: 'KangaRupert', pic: '/pic1.png', date: '3/17/2021' },
-    { rid: 120000, username: 'KangaRupert', pic: '/pic2.png', date: '3/17/2021' },
+    { rid: 120000, username: 'HenryHops', pic: '/pic2.png', date: '3/17/2021' },
     { rid: 120000, username: 'KangaRupert', pic: '/pic1.png', date: '3/17/2021' },
-    { rid: 120000, username: 'KangaRupert', pic: '/pic2.png', date: '3/17/2021' },
+    { rid: 120000, username: 'HenryHops', pic: '/pic2.png', date: '3/17/2021' },
     { rid: 120000, username: 'KangaRupert', pic: '/pic1.png', date: '3/17/2021' },
-    { rid: 120000, username: 'KangaRupert', pic: '/pic2.png', date: '3/17/2021' },
+    { rid: 120000, username: 'HenryHops', pic: '/pic2.png', date: '3/17/2021' },
     { rid: 120000, username: 'KangaRupert', pic: '/pic1.png', date: '3/17/2021' },
-    { rid: 120000, username: 'KangaRupert', pic: '/pic2.png', date: '3/17/2021' },
+    { rid: 120000, username: 'HenryHops', pic: '/pic2.png', date: '3/17/2021' },
     { rid: 120000, username: 'KangaRupert', pic: '/pic1.png', date: '3/17/2021' },
-    { rid: 120000, username: 'KangaRupert', pic: '/pic2.png', date: '3/17/2021' },
+    { rid: 120000, username: 'HenryHops', pic: '/pic2.png', date: '3/17/2021' },
     { rid: 120000, username: 'KangaRupert', pic: '/pic1.png', date: '3/17/2021' },
-    { rid: 120000, username: 'KangaRupert', pic: '/pic2.png', date: '3/17/2021' },
+    { rid: 120000, username: 'HenryHops', pic: '/pic2.png', date: '3/17/2021' },
     { rid: 120000, username: 'KangaRupert', pic: '/pic1.png', date: '3/17/2021' },
-    { rid: 120000, username: 'KangaRupert', pic: '/pic2.png', date: '3/17/2021' },
+    { rid: 120000, username: 'HenryHops', pic: '/pic2.png', date: '3/17/2021' },
     { rid: 120000, username: 'KangaRupert', pic: '/pic1.png', date: '3/17/2021' },
-    { rid: 120000, username: 'KangaRupert', pic: '/pic2.png', date: '3/17/2021' },
+    { rid: 120000, username: 'HenryHops', pic: '/pic2.png', date: '3/17/2021' },
     { rid: 120000, username: 'KangaRupert', pic: '/pic1.png', date: '3/17/2021' },
-    { rid: 120000, username: 'KangaRupert', pic: '/pic2.png', date: '3/17/2021' },
+    { rid: 120000, username: 'HenryHops', pic: '/pic2.png', date: '3/17/2021' },
     { rid: 120000, username: 'KangaRupert', pic: '/pic1.png', date: '3/17/2021' },
-    { rid: 120000, username: 'KangaRupert', pic: '/pic2.png', date: '3/17/2021' },
+    { rid: 120000, username: 'HenryHops', pic: '/pic2.png', date: '3/17/2021' },
     { rid: 120000, username: 'KangaRupert', pic: '/pic1.png', date: '3/17/2021' },
-    { rid: 120000, username: 'KangaRupert', pic: '/pic2.png', date: '3/17/2021' },
+    { rid: 120000, username: 'HenryHops', pic: '/pic2.png', date: '3/17/2021' },
     { rid: 120000, username: 'KangaRupert', pic: '/pic1.png', date: '3/17/2021' },
-    { rid: 120000, username: 'KangaRupert', pic: '/pic2.png', date: '3/17/2021' },
+    { rid: 120000, username: 'HenryHops', pic: '/pic2.png', date: '3/17/2021' },
     { rid: 120000, username: 'KangaRupert', pic: '/pic1.png', date: '3/17/2021' },
-    { rid: 120000, username: 'KangaRupert', pic: '/pic2.png', date: '3/17/2021' },
+    { rid: 120000, username: 'HenryHops', pic: '/pic2.png', date: '3/17/2021' },
     { rid: 120000, username: 'KangaRupert', pic: '/pic1.png', date: '3/17/2021' },
-    { rid: 120000, username: 'KangaRupert', pic: '/pic2.png', date: '3/17/2021' },
+    { rid: 120000, username: 'HenryHops', pic: '/pic2.png', date: '3/17/2021' },
     { rid: 120000, username: 'KangaRupert', pic: '/pic1.png', date: '3/17/2021' },
-    { rid: 120000, username: 'KangaRupert', pic: '/pic2.png', date: '3/17/2021' },
+    { rid: 120000, username: 'HenryHops', pic: '/pic2.png', date: '3/17/2021' },
     { rid: 120000, username: 'KangaRupert', pic: '/pic1.png', date: '3/17/2021' },
-    { rid: 120000, username: 'KangaRupert', pic: '/pic2.png', date: '3/17/2021' },
+    { rid: 120000, username: 'HenryHops', pic: '/pic2.png', date: '3/17/2021' },
     { rid: 120000, username: 'KangaRupert', pic: '/pic1.png', date: '3/17/2021' },
-    { rid: 120000, username: 'KangaRupert', pic: '/pic2.png', date: '3/17/2021' },
+    { rid: 120000, username: 'HenryHops', pic: '/pic2.png', date: '3/17/2021' },
+    { rid: 120000, username: 'KangaRupert', pic: '/pic1.png', date: '3/17/2021' },
+    { rid: 120000, username: 'HenryHops', pic: '/pic2.png', date: '3/17/2021' },
+    { rid: 120000, username: 'KangaRupert', pic: '/pic1.png', date: '3/17/2021' },
+    { rid: 120000, username: 'HenryHops', pic: '/pic2.png', date: '3/17/2021' },
+    { rid: 120000, username: 'KangaRupert', pic: '/pic1.png', date: '3/17/2021' },
+    { rid: 120000, username: 'HenryHops', pic: '/pic2.png', date: '3/17/2021' },
+    { rid: 120000, username: 'KangaRupert', pic: '/pic1.png', date: '3/17/2021' },
+    { rid: 120000, username: 'HenryHops', pic: '/pic2.png', date: '3/17/2021' },
+    { rid: 120000, username: 'KangaRupert', pic: '/pic1.png', date: '3/17/2021' },
+    { rid: 120000, username: 'HenryHops', pic: '/pic2.png', date: '3/17/2021' },
+    { rid: 120000, username: 'KangaRupert', pic: '/pic1.png', date: '3/17/2021' },
+    { rid: 120000, username: 'HenryHops', pic: '/pic2.png', date: '3/17/2021' },
+    
   ];
 
   return {
