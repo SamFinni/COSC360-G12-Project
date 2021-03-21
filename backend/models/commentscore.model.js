@@ -2,7 +2,7 @@ const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../db/sequelize');
 
 // modifying the schema below will modify the database schema
-const CommentScore = sequelize.define('comment', {
+const CommentScore = sequelize.define('commentscore', {
     cid: {
         type: DataTypes.INTEGER,
        // references: 'comments',
