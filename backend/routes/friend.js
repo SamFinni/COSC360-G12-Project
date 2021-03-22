@@ -1,6 +1,6 @@
 const e = require('express');
 const express = require('express');
-const { QueryTypes } = require('../db/sequelize');
+const { Op, QueryTypes } = require('sequelize');
 const sequelize = require('../db/sequelize');
 const router = express.Router();
 const Friend = require('../models/friend.model');
@@ -12,18 +12,20 @@ router.post('/add', async function (req, res) {
 
   if (!uid || !fuid) return res.status(500).send({ id: 1, message: "`uid` or `fuid` missing from body" });
   if (uid == fuid) return res.status(500).send({ id: 2, message: "You can't add yourself!" });
-  
-  // make sure uid and fuid users exist
-  const uidUser = await User.findAll({
-    where: { id: uid },
-  });
-  const fuidUser = await User.findAll({
-    where: { id: fuid },
-  });
-  if (uidUser.length == 0) return res.status(500).send({ id: 3, message: "`uid` user does not exist" });
-  if (fuidUser.length == 0) return res.status(500).send({ id: 4, message: "`fuid` user does not exist" });
 
   try {
+    // make sure uid and fuid users exist
+    const uidUser = await User.findAll({
+      attributes: [ 'id' ],
+      where: { id: uid },
+    });
+    const fuidUser = await User.findAll({
+      attributes: [ 'id' ],
+      where: { id: fuid },
+    });
+    if (uidUser.length == 0) return res.status(500).send({ id: 3, message: "`uid` user does not exist" });
+    if (fuidUser.length == 0) return res.status(500).send({ id: 4, message: "`fuid` user does not exist" });
+
     // check if they've already added us
     const theyAdded = await Friend.findAll({
       attributes: [ 'id', 'accepted' ],
@@ -65,8 +67,17 @@ router.post('/add', async function (req, res) {
 // get list of friends (usernames & ids)
 router.post('/list', async function (req, res) {
   const { uid } = req.body;
+
+  if (!uid) return res.status(500).send({ id: 1, message: "`uid` missing from body" });
   
   try {
+    // make sure uid user exists
+    const uidUser = await User.findAll({
+      attributes: [ 'id' ],
+      where: { id: uid },
+    });
+    if (uidUser.length == 0) return res.status(500).send({ id: 3, message: "`uid` user does not exist" });
+
     const friendList = await sequelize.query(
       `SELECT DISTINCT U.id, U.username
       FROM friends F
@@ -77,9 +88,57 @@ router.post('/list', async function (req, res) {
       }
     );
 
-    res.status(200).send(friendList);
+    res.status(200).send({ id: 0, list: friendList });
   } catch (error) {
-    res.status(500).send(error);
+    return res.status(500).send({ id: 0, message: error });
+  }
+});
+
+// remove a friend
+router.post('/remove', async function (req, res) {
+  const { uid, fuid } = req.body;
+
+  if (!uid || !fuid) return res.status(500).send({ id: 1, message: "`uid` or `fuid` missing from body" });
+  if (uid == fuid) return res.status(500).send({ id: 2, message: "You can't remove yourself as a friend!" });
+
+  try {
+    // make sure uid and fuid users exist
+    const uidUser = await User.findAll({
+      attributes: [ 'id' ],
+      where: { id: uid },
+    });
+    const fuidUser = await User.findAll({
+      attributes: [ 'id' ],
+      where: { id: fuid },
+    });
+    if (uidUser.length == 0) return res.status(500).send({ id: 3, message: "`uid` user does not exist" });
+    if (fuidUser.length == 0) return res.status(500).send({ id: 4, message: "`fuid` user does not exist" });
+  
+    // check if users are friends
+    const friends = await Friend.findAll({
+      attributes: [ 'id' ],
+      where: {
+        [Op.or]: [
+          {
+            uid: uid,
+            fuid: fuid,
+          },
+          {
+            uid: fuid,
+            fuid: uid,
+          },
+        ],
+        accepted: true,
+      },
+    });
+
+    if (friends.length > 0) await Friend.destroy({
+      where: { id: friends[0].dataValues.id }
+    });
+
+    res.status(200).send({ id: 0, message: 'Friendship removed' });
+  } catch (error) {
+    return res.status(500).send({ id: 0, message: error });
   }
 });
 
