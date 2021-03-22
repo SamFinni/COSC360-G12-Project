@@ -48,7 +48,7 @@ export default function Login(props) {
         <div className={styles.formContainer}>
           <form className={styles.form} onSubmit= {submitHandler}>
             <div className={styles.input}>
-              <label for="uname" className={styles.label}>
+              <label htmlFor="uname" className={styles.label}>
                 <b>Username</b>
               </label>
               <input
@@ -61,7 +61,7 @@ export default function Login(props) {
               ></input>
             </div>
             <div className={styles.input}>
-              <label for="psw" className={styles.label}>
+              <label htmlFor="psw" className={styles.label}>
                 <b>Password</b>
               </label>
               <input
