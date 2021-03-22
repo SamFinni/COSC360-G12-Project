@@ -10,6 +10,7 @@ const Friend = sequelize.define('friend', {
             model: 'users',
             key: 'id',
         },
+        primaryKey: true,
     },
     fuid: {
         type: DataTypes.INTEGER,
@@ -18,6 +19,7 @@ const Friend = sequelize.define('friend', {
             model: 'users',
             key: 'id',
         },
+        primaryKey: true,
     },
     accepted: {
         type: DataTypes.BOOLEAN,

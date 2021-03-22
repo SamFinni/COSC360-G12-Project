@@ -28,7 +28,7 @@ router.post('/add', async function (req, res) {
 
     // check if they've already added us
     const theyAdded = await Friend.findAll({
-      attributes: [ 'id', 'accepted' ],
+      attributes: [ 'accepted' ],
       where: {
         uid: fuid,
         fuid: uid,
@@ -39,7 +39,8 @@ router.post('/add', async function (req, res) {
       if (!theyAdded[0].dataValues.accepted) {
         await Friend.update({ accepted: true }, {
           where: {
-            id: theyAdded[0].dataValues.id,
+            uid: fuid,
+            fuid: uid,
           },
         });
         return res.status(200).send({ id: 0, message: "Friend request accepted" });
@@ -116,7 +117,7 @@ router.post('/remove', async function (req, res) {
   
     // check if users are friends
     const friends = await Friend.findAll({
-      attributes: [ 'id' ],
+      attributes: [ 'uid', 'fuid' ],
       where: {
         [Op.or]: [
           {
@@ -133,7 +134,10 @@ router.post('/remove', async function (req, res) {
     });
 
     if (friends.length > 0) await Friend.destroy({
-      where: { id: friends[0].dataValues.id }
+      where: {
+        uid: friends[0].dataValues.uid,
+        fuid: friends[0].dataValues.fuid,
+      }
     });
 
     res.status(200).send({ id: 0, message: 'Friendship removed' });
