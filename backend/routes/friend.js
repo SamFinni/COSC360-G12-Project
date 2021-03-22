@@ -1,5 +1,7 @@
 const e = require('express');
 const express = require('express');
+const { QueryTypes } = require('../db/sequelize');
+const sequelize = require('../db/sequelize');
 const router = express.Router();
 const Friend = require('../models/friend.model');
 const User = require('../models/user.model');
@@ -57,6 +59,27 @@ router.post('/add', async function (req, res) {
     }
   } catch (error) {
     return res.status(500).send({ id: 0, message: error });
+  }
+});
+
+// get list of friends (usernames & ids)
+router.post('/list', async function (req, res) {
+  const { uid } = req.body;
+  
+  try {
+    const friendList = await sequelize.query(
+      `SELECT DISTINCT U.id, U.username
+      FROM friends F
+      JOIN users U ON (F.uid = ` + uid + ` AND F.fuid = U.id OR F.fuid = ` + uid + ` AND F.uid = U.id)
+      WHERE F.accepted = true`,
+      {
+        type: QueryTypes.SELECT
+      }
+    );
+
+    res.status(200).send(friendList);
+  } catch (error) {
+    res.status(500).send(error);
   }
 });
 
