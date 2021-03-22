@@ -79,7 +79,7 @@ router.post('/list', async function (req, res) {
     if (uidUser.length == 0) return res.status(500).send({ id: 3, message: "`uid` user does not exist" });
 
     const friendList = await sequelize.query(
-      `SELECT DISTINCT U.id, U.username
+      `SELECT DISTINCT U.id, U.username, U.image
       FROM friends F
       JOIN users U ON (F.uid = ` + uid + ` AND F.fuid = U.id OR F.fuid = ` + uid + ` AND F.uid = U.id)
       WHERE F.accepted = true`,

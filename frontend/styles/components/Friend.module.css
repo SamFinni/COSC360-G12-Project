@@ -20,6 +20,7 @@
 
 .pic {
   width: 128px;
+  aspect-ratio: 1;
   border-radius: 128px;
   box-shadow: 1px 1px 6px gray;
   margin-bottom: 0.5em;

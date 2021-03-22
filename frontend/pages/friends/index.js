@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import axios from 'axios';
 import dynamic from "next/dynamic";
 import styles from '../../styles/pages/FriendsPage.module.css';
 import Footer from '../../components/Footer';
@@ -9,6 +10,8 @@ const Header = dynamic(() => import('../../components/Header'), {
 const Navbar = dynamic(() => import('../../components/Navbar'), {
   ssr: false
 });
+import * as cfg from '../../config';
+const backend = 'http://' + cfg.BACKEND_IP + ':' + cfg.BACKEND_PORT;
 
 export default function FriendsPage(props) {
   return (
@@ -37,22 +40,13 @@ export default function FriendsPage(props) {
 }
 
 export async function getStaticProps() {
-  const friends = [
-    { uid: 132624, username: 'KangaRupert', pic: '/pic1.png' },
-    { uid: 132624, username: 'KangaRupert', pic: '/pic1.png' },
-    { uid: 132624, username: 'KangaRupert', pic: '/pic1.png' },
-    { uid: 132624, username: 'KangaRupert', pic: '/pic1.png' },
-    { uid: 132624, username: 'KangaRupert', pic: '/pic1.png' },
-    { uid: 132624, username: 'KangaRupert', pic: '/pic1.png' },
-    { uid: 132624, username: 'KangaRupert', pic: '/pic1.png' },
-    { uid: 132624, username: 'KangaRupert', pic: '/pic1.png' },
-    { uid: 132624, username: 'KangaRupert', pic: '/pic1.png' },
-    { uid: 132624, username: 'KangaRupert', pic: '/pic1.png' },
-  ];
+  const res = await axios.post(backend + '/friend/list', {
+    uid: 2
+  });
 
   return {
     props: {
-      friends
+      friends: res.data.list
     }
   }
 }
