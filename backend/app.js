@@ -44,6 +44,12 @@ app.use('/postreport', postreportRouter);
 const friendRouter = require('./routes/friend');
 app.use('/friend', friendRouter);
 
+const postRouter = require('./routes/post');
+app.use('/post', postRouter);
+
+const postscoreRouter = require('./routes/postscore');
+app.use('/postscore', postscoreRouter);
+
 //const abcRouter = require('./routes/abc');
 //app.use('/abc', abcRouter);
 
