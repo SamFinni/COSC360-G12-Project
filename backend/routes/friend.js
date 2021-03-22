@@ -64,7 +64,7 @@ router.post('/add', async function (req, res) {
   }
 });
 
-// get list of friends (usernames & ids)
+// get list of friends (usernames, ids, and images)
 router.post('/list', async function (req, res) {
   const { uid } = req.body;
 
