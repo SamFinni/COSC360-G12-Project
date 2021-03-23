@@ -1,0 +1,70 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  position: absolute;
+  right: 1em;
+  top: calc(10vh + 1em);
+}
+
+.iconContainer {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  border: 2px solid #ee8e67;
+  border-radius: 4px;
+  background-color: white;
+  box-shadow: 0 0 6px gray;
+  box-sizing: content-box;
+  cursor: pointer;
+}
+
+.iconContainer:hover {
+  background: rgb(255,255,255);
+  background: linear-gradient(225deg, rgba(255,255,255,1) 0%, rgba(167,238,232,1) 75%);
+}
+
+.icon {
+  height: 2em;
+  width: 2em;
+  color: #ee8e67;
+  margin: 8px;
+}
+
+.notiBox {
+  width: 20em;
+  padding: 1em;
+  margin-top: 1em;
+  background-color: white;
+  border: 1px solid #ee8e67;
+  border-radius: 4px;
+  user-select: none;
+}
+
+.notiTitle {
+  font-weight: bold;
+  margin: 0 0 1em 0;
+}
+
+.notiText {
+  font-family: PTSerif;
+  margin: 0;
+}
+
+.full {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.newIcon {
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  width: 16px;
+  height: 16px;
+  background: rgb(255,255,255);
+  background: linear-gradient(225deg, rgba(255,255,255,1) 0%, rgba(167,238,232,1) 75%);
+  border: 2px solid #ee8e67;
+  border-radius: 16px;
+}

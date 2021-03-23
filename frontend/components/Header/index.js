@@ -2,6 +2,7 @@ import Link from 'next/link';
 import useLocalStorage from '../../functions/useLocalStorage';
 import styles from '../../styles/components/Header.module.css';
 import Searchbar from '../Searchbar';
+import Notifications from '../Notifications';
 
 export default function Header() {
   const [auth, ] = useLocalStorage('auth', { email: null, uid: null, username: null, authkey: null });
@@ -15,6 +16,7 @@ export default function Header() {
         </Link>
         <Searchbar />
       </div>
+      <Notifications />
     </>
   );
 }
