@@ -1,6 +1,4 @@
 const express = require('express');
-const { Op, QueryTypes } = require('sequelize');
-const sequelize = require('../db/sequelize');
 const router = express.Router();
 const Notification = require('../models/notification.model');
 
@@ -22,7 +20,7 @@ router.post('/list', async function (req, res) {
     });
     return res.status(200).send({ id: 0, list: notifications });
   } catch (error) {
-    return res.status(500).send({ id: 0, message: error });
+    return res.status(500).send({ id: 0, message: error.message });
   }
 });
 
@@ -37,7 +35,7 @@ router.post('/add', async function (req, res) {
     await Notification.create({ uid, title, text, link });
     return res.status(200).send({ id: 0, message: "Notification created" });
   } catch (error) {
-    return res.status(500).send({ id: 0, message: error });
+    return res.status(500).send({ id: 0, message: error.message });
   }
 });
 
@@ -53,7 +51,7 @@ router.post('/seen', async function (req, res) {
     });
     return res.status(200).send({ id: 0, message: "Notification marked as seen" });
   } catch (error) {
-    return res.status(500).send({ id: 0, message: error });
+    return res.status(500).send({ id: 0, message: error.message });
   }
 });
 

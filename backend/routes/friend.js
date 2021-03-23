@@ -56,11 +56,31 @@ router.post('/add', async function (req, res) {
     // if we've already added them, return, otherwise create a new `friend` entry and return
     if (iAdded.length > 0) return res.status(200).send({ id: 3, message: "Friend request already created" });
     else {
+      // get our username
+      const myUsername = await User.findAll({
+        attributes: [ 'username' ],
+        where: { id: uid },
+      });
+
+      // create the friend request
       await Friend.create({ uid, fuid });
+
+      // send notification to the person we're adding
+      req.uest({
+        method: 'POST',
+        url: '/notification/add',
+        body: {
+          uid: fuid,
+          title: "Friend request",
+          text: "You received a friend request from @" + myUsername[0].dataValues.username + ". Click here to go to their profile and add them back!",
+          link: "/profile/" + uid
+        },
+      });
+
       return res.status(200).send({ id: 1, message: "Friend request created" });
     }
   } catch (error) {
-    return res.status(500).send({ id: 0, message: error });
+    return res.status(500).send({ id: 0, message: error.message });
   }
 });
 
@@ -90,7 +110,7 @@ router.post('/list', async function (req, res) {
 
     res.status(200).send({ id: 0, list: friendList });
   } catch (error) {
-    return res.status(500).send({ id: 0, message: error });
+    return res.status(500).send({ id: 0, message: error.message });
   }
 });
 
@@ -141,7 +161,7 @@ router.post('/remove', async function (req, res) {
 
     res.status(200).send({ id: 0, message: 'Friendship removed' });
   } catch (error) {
-    return res.status(500).send({ id: 0, message: error });
+    return res.status(500).send({ id: 0, message: error.message });
   }
 });
 

@@ -16,7 +16,7 @@ router.post('/send', async function (req, res) {
     await Message.create({ fromUid, toUid, text });
     return res.status(200).send({ id: 0, message: "Message sent" });
   } catch (error) {
-    return res.status(500).send({ id: 0, message: error });
+    return res.status(500).send({ id: 0, message: error.message });
   }
 });
 
@@ -75,7 +75,7 @@ router.post('/list', async function (req, res) {
       { id: 0, list: messages }
     );
   } catch (error) {
-    return res.status(500).send({ id: 0, message: error });
+    return res.status(500).send({ id: 0, message: error.message });
   }
 });
 

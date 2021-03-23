@@ -4,6 +4,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
+const uest = require('uest');
 
 // config
 const cfg = require('./config');
@@ -24,6 +25,9 @@ app.use(bodyParser.json());
 
 // to log HTTP requests
 app.use(morgan('combined'));
+
+// to call endpoints within another endpoint
+app.use(uest());
 
 // endpoints //
 const testRouter = require('./routes/test');
