@@ -41,6 +41,12 @@
   user-select: none;
 }
 
+.newNoti {
+  border-width: 2px;
+  background: rgb(255,255,255);
+  background: linear-gradient(225deg, rgba(255,255,255,1) 0%, rgba(167,238,232,1) 75%);
+}
+
 .notiTitle {
   font-weight: bold;
   margin: 0 0 1em 0;

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import update from 'immutability-helper';
 import useLocalStorage from '../../functions/useLocalStorage';
 import styles from '../../styles/components/Convo.module.css';
 import UserMessage from '../../components/UserMessage';

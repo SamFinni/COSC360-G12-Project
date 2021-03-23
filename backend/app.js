@@ -53,6 +53,9 @@ app.use('/post', postRouter);
 const postscoreRouter = require('./routes/postscore');
 app.use('/postscore', postscoreRouter);
 
+const notificationRouter = require('./routes/notification');
+app.use('/notification', notificationRouter);
+
 //const abcRouter = require('./routes/abc');
 //app.use('/abc', abcRouter);
 
