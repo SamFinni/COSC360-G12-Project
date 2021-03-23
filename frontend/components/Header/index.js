@@ -4,7 +4,7 @@ import styles from '../../styles/components/Header.module.css';
 import Searchbar from '../Searchbar';
 
 export default function Header() {
-  const [auth, ] = useLocalStorage('auth', { email: null, username: null, authkey: null });
+  const [auth, ] = useLocalStorage('auth', { email: null, uid: null, username: null, authkey: null });
 
   return (
     <>

@@ -17,7 +17,7 @@ export default function Login(props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
-  const [auth, setAuth] = useLocalStorage('auth', { email: null, username: null, authkey: null });
+  const [auth, setAuth] = useLocalStorage('auth', { email: null, uid: null, username: null, authkey: null });
   function validateForm() {
     return username.length > 0 && password.length > 0;
   }
@@ -28,7 +28,7 @@ export default function Login(props) {
       return;
     }
     
-    setAuth({ email: "test@test.com", username, authkey: "abc123" });
+    setAuth({ email: "test@test.com", uid: 1, username, authkey: "abc123" });
     router.push('/');
   }
 

@@ -10,7 +10,7 @@ import { FiLogOut, FiLogIn } from 'react-icons/fi';
 import { AiOutlineUser, AiOutlineUserAdd } from 'react-icons/ai';
 
 export default function Searchbar() {
-  const [auth, setAuth] = useLocalStorage('auth', { email: null, username: null, authkey: null });
+  const [auth, setAuth] = useLocalStorage('auth', { email: null, uid: null, username: null, authkey: null });
   const loggedIn = auth.email != null;
   
   const router = useRouter();

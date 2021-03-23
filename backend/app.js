@@ -44,6 +44,9 @@ app.use('/postreport', postreportRouter);
 const friendRouter = require('./routes/friend');
 app.use('/friend', friendRouter);
 
+const messageRouter = require('./routes/message');
+app.use('/message', messageRouter);
+
 const postRouter = require('./routes/post');
 app.use('/post', postRouter);
 

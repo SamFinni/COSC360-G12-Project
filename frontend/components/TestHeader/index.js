@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import styles from '../../styles/components/TestHeader.module.css';
 
 export default function TestHeader() {
-  const [auth, setAuth] = useLocalStorage('auth', { email: null, username: null, authkey: null });
+  const [auth, setAuth] = useLocalStorage('auth', { email: null, uid: null, username: null, authkey: null });
   const router = useRouter();
 
   function logout() {

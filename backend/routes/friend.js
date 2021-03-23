@@ -1,4 +1,3 @@
-const e = require('express');
 const express = require('express');
 const { Op, QueryTypes } = require('sequelize');
 const sequelize = require('../db/sequelize');
