@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import useLocalStorage from '../../functions/useLocalStorage';
 import styles from "../../styles/pages/LoginPage.module.css";
 import Footer from "../../components/Footer";
+import Link from 'next/link';
 
 const Header = dynamic(() => import("../../components/Header"), {
   ssr: false,
@@ -73,7 +74,9 @@ export default function Login(props) {
                 required
               ></input>
             </div>
-            <button type="submit">Login</button>
+            <Link href={`/success`}>
+              <a className={styles.button}>Login</a>
+            </Link>
           </form>
         </div>
       </div>

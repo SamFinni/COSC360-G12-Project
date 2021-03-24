@@ -1,10 +1,11 @@
 import Head from "next/head";
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
 import { useState } from "react";
-import useLocalStorage from '../../functions/useLocalStorage';
+import useLocalStorage from "../../functions/useLocalStorage";
 import dynamic from "next/dynamic";
 import styles from "../../styles/pages/NewAccountPage.module.css";
 import Footer from "../../components/Footer";
+import Link from 'next/link';
 
 const Header = dynamic(() => import("../../components/Header"), {
   ssr: false,
@@ -17,7 +18,11 @@ export default function Signup(props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
-  const [auth, setAuth] = useLocalStorage('auth', { email: null, username: null, authkey: null });
+  const [auth, setAuth] = useLocalStorage("auth", {
+    email: null,
+    username: null,
+    authkey: null,
+  });
   function validateForm() {
     return username.length > 0 && password.length > 0;
   }
@@ -27,9 +32,9 @@ export default function Signup(props) {
       alert("Please fill out the form!");
       return;
     }
-    
+
     setAuth({ email: "test@test.com", username, authkey: "abc123" });
-    router.push('/');
+    router.push("/");
   }
   return (
     <div className={styles.page}>
@@ -45,7 +50,7 @@ export default function Signup(props) {
       <div className={styles.container}>
         <h1 className={styles.title}>Create a New Account</h1>
         <div className={styles.formContainer}>
-          <form className={styles.form} onSubmit= {submitHandler}>
+          <form className={styles.form} onSubmit={submitHandler}>
             <div className={styles.input}>
               <p>Upload a profile picture</p>
             </div>
@@ -65,8 +70,8 @@ export default function Signup(props) {
                 <b>Desired Username</b>
               </label>
               <input
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
                 type="text"
                 placeholder="Enter Username"
                 id="uname"
@@ -84,20 +89,20 @@ export default function Signup(props) {
                 <b>Password</b>
               </label>
               <input
-               value={password}
-               onChange={(e) => setPassword(e.target.value)}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 type="password"
                 placeholder="Enter Password"
                 id="pwd"
                 required
               ></input>
             </div>
-            <div className={styles.button}>
-              <button type="reset">Clear Form</button>
-            </div>
-            <div className={styles.button}>
-              <button type="submit">Submit</button>
-            </div>
+            <Link href={`/success`}>
+              <a className={styles.button}>Reset</a>
+            </Link>
+            <Link href={`/success`}>
+              <a className={styles.button}>Submit</a>
+            </Link>
           </form>
         </div>
       </div>
