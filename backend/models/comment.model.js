@@ -5,13 +5,17 @@ const sequelize = require('../db/sequelize');
 const Comment = sequelize.define('comment', {
     pid: {
         type: DataTypes.INTEGER,
-       // references: 'posts',
-       // referencesKey: 'id',
+        references: {
+            model: 'posts',
+            key: 'id'
+        },
     },
     uid: { // default field, but we want to customize it
         type: DataTypes.INTEGER,
-      //  references: 'users',
-       // referencesKey: 'id',
+        references: {
+            model: 'users',
+            key: 'id'
+        },
     },
     body: { // default field, but we want to customize it
         type: DataTypes.STRING,
