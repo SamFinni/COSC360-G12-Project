@@ -74,9 +74,7 @@ export default function Login(props) {
                 required
               ></input>
             </div>
-            <Link href={`/success`}>
-              <a className={styles.button}>Login</a>
-            </Link>
+              <button className={styles.button} type="submit">Login</button>
           </form>
         </div>
       </div>

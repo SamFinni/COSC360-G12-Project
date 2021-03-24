@@ -97,12 +97,8 @@ export default function Signup(props) {
                 required
               ></input>
             </div>
-            <Link href={`/success`}>
-              <a className={styles.button}>Reset</a>
-            </Link>
-            <Link href={`/success`}>
-              <a className={styles.button}>Submit</a>
-            </Link>
+            <button className={styles.button} type="reset">Reset</button>
+            <button className={styles.button} type="submit">Submit</button>
           </form>
         </div>
       </div>

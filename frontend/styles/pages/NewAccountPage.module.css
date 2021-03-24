@@ -68,6 +68,7 @@
 }
 .button {
   border: 2px solid #ee8e67;
+  background-color: white;
   color: #ee8e67;
   padding: 0.5em 1em;
   margin-top: 1em;
