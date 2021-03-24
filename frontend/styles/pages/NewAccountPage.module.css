@@ -13,7 +13,6 @@
   background-color: #f5f5f5;
   padding: 2em;
   text-align: center;
-
 }
 
 .title {
@@ -43,10 +42,13 @@
 .input input {
   flex-grow: 1;
 }
+.input textarea {
+  flex-grow: 1;
+}
 
 .input {
   display: flex;
-  margin-bottom: 1em;
+  margin-bottom: 2em;
 }
 
 .form {
@@ -56,7 +58,8 @@
 }
 
 .formContainer {
-  max-width: 60%;
+  width: 80%;
+  height: 28em;
   border: 1px solid #CCCCCC;
   background-color: white;
   border-radius: 16px;
@@ -68,7 +71,7 @@
   color: #ee8e67;
   padding: 0.5em 1em;
   margin-top: 1em;
-  float: right;
+  float: center;
   border-radius: 2em;
   box-shadow: 0 0 6px gray;
   font-weight: bold;
