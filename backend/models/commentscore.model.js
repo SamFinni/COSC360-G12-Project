@@ -22,9 +22,6 @@ const CommentScore = sequelize.define("commentscore", {
     type: DataTypes.BOOLEAN,
     defaultValue: false,
   },
-  vote: {
-    type: DataTypes.INTEGER,
-  },
   createdAt: {
     // default field, but we want to customize it
     type: DataTypes.DATE(3),

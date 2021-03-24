@@ -21,9 +21,6 @@ const PostScore = sequelize.define('postscore', {
         type: DataTypes.BOOLEAN,
         defaultValue: false
     },
-    vote: {
-        type: DataTypes.INTEGER,
-    },
     createdAt: { // default field, but we want to customize it
         type: DataTypes.DATE(3),
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP(3)'),
