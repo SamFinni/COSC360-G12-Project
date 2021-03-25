@@ -57,8 +57,7 @@ export default function HomePage(props) {
               ))}
             </div>
 
-         </div>
-
+        </div>
 
       <Footer />
 
@@ -72,7 +71,6 @@ export default function HomePage(props) {
 export async function getStaticProps() {
   const res = await axios.post(backend + '/postreport/list');
   const reports = res.data.list;
-  console.log(reports);
   return {
     props: {
       reports

@@ -1,5 +1,4 @@
 .container {
-  background: rgb(255, 203, 118);
   display: flex;
   align-content: flex-start;
 }
@@ -7,17 +6,11 @@
 .report {
   float: left;
   width: 100%;
-  background: rgb(255, 251, 245);
+  background: rgb(248, 255, 255);
   border-radius: 8px;
   border: 1px solid #CCCCCC;
-  cursor: pointer;
   margin: 0.25em;
   box-shadow: 1px 1px 3px gray;
-}
-
-.report:hover {
-  background: rgb(255,255,255);
-  background: linear-gradient(225deg, rgb(255, 247, 234) 0%, rgb(255, 218, 207) 75%);
 }
 
 .pic {
@@ -35,11 +28,19 @@
 
 .emphasis {
   font-weight: 600;
-  color: rgb(73, 56, 28);
+  color: #ee8e67;
 }
 
 .date {
   margin: 0;
   padding: 0;
   word-wrap: break-word;
+}
+
+.link {
+  font-weight: 600;
+}
+.link:hover {
+  color:#ee8e67;
+  font-weight: 600;
 }
