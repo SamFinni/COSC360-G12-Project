@@ -3,17 +3,16 @@ import dynamic from "next/dynamic";
 import styles from '../../styles/pages/AdminPage.module.css';
 import Footer from '../../components/Footer';
 import User from '../../components/AdminReport';
-import Searchbar from '../../components/Searchbar';
+import axios from 'axios';
 
 {/*
   Feature Tree:
 
     Search for user
-        > Enable/Disable users (Ban/Unban)
-        > View Reports per user
-            > Edit/Remove posts
-            > Edit/Remove comments
-        > View all Reports
+        > Enable/Disable user (Ban/Unban)
+    View all Reports
+        > Edit/Remove posts
+        > Edit/Remove comments
 */}
 
 const Header = dynamic(() => import('../../components/Header'), {
@@ -22,6 +21,8 @@ const Header = dynamic(() => import('../../components/Header'), {
 const Navbar = dynamic(() => import('../../components/Navbar'), {
   ssr: false
 });
+import * as cfg from '../../config';
+const backend = 'http://' + cfg.BACKEND_IP + ':' + cfg.BACKEND_PORT;
 
 export default function HomePage(props) {
   return (
@@ -36,7 +37,8 @@ export default function HomePage(props) {
 
 
         <div className={styles.container}>
-          <h1 className={styles.title}>Search Users</h1>
+          <h2 className={styles.title}>Search Users</h2>
+          <hr></hr>
           <form>
             <label>
               Username:
@@ -46,15 +48,14 @@ export default function HomePage(props) {
           </form>
         </div>
 
-        
-
         <div className={styles.container}>
-          <h1 className={styles.title}>Active Reports ({props.reports.length})</h1>
-              <div className={styles.report}>
-                      {props.reports.map((user, idx) => (
-                          <User key={`user-${idx}`} data={user} />
+          <h2 className={styles.title}>Active Reports ({props.reports.length})</h2>
+          <hr></hr>
+            <div className={styles.report}>
+              {props.reports.map((user, idx) => (
+                <User key={`user-${idx}`} data={user} />
               ))}
-              </div>
+            </div>
 
          </div>
 
@@ -69,70 +70,9 @@ export default function HomePage(props) {
 
 
 export async function getStaticProps() {
-  const reports = [
-    { rid: 120000, username: 'KangaRupert', pic: '/pic1.png', date: '3/17/2021' },
-    { rid: 120000, username: 'HenryHops', pic: '/pic2.png', date: '3/17/2021' },
-    { rid: 120000, username: 'KangaRupert', pic: '/pic1.png', date: '3/17/2021' },
-    { rid: 120000, username: 'HenryHops', pic: '/pic2.png', date: '3/17/2021' },
-    { rid: 120000, username: 'KangaRupert', pic: '/pic1.png', date: '3/17/2021' },
-    { rid: 120000, username: 'HenryHops', pic: '/pic2.png', date: '3/17/2021' },
-    { rid: 120000, username: 'KangaRupert', pic: '/pic1.png', date: '3/17/2021' },
-    { rid: 120000, username: 'HenryHops', pic: '/pic2.png', date: '3/17/2021' },
-    { rid: 120000, username: 'KangaRupert', pic: '/pic1.png', date: '3/17/2021' },
-    { rid: 120000, username: 'HenryHops', pic: '/pic2.png', date: '3/17/2021' },
-    { rid: 120000, username: 'KangaRupert', pic: '/pic1.png', date: '3/17/2021' },
-    { rid: 120000, username: 'HenryHops', pic: '/pic2.png', date: '3/17/2021' },
-    { rid: 120000, username: 'KangaRupert', pic: '/pic1.png', date: '3/17/2021' },
-    { rid: 120000, username: 'HenryHops', pic: '/pic2.png', date: '3/17/2021' },
-    { rid: 120000, username: 'KangaRupert', pic: '/pic1.png', date: '3/17/2021' },
-    { rid: 120000, username: 'HenryHops', pic: '/pic2.png', date: '3/17/2021' },
-    { rid: 120000, username: 'KangaRupert', pic: '/pic1.png', date: '3/17/2021' },
-    { rid: 120000, username: 'HenryHops', pic: '/pic2.png', date: '3/17/2021' },
-    { rid: 120000, username: 'KangaRupert', pic: '/pic1.png', date: '3/17/2021' },
-    { rid: 120000, username: 'HenryHops', pic: '/pic2.png', date: '3/17/2021' },
-    { rid: 120000, username: 'KangaRupert', pic: '/pic1.png', date: '3/17/2021' },
-    { rid: 120000, username: 'HenryHops', pic: '/pic2.png', date: '3/17/2021' },
-    { rid: 120000, username: 'KangaRupert', pic: '/pic1.png', date: '3/17/2021' },
-    { rid: 120000, username: 'HenryHops', pic: '/pic2.png', date: '3/17/2021' },
-    { rid: 120000, username: 'KangaRupert', pic: '/pic1.png', date: '3/17/2021' },
-    { rid: 120000, username: 'HenryHops', pic: '/pic2.png', date: '3/17/2021' },
-    { rid: 120000, username: 'KangaRupert', pic: '/pic1.png', date: '3/17/2021' },
-    { rid: 120000, username: 'HenryHops', pic: '/pic2.png', date: '3/17/2021' },
-    { rid: 120000, username: 'KangaRupert', pic: '/pic1.png', date: '3/17/2021' },
-    { rid: 120000, username: 'HenryHops', pic: '/pic2.png', date: '3/17/2021' },
-    { rid: 120000, username: 'KangaRupert', pic: '/pic1.png', date: '3/17/2021' },
-    { rid: 120000, username: 'HenryHops', pic: '/pic2.png', date: '3/17/2021' },
-    { rid: 120000, username: 'KangaRupert', pic: '/pic1.png', date: '3/17/2021' },
-    { rid: 120000, username: 'HenryHops', pic: '/pic2.png', date: '3/17/2021' },
-    { rid: 120000, username: 'KangaRupert', pic: '/pic1.png', date: '3/17/2021' },
-    { rid: 120000, username: 'HenryHops', pic: '/pic2.png', date: '3/17/2021' },
-    { rid: 120000, username: 'KangaRupert', pic: '/pic1.png', date: '3/17/2021' },
-    { rid: 120000, username: 'HenryHops', pic: '/pic2.png', date: '3/17/2021' },
-    { rid: 120000, username: 'KangaRupert', pic: '/pic1.png', date: '3/17/2021' },
-    { rid: 120000, username: 'HenryHops', pic: '/pic2.png', date: '3/17/2021' },
-    { rid: 120000, username: 'KangaRupert', pic: '/pic1.png', date: '3/17/2021' },
-    { rid: 120000, username: 'HenryHops', pic: '/pic2.png', date: '3/17/2021' },
-    { rid: 120000, username: 'KangaRupert', pic: '/pic1.png', date: '3/17/2021' },
-    { rid: 120000, username: 'HenryHops', pic: '/pic2.png', date: '3/17/2021' },
-    { rid: 120000, username: 'KangaRupert', pic: '/pic1.png', date: '3/17/2021' },
-    { rid: 120000, username: 'HenryHops', pic: '/pic2.png', date: '3/17/2021' },
-    { rid: 120000, username: 'KangaRupert', pic: '/pic1.png', date: '3/17/2021' },
-    { rid: 120000, username: 'HenryHops', pic: '/pic2.png', date: '3/17/2021' },
-    { rid: 120000, username: 'KangaRupert', pic: '/pic1.png', date: '3/17/2021' },
-    { rid: 120000, username: 'HenryHops', pic: '/pic2.png', date: '3/17/2021' },
-    { rid: 120000, username: 'KangaRupert', pic: '/pic1.png', date: '3/17/2021' },
-    { rid: 120000, username: 'HenryHops', pic: '/pic2.png', date: '3/17/2021' },
-    { rid: 120000, username: 'KangaRupert', pic: '/pic1.png', date: '3/17/2021' },
-    { rid: 120000, username: 'HenryHops', pic: '/pic2.png', date: '3/17/2021' },
-    { rid: 120000, username: 'KangaRupert', pic: '/pic1.png', date: '3/17/2021' },
-    { rid: 120000, username: 'HenryHops', pic: '/pic2.png', date: '3/17/2021' },
-    { rid: 120000, username: 'KangaRupert', pic: '/pic1.png', date: '3/17/2021' },
-    { rid: 120000, username: 'HenryHops', pic: '/pic2.png', date: '3/17/2021' },
-    { rid: 120000, username: 'KangaRupert', pic: '/pic1.png', date: '3/17/2021' },
-    { rid: 120000, username: 'HenryHops', pic: '/pic2.png', date: '3/17/2021' },
-    
-  ];
-
+  const res = await axios.post(backend + '/postreport/list');
+  const reports = res.data.list;
+  console.log(reports);
   return {
     props: {
       reports
