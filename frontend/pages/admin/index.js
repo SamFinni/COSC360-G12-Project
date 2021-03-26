@@ -2,7 +2,8 @@ import Head from 'next/head';
 import dynamic from "next/dynamic";
 import styles from '../../styles/pages/AdminPage.module.css';
 import Footer from '../../components/Footer';
-import User from '../../components/AdminReport';
+import AdminReport from '../../components/AdminReport';
+import AdminUser from '../../components/AdminUser';
 import axios from 'axios';
 
 {/*
@@ -37,30 +38,28 @@ export default function HomePage(props) {
 
 
         <div className={styles.container}>
-          <h2 className={styles.title}>Search Users</h2>
+        <h2 className={styles.title}>All Users ({props.users.length})</h2>
           <hr></hr>
-          <form>
-            <label>
-              Username:
-              <input type="text" name="name" />
-            </label>
-            <input type="submit" value="Submit" />
-          </form>
+            <div className={styles.users}>
+              {props.users.map((user, idx) => (
+                <AdminUser key={`user-${idx}`} data={user} />
+              ))}
+            </div>
         </div>
+
 
         <div className={styles.container}>
           <h2 className={styles.title}>Active Reports ({props.reports.length})</h2>
           <hr></hr>
             <div className={styles.report}>
               {props.reports.map((user, idx) => (
-                <User key={`user-${idx}`} data={user} />
+                <AdminReport key={`user-${idx}`} data={user} />
               ))}
             </div>
-
         </div>
 
-      <Footer />
 
+      <Footer />
 
     </div>
   )
@@ -69,11 +68,14 @@ export default function HomePage(props) {
 
 
 export async function getStaticProps() {
-  const res = await axios.post(backend + '/postreport/list');
-  const reports = res.data.list;
+  const getpostreports = await axios.post(backend + '/postreport/list');
+  const reports = getpostreports.data.list;
+  const getusers = await axios.post(backend + '/user/list');
+  const users = getusers.data.list;
   return {
     props: {
-      reports
+      reports,
+      users
     }
   }
 }

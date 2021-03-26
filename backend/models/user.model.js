@@ -1,6 +1,5 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../db/sequelize');
-
 // modifying the schema below will modify the database schema
 const User = sequelize.define('user', {
     email: { 
