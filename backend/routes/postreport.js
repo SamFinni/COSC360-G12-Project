@@ -1,6 +1,24 @@
 const express = require('express');
 const router = express.Router();
+const {QueryTypes } = require('sequelize');
+const sequelize = require('../db/sequelize');
 const PostReport = require('../models/postreport.model');
+
+// get list of all reports
+router.post('/list', async function (req, res) {
+  try {
+    const reportList = await sequelize.query(
+      `SELECT * 
+      FROM postreports`,
+      {
+        type: QueryTypes.SELECT
+      }
+    );
+    res.status(200).send({ id: 0, list: reportList });
+  } catch (error) {
+    return res.status(500).send({ id: 0, message: error.message });
+  }
+})
 
 // select
 router.post('/select', async function (req, res) {

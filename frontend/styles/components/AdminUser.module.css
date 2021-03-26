@@ -1,28 +1,26 @@
-.report {
+.user {
   float: left;
   width: 100%;
-  background: rgb(255, 249, 245);
+  background: rgb(249, 255, 255);
   border-radius: 8px;
   border: 1px solid #CCCCCC;
   margin: 0 0 0.25em 0;
 }
 
 .pic {
-  width: 3em;
   border-radius: 64px;
   box-shadow: 1px 1px 6px gray;
-  margin-bottom: 0.5em;
+  margin: 0.1em;
 }
 
 .text {
-  margin: 0.5em;
-  padding: 0;
+  float: left;
   word-wrap: break-word;
 }
 
 .emphasis {
   font-weight: 600;
-  color: #cc6942;
+  color: #ee8e67;
 }
 
 .date {
@@ -50,4 +48,8 @@
   color: #d0e0df;
   background-color: #d0e0df;
   box-shadow: 1px 1px 3px rgb(180, 180, 180);
+}
+
+.tabletext {
+  padding: 0.25em;
 }
