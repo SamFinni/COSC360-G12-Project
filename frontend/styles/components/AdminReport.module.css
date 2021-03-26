@@ -1,16 +1,10 @@
-.container {
-  display: flex;
-  align-content: flex-start;
-}
-
 .report {
   float: left;
   width: 100%;
-  background: rgb(248, 255, 255);
+  background: rgb(255, 249, 245);
   border-radius: 8px;
   border: 1px solid #CCCCCC;
-  margin: 0.25em;
-  box-shadow: 1px 1px 3px gray;
+  margin: 0 0 0.25em 0;
 }
 
 .pic {

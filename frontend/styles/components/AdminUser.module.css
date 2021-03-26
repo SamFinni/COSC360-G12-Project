@@ -1,28 +1,20 @@
-.container {
-  display: flex;
-  align-content: flex-start;
-}
-
 .user {
   float: left;
   width: 100%;
-  background: rgb(248, 255, 255);
+  background: rgb(249, 255, 255);
   border-radius: 8px;
   border: 1px solid #CCCCCC;
-  margin: 0.25em;
-  box-shadow: 1px 1px 3px gray;
+  margin: 0 0 0.25em 0;
 }
 
 .pic {
-  width: 3em;
   border-radius: 64px;
   box-shadow: 1px 1px 6px gray;
-  margin-bottom: 0.5em;
+  margin: 0.1em;
 }
 
 .text {
-  margin: 0.5em;
-  padding: 0;
+  float: left;
   word-wrap: break-word;
 }
 
@@ -32,15 +24,32 @@
 }
 
 .date {
-  margin: 0;
+  float: left;
+  margin: 0.25em;
   padding: 0;
   word-wrap: break-word;
+  color: #b8b5a5;
 }
 
 .link {
-  font-weight: 600;
+  float: right;
+  margin: 0.25em;
+  color: #dba66e;
 }
 .link:hover {
   color:#ee8e67;
   font-weight: 600;
+}
+
+.separator {
+  margin: 0;
+  border: none;
+  height: 1px;
+  color: #d0e0df;
+  background-color: #d0e0df;
+  box-shadow: 1px 1px 3px rgb(180, 180, 180);
+}
+
+.tabletext {
+  padding: 0.25em;
 }
