@@ -20,7 +20,26 @@ router.post('/list', async function (req, res) {
     return res.status(500).send({ id: 0, message: error.message });
   }
 });
+// get user data
+router.post('/getUser', async function (req, res) {
+  console.log(req.body); // will display { blogID: 2632 } in console, as sent by frontend/pages/user in the selectAPI() function
 
+  try {
+    // can modify/parse/do whatever with 'user' here before sending it back
+    const userData = await sequelize.query(
+      `SELECT username, bio, image 
+      FROM users 
+      WHERE id = `+req.body.uid,
+      {
+        type: QueryTypes.SELECT
+      }
+    );
+    console.log(userData);
+    res.status(200).send(userData);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
 // select
 router.post('/select', async function (req, res) {
   console.log(req.body); // will display { blogID: 2632 } in console, as sent by frontend/pages/user in the selectAPI() function
@@ -37,33 +56,41 @@ router.post('/select', async function (req, res) {
 });
   
 // insert (single & multi)
-router.post('/insert', async function (req, res) {
+router.post('/insertUser', async function (req, res) {
+  console.log(req.body); // will display { blogID: 2632 } in console, as sent by frontend/pages/user in the selectAPI() function
+
   try {
-    // single insert
-    await User.create({ title: 'Big Red Truck', price: 10000.00 });
-    // multi insert
-    const data = [
-      { title: 'I\'m free!!' }, // price has default value of 0.00 (see models/user.model.js)
-      { title: 'Best I can do', price: 3.50 },
-    ];
-    await User.bulkCreate(data);
-    
-    res.status(200).send();
+    // can modify/parse/do whatever with 'user' here before sending it back
+    const userData = await sequelize.query(
+      `INSERT INTO users 
+      WHERE id = `+req.body.uid,
+      {
+        type: QueryTypes.INSERT
+      }
+    );
+    console.log(userData);
+    res.status(200).send(userData);
   } catch (error) {
     res.status(500).send(error);
   }
 });
   
 // update
-router.post('/update', async function (req, res) {
+router.post('/updateUser', async function (req, res) {
+  console.log(req.body); // will display { blogID: 2632 } in console, as sent by frontend/pages/user in the selectAPI() function
+
   try {
-    await User.update({ price: 6000.00 }, {
-      where: {
-        title: 'Big Red Truck'
+    // can modify/parse/do whatever with 'user' here before sending it back
+    const userData = await sequelize.query(
+      `UPDATE users
+      SET username, bio, image
+      WHERE id = `+req.body.uid,
+      {
+        type: QueryTypes.UPDATE
       }
-    });
-    
-    res.status(200).send();
+    );
+    console.log(userData);
+    res.status(200).send(userData);
   } catch (error) {
     res.status(500).send(error);
   }
