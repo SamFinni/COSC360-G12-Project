@@ -2,7 +2,7 @@ import Head from 'next/head';
 import dynamic from "next/dynamic";
 import styles from '../../styles/pages/SearchPage.module.css';
 import Footer from '../../components/Footer';
-import Searchbar from '../../components/Searchbar';
+import Searchbar from '../../components/PageSearchbar';
 const Header = dynamic(() => import('../../components/Header'), {
   ssr: false
 });

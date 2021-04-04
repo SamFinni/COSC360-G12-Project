@@ -33,6 +33,7 @@
   height: 100%;
   float: right;
   border: 2px solid #ee8e67;
+  border-radius: 0em 2em 2em 0em;
   border-left: 0;
   border-end-end-radius: 2em;
   border-start-end-radius: 2em;
