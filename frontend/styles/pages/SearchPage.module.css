@@ -33,7 +33,7 @@
 
 .searchbar {
     display: flex;
-    justify-content: center;
+    flex-flow: column;
 }
 
 .results {
