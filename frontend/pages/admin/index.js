@@ -35,28 +35,26 @@ export default function HomePage(props) {
         </Head>
         <Header />
         <Navbar />
+          <h2 className={styles.title}>All Users ({props.users.length})</h2>
+          <div className={styles.container}>
+            <hr className={styles.separator}></hr>
+              <div className={styles.users}>
+                {props.users.map((user, idx) => (
+                  <AdminUser key={`user-${idx}`} data={user} />
+                ))}
+              </div>
+          </div>
 
-        <div className={styles.container}>
-        <h2 className={styles.title}>All Users ({props.users.length})</h2>
-        <hr className={styles.separator}></hr>
-            <div className={styles.users}>
-              {props.users.map((user, idx) => (
-                <AdminUser key={`user-${idx}`} data={user} />
-              ))}
-            </div>
-        </div>
 
-
-        <div className={styles.container}>
           <h2 className={styles.title}>Active Reports ({props.reports.length})</h2>
-          <hr className={styles.separator}></hr>
-            <div className={styles.report}>
-              {props.reports.map((user, idx) => (
-                <AdminReport key={`user-${idx}`} data={user} />
-              ))}
-            </div>
-        </div>
-
+          <div className={styles.container}>
+            <hr className={styles.separator}></hr>
+              <div className={styles.report}>
+                {props.reports.map((user, idx) => (
+                  <AdminReport key={`user-${idx}`} data={user} />
+                ))}
+              </div>
+          </div>
 
       <Footer />
 

@@ -1,17 +1,11 @@
 .report {
   float: left;
   width: 100%;
-  background: rgb(255, 249, 245);
+  background: rgb(253, 251, 250);
   border-radius: 8px;
   border: 1px solid #CCCCCC;
   margin: 0 0 0.25em 0;
-}
-
-.pic {
-  width: 3em;
-  border-radius: 64px;
-  box-shadow: 1px 1px 6px gray;
-  margin-bottom: 0.5em;
+  background-image: linear-gradient(to right, rgb(253, 248, 236), rgb(255, 255, 255));
 }
 
 .text {
@@ -22,7 +16,7 @@
 
 .emphasis {
   font-weight: 600;
-  color: #cc6942;
+  color: #a56349;
 }
 
 .date {
