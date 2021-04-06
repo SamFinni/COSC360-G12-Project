@@ -40,6 +40,25 @@ router.post('/getUser', async function (req, res) {
     res.status(500).send(error);
   }
 });
+router.post('/checkUser', async function (req, res) {
+  console.log(req.body); // will display { blogID: 2632 } in console, as sent by frontend/pages/user in the selectAPI() function
+
+  try {
+    // can modify/parse/do whatever with 'user' here before sending it back
+    const userData = await sequelize.query(
+      `SELECT username
+      FROM users 
+      WHERE uname = `+req.body.uname,
+      {
+        type: QueryTypes.SELECT
+      }
+    );
+    console.log(userData);
+    res.status(200).send(userData);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
 // select
 router.post('/select', async function (req, res) {
   console.log(req.body); // will display { blogID: 2632 } in console, as sent by frontend/pages/user in the selectAPI() function

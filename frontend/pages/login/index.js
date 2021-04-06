@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { useRouter } from 'next/router';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import useLocalStorage from '../../functions/useLocalStorage';
 import styles from "../../styles/pages/LoginPage.module.css";
@@ -19,6 +19,18 @@ export default function Login(props) {
   const [password, setPassword] = useState("");
   const router = useRouter();
   const [auth, setAuth] = useLocalStorage('auth', { email: null, uid: null, username: null, authkey: null });
+  
+  // async function checkUser() {
+  //   const userData = await axios.post(backend + "/user/checkUser", {
+  //     uid: auth.uid,
+  //   });
+  //   console.log(userData);
+  //   setUsername(userData.data[0].username);
+  //   setBio(userData.data[0].bio);
+  // }
+
+  // useEffect(checkUser, [auth]); 
+
   function validateForm() {
     return username.length > 0 && password.length > 0;
   }
@@ -74,6 +86,7 @@ export default function Login(props) {
                 required
               ></input>
             </div>
+            <p>Forgot Password?</p>
               <button className={styles.button} type="submit">Login</button>
           </form>
         </div>
