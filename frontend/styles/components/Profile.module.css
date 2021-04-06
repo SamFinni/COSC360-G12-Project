@@ -16,3 +16,10 @@
     padding: 0;
     word-wrap: break-word;
   }
+  .edit{
+   
+    width: 30px;
+    float: left;
+    position:fixed;
+  
+  }

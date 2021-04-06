@@ -11,8 +11,17 @@ export default function Profile({ data }) {
   const [username, setUsername] = useState("");
   const [bio, setBio] = useState("");
   const [pic, setPic] = useState("");
+
   async function getUserData() {
     const userData = await axios.post(backend + "/user/getUser", {
+      uid: auth.uid,
+    });
+    console.log(userData);
+    setUsername(userData.data[0].username);
+    setBio(userData.data[0].bio);
+  }
+  async function updateUserData() {
+    const userData = await axios.post(backend + "/user/updateUser", {
       uid: auth.uid,
     });
     console.log(userData);
@@ -22,7 +31,9 @@ export default function Profile({ data }) {
   useEffect(getUserData, [auth]); 
 
   return (
+
     <div className={styles.user}>
+      <img className={styles.edit} src={'/edit.png'} />
       <img className={styles.pic} src={pic != "" ? pic : '/user.png'} />
       <p className={styles.username}>@{username}</p>
       <p className={styles.bio}>{bio}</p>
