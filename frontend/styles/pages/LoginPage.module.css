@@ -65,6 +65,7 @@
 }
 
 .button {
+  display: inline-block;
   border: 2px solid #ee8e67;
   background-color: white;
   color: #ee8e67;
