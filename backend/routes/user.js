@@ -130,7 +130,52 @@ router.post('/updateUser', async function (req, res) {
     res.status(500).send(error);
   }
 });
+
+
+
+// Update admin
+router.post('/updateAdmin', async function (req, res) {
+  console.log(req.body); // will display { blogID: 2632 } in console, as sent by frontend/pages/user in the selectAPI() function
+
+  try {
+    const userData = await sequelize.query(
+      `UPDATE users
+      SET admin = `+req.body.admin+`
+      WHERE id = `+req.body.uid,
+      {
+        type: QueryTypes.UPDATE
+      }
+    );
+    console.log(userData);
+    res.status(200).send(userData);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send(error);
+  }
+});
+// Update disabled
+router.post('/updateDisabled', async function (req, res) {
+  console.log(req.body); // will display { blogID: 2632 } in console, as sent by frontend/pages/user in the selectAPI() function
+
+  try {
+    const userData = await sequelize.query(
+      `UPDATE users
+      SET disabled = `+req.body.disabled+`
+      WHERE id = `+req.body.uid,
+      {
+        type: QueryTypes.UPDATE
+      }
+    );
+    console.log(userData);
+    res.status(200).send(userData);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send(error);
+  }
+});
   
+
+
 // delete
 router.post('/delete', async function (req, res) {
   try {

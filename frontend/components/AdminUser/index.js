@@ -1,8 +1,11 @@
 import styles from '../../styles/components/AdminUser.module.css';
-
+import axios from 'axios';
+import * as cfg from "../../config";
+const backend = "http://" + cfg.BACKEND_IP + ":" + cfg.BACKEND_PORT;
 
 export default function AdminUser({ data }) {
 
+    const uid = data.id;
     // Borders
     const defaultBorderColor = "2px outset #b7cecd"; // default border colour for when user is not admin or disabled
     const adminBorderColor = "2px outset #adfbad"; // border colour for when user is admin
@@ -25,17 +28,31 @@ export default function AdminUser({ data }) {
 
     function disabledChange(value){
         disabledValue = value;
-        if(confirm("Are you sure you wish to disable the user with ID = " + data.id + "?"))
+        if(confirm("Are you sure you wish to disable the user with ID = " + uid + "?"))
         {
-            // disable user
+            // toggle disable user
+            var disabled = !data.disabled;
+            const userData = axios.post(backend + "/user/updateDisabled", {
+                uid,
+                disabled,
+            });
+            console.log(userData);
+            // force reload page
             window.location.reload();
         }
     }
     function adminChange(value){
         adminValue = value;
-        if(confirm("Are you sure you wish to give administrator status to the user with ID = " + data.id + "?"))
+        if(confirm("Are you sure you wish to give administrator status to the user with ID = " + uid + "?"))
         {
-            // admin user
+            // toggle admin user
+            var admin = !data.admin;
+            const userData = axios.post(backend + "/user/updateAdmin", {
+                uid,
+                admin,
+            });
+            console.log(userData);
+            // force reload page
             window.location.reload();
         }
     }
@@ -57,6 +74,8 @@ export default function AdminUser({ data }) {
         disableButtonText = "Enable";
     }
 
+
+    // Render:
     return (
     <div>
       <div className={styles.user} style={{border: currentBorderColor, backgroundColor: currentBackgroundColor}}>
@@ -96,8 +115,8 @@ export default function AdminUser({ data }) {
             
         </table>
             <hr className={styles.separator}></hr>
-            <p className={styles.date}>ID: <span className={styles.emphasis}>{data.id}</span> &nbsp; Created: {data.createdAt.substring(0,10)}</p>
-            <a className={styles.link} href={`/Profile/${data.id}`} target="_blank"><span>Profile</span></a>
+            <p className={styles.date}>ID: <span className={styles.emphasis}>{uid}</span> &nbsp; Created: {data.createdAt.substring(0,10)}</p>
+            <a className={styles.link} href={`/Profile/${uid}`} target="_blank"><span>Profile</span></a>
       </div>
     </div>
     );
