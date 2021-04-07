@@ -117,7 +117,7 @@ router.post('/updateUser', async function (req, res) {
     // can modify/parse/do whatever with 'user' here before sending it back
     const userData = await sequelize.query(
       `UPDATE users
-      SET username, bio, image
+      SET username = "`+req.body.username+`",  bio= "`+req.body.bio +`", image= "`+ req.body.pic+`"
       WHERE id = `+req.body.uid,
       {
         type: QueryTypes.UPDATE
@@ -126,6 +126,7 @@ router.post('/updateUser', async function (req, res) {
     console.log(userData);
     res.status(200).send(userData);
   } catch (error) {
+    console.log(error);
     res.status(500).send(error);
   }
 });

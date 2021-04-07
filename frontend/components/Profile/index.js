@@ -1,16 +1,22 @@
 import Link from "next/link";
-import axios from 'axios';
+import axios from "axios";
 import { useEffect, useState } from "react";
-import useLocalStorage from '../../functions/useLocalStorage';
+import useLocalStorage from "../../functions/useLocalStorage";
 import styles from "../../styles/components/Profile.module.css";
-import * as cfg from '../../config';
-const backend = 'http://' + cfg.BACKEND_IP + ':' + cfg.BACKEND_PORT;
+import * as cfg from "../../config";
+const backend = "http://" + cfg.BACKEND_IP + ":" + cfg.BACKEND_PORT;
 
 export default function Profile({ data }) {
-  const [auth, ] = useLocalStorage('auth', { email: null, uid: null, username: null, authkey: null });
+  const [auth, setAuth] = useLocalStorage("auth", {
+    email: null,
+    uid: null,
+    username: null,
+    authkey: null,
+  });
   const [username, setUsername] = useState("");
   const [bio, setBio] = useState("");
   const [pic, setPic] = useState("");
+  const [editing, setEditing] = useState(false);
 
   async function getUserData() {
     const userData = await axios.post(backend + "/user/getUser", {
@@ -23,20 +29,73 @@ export default function Profile({ data }) {
   async function updateUserData() {
     const userData = await axios.post(backend + "/user/updateUser", {
       uid: auth.uid,
+      bio,
+      username,
     });
     console.log(userData);
-    setUsername(userData.data[0].username);
-    setBio(userData.data[0].bio);
+    await setAuth({ ...auth, username });
+    window.location.reload();
   }
-  useEffect(getUserData, [auth]); 
+
+  useEffect(getUserData, [auth]);
+  let editField = <></>;
+  if (editing == false) {
+    editField = (
+      <>
+        <img className={styles.pic} src={pic != "" ? pic : "/user.png"} />
+        <label htmlFor="un" className={styles.label}>
+          <b>Username: </b>
+        </label>
+        <p id="un" className={styles.username}>
+          @{username}
+        </p>
+        <label htmlFor="bi" className={styles.label}>
+          <b>Bio: </b>
+        </label>
+        <p id="bi" className={styles.bio}>{bio}</p>
+      </>
+    );
+  } else {
+    editField = (
+      <>
+        <img className={styles.pic} src={pic != "" ? pic : "/user.png"} />
+        <div className={styles.input}>
+          <input
+            className={styles.username}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            type="text"
+            id="uname"
+            required
+          ></input>
+        </div>
+        <div className={styles.input}>
+          <input
+            className={styles.bio}
+            value={bio}
+            onChange={(e) => setBio(e.target.value)}
+            type="text"
+            id="bio"
+            required
+          ></input>
+        </div>
+        <div className={styles.button} onClick={updateUserData}>
+          Done
+        </div>
+      </>
+    );
+  }
 
   return (
-
+    <div className={styles.content}>
     <div className={styles.user}>
-      <img className={styles.edit} src={'/edit.png'} />
-      <img className={styles.pic} src={pic != "" ? pic : '/user.png'} />
-      <p className={styles.username}>@{username}</p>
-      <p className={styles.bio}>{bio}</p>
+      <img
+        className={styles.edit}
+        src={"/edit.png"}
+        onClick={() => setEditing(!editing)}
+      />
+      {editField}
+    </div>
     </div>
   );
 }
