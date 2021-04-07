@@ -3,7 +3,7 @@ const router = express.Router();
 const {QueryTypes } = require('sequelize');
 const sequelize = require('../db/sequelize');
 const User = require('../models/user.model');
-
+const bcrypt = require('bcrypt');
 
 // get list of all users
 router.post('/list', async function (req, res) {
@@ -40,25 +40,40 @@ router.post('/getUser', async function (req, res) {
     res.status(500).send(error);
   }
 });
-router.post('/checkUser', async function (req, res) {
+router.post('/login', async function (req, res) {
   console.log(req.body); // will display { blogID: 2632 } in console, as sent by frontend/pages/user in the selectAPI() function
+//for signup:
+  //   bcrypt.hash(req.body.password, 10, function(err, hash) {
+//     console.log(hash);
+// });
 
   try {
     // can modify/parse/do whatever with 'user' here before sending it back
     const userData = await sequelize.query(
-      `SELECT username
+      `SELECT username, password, email, id
       FROM users 
-      WHERE uname = `+req.body.uname,
+      WHERE username = "`+req.body.username +`"`,
       {
         type: QueryTypes.SELECT
       }
     );
-    console.log(userData);
-    res.status(200).send(userData);
+    if(userData.length == 0){
+      return res.status(200).send({ id: 0, message: "Invalid username" });
+    }
+    bcrypt.compare(req.body.password, userData[0].password, function(err, result) {
+      if(result == true){
+        return res.status(200).send(userData);
+      }else{
+        return res.status(200).send({ id: 1, message: "Invalid password" });
+      }
+  });
+  
   } catch (error) {
+    console.log(error);
     res.status(500).send(error);
   }
 });
+
 // select
 router.post('/select', async function (req, res) {
   console.log(req.body); // will display { blogID: 2632 } in console, as sent by frontend/pages/user in the selectAPI() function
