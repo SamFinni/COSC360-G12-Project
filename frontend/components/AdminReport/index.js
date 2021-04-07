@@ -1,12 +1,22 @@
 import styles from '../../styles/components/AdminReport.module.css';
+import axios from 'axios';
+import * as cfg from "../../config";
+const backend = "http://" + cfg.BACKEND_IP + ":" + cfg.BACKEND_PORT;
 
 export default function AdminReport({ data }) {
+
+  var id = data.id;
 
   function dismiss(){
     if(confirm("Are you sure you wish to dismiss the report with ID = " + data.id + "?"))
     {
       // dismiss report
-      alert("dismiss report Confirmed!");
+      const userData = axios.post(backend + "/postreport/delete", {
+          id,
+      });
+      console.log(userData);
+      // force reload page
+      window.location.reload();
     }
   }
 

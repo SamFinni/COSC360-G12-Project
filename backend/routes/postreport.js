@@ -74,7 +74,7 @@ router.post('/select', async function (req, res) {
     try {
       await PostReport.destroy({
         where: {
-          title: 'Big Red Truck'
+          id: req.body.id
         }
       });
       res.status(200).send();
