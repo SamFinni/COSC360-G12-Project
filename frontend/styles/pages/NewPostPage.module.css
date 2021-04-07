@@ -46,6 +46,22 @@
   resize: vertical;
 }
 
+.submitSection {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.errorMessage {
+  display: flex;
+  align-items: center;
+  padding: 1em 1em 0em 0em;
+  color: palevioletred;
+}
+
+.hidden {
+  display: none;
+}
+
 .postButton {
   border: 2px solid #ee8e67;
   color: #ee8e67;
