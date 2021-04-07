@@ -62,3 +62,42 @@
 .tableCheckbox {
   float: right;
 }
+
+/* Fancy buttons */
+.button {
+  display: inline-block;
+  border-radius: 0.4em;
+  background-color: #ff8661;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 1em;
+  padding: 0.2em;
+  width: 10em;
+  transition: all 0.5s;
+  cursor: pointer;
+}
+.button:hover {
+  background-color: #ff4800;
+}
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.3s;
+}
+.button span:after {
+  content: '\26A0';
+  position: absolute;
+  opacity: 0;
+  right: -1em;
+  top: -0.2em;
+  transition: 0.2s;
+}
+.button:hover span {
+  padding-right: 1.5em;
+}
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}

@@ -1,16 +1,20 @@
 import styles from '../../styles/components/AdminUser.module.css';
 
+
 export default function AdminUser({ data }) {
 
     var disabledValue = false;
     var adminValue = false;
 
-    // TODO: make state update properly
     function disabledChange(value){
-        //console.log("!!! disabledChange: "+value);
+        disabledValue = value;
+        console.log("User: "+ data.id + ": disabledChange: "+value);
+        // state not changed
     }
     function adminChange(value){
-        //console.log("!!! adminChange: "+value);
+        adminValue = value;
+        console.log("User: "+ data.id + ": adminChange: "+value);
+        // state not changed
     }
 
     return (
@@ -27,13 +31,10 @@ export default function AdminUser({ data }) {
                 </td>
 
                 <td className={styles.tableCheckbox}>
-                    Disabled: 
-                    <input
-                        checked={disabledValue}
-                        onChange={()=>disabledChange(disabledValue)}
-                        type="checkbox"
+                    <button className={styles.button} // Toggle button for disabled value
+                        onClick={()=> disabledChange(!disabledValue)}
                         name="disabled"
-                    />
+                    ><span>Toggle Disabled</span></button>
                 </td>
 
             </tr>
@@ -46,13 +47,10 @@ export default function AdminUser({ data }) {
                 </td>
 
                 <td className={styles.tableCheckbox}>
-                    Admin: 
-                    <input
-                        checked={adminValue}
-                        onChange={()=>adminChange(adminValue)}
-                        type="checkbox"
+                    <button className={styles.button} // Toggle button for admin value
+                        onClick={()=> adminChange(!adminValue)}
                         name="admin"
-                    />
+                    ><span>Toggle Admin</span></button>
                 </td>
             </tr>
             
@@ -63,4 +61,4 @@ export default function AdminUser({ data }) {
       </div>
     </div>
     );
-    }
+}

@@ -62,6 +62,10 @@ export default function HomePage(props) {
   )
 }
 
+function HandleCheck(id, state) {
+
+}
+
 
 
 export async function getStaticProps() {
