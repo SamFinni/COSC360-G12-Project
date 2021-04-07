@@ -1,16 +1,19 @@
 .user {
   float: left;
   width: 100%;
-  background: rgb(249, 255, 255);
+  background: rgb(251, 253, 253);
   border-radius: 8px;
   border: 1px solid #CCCCCC;
-  margin: 0 0 0.25em 0;
+  margin: 0 0 0.5em 0;
+  background-image: linear-gradient(to right, rgb(236, 249, 253), rgb(255, 255, 255));
 }
 
 .pic {
+  width: 4em;
   border-radius: 64px;
   box-shadow: 1px 1px 6px gray;
   margin: 0.1em;
+  float: left;
 }
 
 .text {
@@ -20,7 +23,7 @@
 
 .emphasis {
   font-weight: 600;
-  color: #ee8e67;
+  color: #a56349;
 }
 
 .date {
@@ -50,6 +53,12 @@
   box-shadow: 1px 1px 3px rgb(180, 180, 180);
 }
 
+.table{
+  width: 100%;
+}
 .tabletext {
   padding: 0.25em;
+}
+.tableCheckbox {
+  float: right;
 }

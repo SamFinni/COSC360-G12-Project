@@ -7,8 +7,9 @@
 }
 
 .container {
+    height: 25em;
+    overflow: auto;
     width: 60%;
-    flex-grow: 1;
     margin: auto;
     background-color: #f5f5f5;
     padding: 1em 0 1em 0;
@@ -16,9 +17,10 @@
 }
 
 .title {
+    align-self: center;
     display: inline;
     margin: 0;
-    padding: 0;
+    padding: 1em;
 }
 
 .adminPanel {
