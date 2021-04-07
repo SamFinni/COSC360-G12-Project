@@ -35,9 +35,8 @@ export default function HomePage(props) {
         </Head>
         <Header />
         <Navbar />
-          <h2 className={styles.title}>All Users ({props.users.length})</h2>
+          <h2 className={styles.title}>All Users</h2><span className={styles.subtitle}>({props.users.length})</span>
           <div className={styles.container}>
-            <hr className={styles.separator}></hr>
               <div className={styles.users}>
                 {props.users.map((user, idx) => (
                   <AdminUser key={`user-${idx}`} data={user} />
@@ -46,9 +45,8 @@ export default function HomePage(props) {
           </div>
 
 
-          <h2 className={styles.title}>Active Reports ({props.reports.length})</h2>
+          <h2 className={styles.title}>Active Reports</h2><span className={styles.subtitle}>({props.reports.length})</span>
           <div className={styles.container}>
-            <hr className={styles.separator}></hr>
               <div className={styles.report}>
                 {props.reports.map((user, idx) => (
                   <AdminReport key={`user-${idx}`} data={user} />

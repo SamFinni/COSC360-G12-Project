@@ -7,21 +7,40 @@
 }
 
 .container {
-    height: 25em;
+    border-radius: 1em;
+    max-height: 100em;
     overflow: auto;
     width: 60%;
     margin: auto;
+    margin-bottom: 2em;
     background-color: #f5f5f5;
-    padding: 1em 0 1em 0;
+    padding: 1em 0.5em 1em 0.5em;
     text-align: center;
     box-shadow: 0 0 4px gray;
+}
+.container::-webkit-scrollbar {
+    width: 4px;               /* width of the entire scrollbar */
+  }
+  
+.container::-webkit-scrollbar-track {
+    background: rgb(255, 255, 255);        /* color of the tracking area */
+}
+  
+.container::-webkit-scrollbar-thumb {
+    background-color: rgb(206, 206, 206);    /* color of the scroll thumb */
 }
 
 .title {
     align-self: center;
     display: inline;
     margin: 0;
-    padding: 1em;
+    padding-top: 0.75em;
+    padding-bottom: 0.25em;
+}
+.subtitle {
+    display: inline;
+    align-self: center;
+    padding-bottom: 0.5em;
 }
 
 .adminPanel {

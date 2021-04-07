@@ -3,9 +3,9 @@
   width: 100%;
   background: rgb(251, 253, 253);
   border-radius: 8px;
-  border: 1px solid #CCCCCC;
+  border: 2px solid #b7c4ce;
   margin: 0 0 0.5em 0;
-  background-image: linear-gradient(to right, rgb(236, 249, 253), rgb(255, 255, 255));
+  background-image: linear-gradient(to right, rgb(230, 239, 253), rgb(255, 255, 255)); 
 }
 
 .pic {
@@ -23,7 +23,7 @@
 
 .emphasis {
   font-weight: 600;
-  color: #a56349;
+  color: #6ea7b9;
 }
 
 .date {
@@ -32,16 +32,6 @@
   padding: 0;
   word-wrap: break-word;
   color: #b8b5a5;
-}
-
-.link {
-  float: right;
-  margin: 0.25em;
-  color: #dba66e;
-}
-.link:hover {
-  color:#ee8e67;
-  font-weight: 600;
 }
 
 .separator {
@@ -63,6 +53,51 @@
   float: right;
 }
 
+
+
+/* Button like things */
+
+.link {
+  float: right;
+  margin: 0.25em;
+  color: rgb(255, 255, 255);
+  display: inline-block;
+  border-radius: 0.4em;
+  background-color: #77a4ad;
+  border: none;
+  text-align: center;
+  font-size: 1em;
+  padding: 0.2em;
+  width: 9.5em;
+  cursor: pointer;
+}
+.link:hover {
+  color:#ffffff;
+  background-color: #009aa5;
+  transition: 0.1s;
+}
+.link span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.3s;
+}
+.link span:after {
+  content: '\25B8';
+  position: absolute;
+  opacity: 0;
+  right: -1em;
+  transition: 0.2s;
+}
+.link:hover span {
+  padding-right: 1em;
+}
+.link:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+
 /* Fancy buttons */
 .button {
   display: inline-block;
@@ -73,8 +108,7 @@
   text-align: center;
   font-size: 1em;
   padding: 0.2em;
-  width: 10em;
-  transition: all 0.5s;
+  width: 9.5em;
   cursor: pointer;
 }
 .button:hover {
