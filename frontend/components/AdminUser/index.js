@@ -3,23 +3,64 @@ import styles from '../../styles/components/AdminUser.module.css';
 
 export default function AdminUser({ data }) {
 
+    // Borders
+    const defaultBorderColor = "3px outset #b7cecd"; // default border colour for when user is not admin or disabled
+    const adminBorderColor = "3px outset #adfbad"; // border colour for when user is admin
+    const disabledBorderColor = "3px outset #ff9966"; // border colour for when user is disabled
+    var currentBorderColor = defaultBorderColor; // current border color begins as default
+    // Backgrounds
+    const defaultBackgroundColor = "#e9ebf0"; // default background colour for when user is not admin or disabled
+    const adminBackgroundColor = "#d3f2dc"; // background colour for when user is admin
+    const disabledBackgroundColor = "#f0d9c9"; // background colour for when user is disabled
+    var currentBackgroundColor = defaultBackgroundColor; // current background color begins as default
+    // Admin crown
+    const Adminpic = "crown.png";
+    const AdminAlt = "Admin";
+    // Disabled crown
+    const Disabledpic = "cross.png";
+    const DisabledAlt = "Disabled";
+    // Picture beside Username
+    var splashPic = "";
+    var splashAlt = "";
+
     var disabledValue = false;
     var adminValue = false;
 
     function disabledChange(value){
         disabledValue = value;
-        console.log("User: "+ data.id + ": disabledChange: "+value);
-        window.alert("Test");
+        if(confirm("Are you sure you wish to disable the user with ID = " + data.id + "?"))
+        {
+            // disable user
+            alert("disable user Confirmed!");
+        }
     }
     function adminChange(value){
         adminValue = value;
-        console.log("User: "+ data.id + ": adminChange: "+value);
-        window.alert("Test");
+        if(confirm("Are you sure you wish to give administrator status to the user with ID = " + data.id + "?"))
+        {
+            // admin user
+            alert("admin user Confirmed!");
+        }
+    }
+
+    if(data.admin)
+    {
+        currentBorderColor = adminBorderColor;
+        currentBackgroundColor = adminBackgroundColor;
+        splashPic = Adminpic;
+        splashAlt = AdminAlt;
+    }
+    if(data.disabled)
+    {
+        currentBorderColor = disabledBorderColor;
+        currentBackgroundColor = disabledBackgroundColor;
+        splashPic = Disabledpic;
+        splashAlt = AdminAlt;
     }
 
     return (
     <div>
-      <div className={styles.user}>
+      <div className={styles.user} style={{border: currentBorderColor, backgroundColor: currentBackgroundColor}}>
         <table className={styles.table}>
             <tr className={styles.tablerow}>
                 <td rowSpan="4"><img className={styles.pic} src='/pic1.png'></img></td>
@@ -27,7 +68,7 @@ export default function AdminUser({ data }) {
                     <div className={styles.text}>Username:</div>
                 </td>
                 <td className={styles.tabletext}>
-                    <div className={styles.text}><span className={styles.emphasis}>{data.username}</span></div>
+                    <div className={styles.text}><span className={styles.emphasis}>{data.username}</span></div><img className={styles.crownpic} src={splashPic} alt={splashAlt}></img>
                 </td>
 
                 <td className={styles.tableCheckbox}>

@@ -3,8 +3,11 @@ import styles from '../../styles/components/AdminReport.module.css';
 export default function AdminReport({ data }) {
 
   function dismiss(){
-    console.log("Report: "+ data.id + ": dismiss");
-    window.alert("Test");
+    if(confirm("Are you sure you wish to dismiss the report with ID = " + data.id + "?"))
+    {
+      // dismiss report
+      alert("dismiss report Confirmed!");
+    }
   }
 
   return (

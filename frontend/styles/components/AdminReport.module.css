@@ -3,7 +3,7 @@
   width: 100%;
   background: rgb(253, 251, 250);
   border-radius: 8px;
-  border: 2px solid #cfc1b9;
+  border: 2px outset #d8d3d0;
   margin: 0 0 0.25em 0;
   background-image: linear-gradient(to right, rgb(255, 243, 233), rgb(253, 242, 242));
 }
@@ -85,7 +85,7 @@
   display: inline-block;
   margin: 0.25em;
   border-radius: 0.4em;
-  background-color: #ff8661;
+  background-color: #76ac8c;
   border: none;
   color: #FFFFFF;
   text-align: center;
@@ -95,7 +95,7 @@
   cursor: pointer;
 }
 .button:hover {
-  background-color: #ff4800;
+  background-color: #2ebe6f;
 }
 .button span {
   cursor: pointer;
@@ -104,7 +104,7 @@
   transition: 0.3s;
 }
 .button span:after {
-  content: '\26A0';
+  content: '\2714';
   position: absolute;
   opacity: 0;
   right: -1em;

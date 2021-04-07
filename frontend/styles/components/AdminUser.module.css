@@ -3,15 +3,19 @@
   width: 100%;
   background: rgb(251, 253, 253);
   border-radius: 8px;
-  border: 2px solid #b7c4ce;
-  margin: 0 0 0.5em 0;
-  background-image: linear-gradient(to right, rgb(230, 239, 253), rgb(255, 255, 255)); 
+  border: 3px outset #b7cecd;
+  margin: 0 0 0.5em 0; 
 }
 
 .pic {
   width: 4em;
   border-radius: 64px;
   box-shadow: 1px 1px 6px gray;
+  margin: 0.1em;
+  float: left;
+}
+.crownpic {
+  width: 1.2em;
   margin: 0.1em;
   float: left;
 }
