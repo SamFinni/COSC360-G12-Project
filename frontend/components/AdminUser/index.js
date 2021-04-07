@@ -15,13 +15,13 @@ export default function AdminUser({ data }) {
     var currentBackgroundColor = defaultBackgroundColor; // current background color begins as default
     // Admin crown
     const Adminpic = "crown.png";
-    const AdminAlt = "Admin";
+    const AdminTitle = "Admin";
     // Disabled crown
     const Disabledpic = "cross.png";
-    const DisabledAlt = "Disabled";
+    const DisabledTitle = "Disabled";
     // Picture beside Username
     var splashPic = "";
-    var splashAlt = "";
+    var splashTitle = "";
 
     var disabledValue = false;
     var adminValue = false;
@@ -48,14 +48,14 @@ export default function AdminUser({ data }) {
         currentBorderColor = adminBorderColor;
         currentBackgroundColor = adminBackgroundColor;
         splashPic = Adminpic;
-        splashAlt = AdminAlt;
+        splashTitle = AdminTitle;
     }
     if(data.disabled)
     {
         currentBorderColor = disabledBorderColor;
         currentBackgroundColor = disabledBackgroundColor;
         splashPic = Disabledpic;
-        splashAlt = AdminAlt;
+        splashTitle = DisabledTitle;
     }
 
     return (
@@ -68,7 +68,7 @@ export default function AdminUser({ data }) {
                     <div className={styles.text}>Username:</div>
                 </td>
                 <td className={styles.tabletext}>
-                    <div className={styles.text}><span className={styles.emphasis}>{data.username}</span></div><img className={styles.crownpic} src={splashPic} alt={splashAlt}></img>
+                    <div className={styles.text}><span className={styles.emphasis}>{data.username}</span></div><img className={styles.crownpic} src={splashPic} title={splashTitle}></img>
                 </td>
 
                 <td className={styles.tableCheckbox}>
