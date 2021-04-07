@@ -17,8 +17,12 @@ export default function ViewPost({ data }) {
         toast("Post link copied to clipboard!");
     }
 
-    const scoreHighlight = { color: '#a7eee8', filter: 'drop-shadow(0 0 2px #000)' }
+    function addComment() {
+        alert("Post comment.");
+    }
 
+    const scoreHighlight = { color: '#a7eee8', filter: 'drop-shadow(0 0 2px #000)' }
+    
     return (
         <div>
             <div className={styles.user}>
@@ -50,9 +54,15 @@ export default function ViewPost({ data }) {
             </div>
             <div className={styles.commentSection}>
                 <h3>Comments</h3>
-                {/* TO DO */}
-                <p>There are no comments.</p>
-                <a className={styles.addComment}>Add a comment</a>
+                { `${data.comments}`.length ? (
+                    <p>{data.comments}</p>
+                    ) : (
+                    <p>There are no comments.</p>
+                )}
+                <div className={styles.addComment}>
+                    <textarea className={styles.commentInput} id="commentInput" refs="newCommentInput"></textarea>
+                    <a className={styles.addCommentButton} onClick={() => addComment()}>Add a comment</a>
+                </div>
             </div>
         </div>
     );
