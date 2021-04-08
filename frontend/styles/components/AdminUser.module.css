@@ -6,6 +6,10 @@
   border: 2px outset #b7cecd;
   margin: 0 0 0.5em 0; 
 }
+.user:hover {
+  transition: 0.1s;
+  box-shadow: 0px 0px 3px rgb(122, 122, 122);
+}
 
 .pic {
   width: 4em;
