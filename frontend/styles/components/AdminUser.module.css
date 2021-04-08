@@ -8,7 +8,7 @@
 }
 .user:hover {
   transition: 0.1s;
-  box-shadow: 0px 0px 3px rgb(122, 122, 122);
+  box-shadow: 0px 0px 6px rgb(122, 122, 122);
 }
 
 .pic {

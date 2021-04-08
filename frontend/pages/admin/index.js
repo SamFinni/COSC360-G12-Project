@@ -11,9 +11,12 @@ import axios from 'axios';
 
     Search for user
         > Enable/Disable user (Ban/Unban)
+        > Admin/RevokeAdmin
     View all Reports
-        > Edit/Remove posts
-        > Edit/Remove comments
+        > Dismiss Report
+        > View Post
+          > Edit/Remove Post
+          > Edit/Remove Comment
 */}
 
 const Header = dynamic(() => import('../../components/Header'), {
@@ -35,23 +38,27 @@ export default function HomePage(props) {
         </Head>
         <Header />
         <Navbar />
-          <h2 className={styles.title}>All Users</h2><span className={styles.subtitle}>({props.users.length})</span>
+          
           <div className={styles.container}>
-              <div className={styles.users}>
+            <h2 className={styles.title}>Users</h2><span className={styles.subtitle}>({props.users.length})</span>
+            <hr className={styles.separator}></hr>
+            <div className={styles.users}>
                 {props.users.map((user, idx) => (
                   <AdminUser key={`user-${idx}`} data={user} />
                 ))}
-              </div>
+            </div>
           </div>
 
 
-          <h2 className={styles.title}>Active Reports</h2><span className={styles.subtitle}>({props.reports.length})</span>
+          
           <div className={styles.container}>
-              <div className={styles.report}>
+            <h2 className={styles.title}>Active Reports</h2><span className={styles.subtitle}>({props.reports.length})</span>
+            <hr className={styles.separator}></hr>
+            <div className={styles.report}>
                 {props.reports.map((user, idx) => (
                   <AdminReport key={`user-${idx}`} data={user} />
                 ))}
-              </div>
+            </div>
           </div>
 
       <Footer />
