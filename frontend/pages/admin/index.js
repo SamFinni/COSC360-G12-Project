@@ -60,12 +60,6 @@ export default function HomePage(props) {
   )
 }
 
-function HandleCheck(id, state) {
-
-}
-
-
-
 export async function getStaticProps() {
   const getpostreports = await axios.post(backend + '/postreport/list');
   const reports = getpostreports.data.list;
