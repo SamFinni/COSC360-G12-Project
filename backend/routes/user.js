@@ -206,22 +206,26 @@ router.post('/delete', async function (req, res) {
     res.status(500).send(error);
   }
 });
-  
-// drop table
-router.post('/drop', async function (req, res) {
-  try {
-    await User.drop();
-    res.status(200).send();
-  } catch (error) {
-    res.status(500).send(error);
-  }
-});
 
-// create table (sync)
-router.post('/create', async function (req, res) {
+// search for user by username/email
+router.post('/search', async function (req, res) {
+  console.log(req.body); // will display { blogID: 2632 } in console, as sent by frontend/pages/user in the selectAPI() function
+
   try {
-    await User.sync();
-    res.status(200).send();
+    const userData = await sequelize.query(
+      `SELECT * 
+      FROM users 
+      WHERE username LIKE "%`+req.body.username +`%" OR email LIKE "%`+req.body.email +`%" `,
+      {
+        type: QueryTypes.SELECT
+      }
+    );
+    if(userData.length == 0){
+      return res.status(200).send({ id: 0, message: "No users found" });
+    }
+    else{
+      return res.status(200).send(userData);
+    }
   } catch (error) {
     res.status(500).send(error);
   }
