@@ -54,13 +54,29 @@ export default function AdminPage() {
   // Search Users handler
   function handleSubmit(event){
     event.preventDefault();
-    const username = event.target.input.value;
-    const email = event.target.input.value;
-    // Search for users with input anywhere in username or email
-    axios.post(backend + "/user/search", {
-      username,
-      email,
-    }).then(data => updateUsers(data.data));
+    if(event.target.input.value != "id" &&
+       event.target.input.value != "createdAt" &&
+       event.target.input.value != "updatedAt" &&
+       event.target.input.value != "email" &&
+       event.target.input.value != "username" &&
+       event.target.input.value != "bio" &&
+       event.target.input.value != "image" &&
+       event.target.input.value != "admin" &&
+       event.target.input.value != "disabled" &&
+       event.target.input.value != "password") // searching with db attributes seems to cause a strange bug.
+    {
+      const username = event.target.input.value;
+      const email = event.target.input.value;
+      // Search for users with input anywhere in username or email
+      axios.post(backend + "/user/search", {
+        username,
+        email,
+      }).then(data => updateUsers(data.data));
+    }
+    else
+    {
+      window.alert(event.target.input.value + " is a restricted search term!");
+    }
   }
   // Apply search results to users state variable
   function updateUsers(data){
