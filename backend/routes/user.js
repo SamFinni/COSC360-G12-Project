@@ -20,14 +20,15 @@ router.post('/list', async function (req, res) {
     return res.status(500).send({ id: 0, message: error.message });
   }
 });
-// get list of 5 users
-router.post('/list5', async function (req, res) {
+// get list of 10 important users 
+router.post('/listDisabledAndAdmin', async function (req, res) {
   try {
     const userList = await sequelize.query(
       `SELECT * 
       FROM users 
-      WHERE admin = 1 OR disabled = 1
-      LIMIT 5`,
+      WHERE admin = 1 OR disabled = 1 
+      ORDER BY admin DESC, disabled DESC 
+      LIMIT 10`,
       {
         type: QueryTypes.SELECT
       }
@@ -215,7 +216,8 @@ router.post('/search', async function (req, res) {
     const userData = await sequelize.query(
       `SELECT * 
       FROM users 
-      WHERE username LIKE "%`+req.body.username +`%" OR email LIKE "%`+req.body.email +`%" `,
+      WHERE username LIKE "%`+req.body.username +`%" OR email LIKE "%`+req.body.email +`%" 
+      ORDER BY admin DESC, disabled DESC`,
       {
         type: QueryTypes.SELECT
       }
