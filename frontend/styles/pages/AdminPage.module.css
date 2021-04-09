@@ -8,7 +8,7 @@
 
 .container {
     border-radius: 1em;
-    max-height: 50em;
+    max-height: 100em;
     overflow: auto;
     width: 60%;
     margin: auto;
@@ -34,14 +34,12 @@
 .title {
     align-self: center;
     display: inline;
-    margin: 0.5em;
+    margin: 0;
     padding-top: 0.75em;
     padding-bottom: 0.25em;
 }
-.subtitle {
-    float: right;
+.lefttext {
     display: inline;
-    align-self: center;
     padding-bottom: 0.5em;
 }
 
@@ -63,5 +61,19 @@
     height: 2px;
     color: #c9c9c9;
     background-color: #c9c9c9;
-    box-shadow: 1px 1px 3px rgb(180, 180, 180);
-  }
+    box-shadow: 0px 0px 2px rgb(235, 235, 235);
+}
+
+.textinput {
+    border: 2px solid rgb(161, 161, 161);
+    font-size: 115%;
+    background-color: white;
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+}
+
+.smallImage {
+    height: 1.2em;
+    margin: 0.1em;
+    float: left;
+}

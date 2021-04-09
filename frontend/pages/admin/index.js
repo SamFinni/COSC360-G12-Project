@@ -33,7 +33,9 @@ const Navbar = dynamic(() => import('../../components/Navbar'), {
 
 export default function AdminPage() {
 
-  // Setup
+  // Defaults:
+  //  Users: display all users that are disabled OR admin
+  //  Reports: display all reports
   const [users, setUsers] = useState([]);
   const [reports, setReports] = useState([]);
   async function getReports(){
@@ -41,7 +43,7 @@ export default function AdminPage() {
     setReports(getUsers.data.list);
   }
   async function getUsers(){
-    const getReports = await axios.post(backend + '/user/list5')
+    const getReports = await axios.post(backend + '/user/listDisabledAndAdmin')
     setUsers(getReports.data.list);
   }
   useEffect(() => {
@@ -49,33 +51,55 @@ export default function AdminPage() {
     getUsers();
   }, []);
 
+  // Search Users handler
+  function handleSubmit(event){
+    event.preventDefault();
+    const username = event.target.input.value;
+    const email = event.target.input.value;
+    // Search for users with input anywhere in username or email
+    axios.post(backend + "/user/search", {
+      username,
+      email,
+    }).then(data => updateUsers(data.data));
+  }
+
 
   return (
     <div className={styles.page}>
-        <Head>
-          <title>Blogaru - Admin</title>
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
-        <Header />
-        <Navbar />
-          {/*Users*/}
-          <div className={styles.container}>
-            <h2 className={styles.title}>Users</h2>
+      <Head>
+        <title>Blogaru - Admin</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <Header />
+      <Navbar />
+        <div className={styles.container}>
+          <h2 className={styles.title}>Users </h2><span className={styles.subtitle}>({users.length})</span>
+          
+          <form onSubmit={handleSubmit}>
             <hr className={styles.separator}></hr>
+            <h3 className={styles.lefttext}>Search Users: </h3>
+            <input className={styles.textinput}
+              type = "text"
+              name = "input"
+            />
+            <hr className={styles.separator}></hr>
+          </form>
+
             <div className={styles.users}>
-                {users.map((user, idx) => (
-                  <AdminUser key={`user-${idx}`} data={user} />
-                ))}
+              {users.map((user, idx) => (
+                <AdminUser key={`user-${idx}`} data={user} />
+              ))}
             </div>
-          </div>
-          {/*Reports*/}
-          <div className={styles.container}>
-            <h2 className={styles.title}>Active Reports</h2>
-            <hr className={styles.separator}></hr>
+        </div>
+
+        
+        <div className={styles.container}>
+          <h2 className={styles.title}>Active Reports </h2><span className={styles.subtitle}>({reports.length})</span>
+          <hr className={styles.separator}></hr>
             <div className={styles.report}>
-                {reports.map((user, idx) => (
-                  <AdminReport key={`user-${idx}`} data={user} />
-                ))}
+              {reports.map((user, idx) => (
+                <AdminReport key={`user-${idx}`} data={user} />
+              ))}
             </div>
           </div>
       <Footer />
