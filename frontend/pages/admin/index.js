@@ -31,18 +31,17 @@ const Navbar = dynamic(() => import('../../components/Navbar'), {
 
 
 
-export default function HomePage() {
+export default function AdminPage() {
 
-
+  // Setup
   const [users, setUsers] = useState([]);
   const [reports, setReports] = useState([]);
-  
   async function getReports(){
     const getUsers = await axios.post(backend + '/postreport/list')
     setReports(getUsers.data.list);
   }
   async function getUsers(){
-    const getReports = await axios.post(backend + '/user/list')
+    const getReports = await axios.post(backend + '/user/list5')
     setUsers(getReports.data.list);
   }
   useEffect(() => {
@@ -85,3 +84,110 @@ export default function HomePage() {
 
   
 }
+{/*
+export default function HomePage(props) {
+
+  const [users, setUsers] = useState("");
+
+  // Search Users handler
+  function handleSubmit(event){
+    event.preventDefault();
+    const username = event.target.input.value;
+    const email = event.target.input.value;
+    // Search for users with input anywhere in username or email
+    axios.post(backend + "/user/search", {
+      username,
+      email,
+    }).then(data => updateUsers(data.data));
+  }
+  function updateUsers(data) {
+    setUsers(data);
+    console.log("Users found! ("+users.length+")\n"+users);
+    if(users.length > 0){
+      // if users have been searched for and found, return this render.
+      return (
+        <div className={styles.page}>
+            <Head>
+              <title>Blogaru - Admin</title>
+              <link rel="icon" href="/favicon.ico" />
+            </Head>
+            <Header />
+            <Navbar />
+              <div className={styles.container}>
+                <h2 className={styles.title}>Users </h2>
+                
+                <form onSubmit={handleSubmit}>
+                  <hr className={styles.separator}></hr>
+                  <h3 className={styles.lefttext}>Search Users: </h3>
+                  <input className={styles.textinput}
+                    type = "text"
+                    name = "input"
+                  />
+                  <hr className={styles.separator}></hr>
+                </form>
+    
+                  <div className={styles.users}>
+                    {users.map((user, idx) => (
+                      <AdminUser key={`user-${idx}`} data={user} />
+                    ))}
+                  </div>
+              </div>
+    
+              
+              <div className={styles.container}>
+                <h2 className={styles.title}>Active Reports </h2><span className={styles.subtitle}>({props.reports.length})</span>
+                <hr className={styles.separator}></hr>
+                  <div className={styles.report}>
+                    {props.reports.map((user, idx) => (
+                      <AdminReport key={`user-${idx}`} data={user} />
+                    ))}
+                  </div>
+              </div>
+          <Footer />
+        </div>
+      )
+    }
+  }
+
+
+
+  // if no users have been searched for, return this render.
+  return(
+    <div className={styles.page}>
+        <Head>
+          <title>Blogaru - Admin</title>
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+        <Header />
+        <Navbar />
+          <div className={styles.container}>
+            <h2 className={styles.title}>Users </h2>
+            
+            <form onSubmit={handleSubmit}>
+              <hr className={styles.separator}></hr>
+              <h3 className={styles.lefttext}>Search Users: </h3>
+              <input className={styles.textinput}
+                type = "text"
+                name = "input"
+              />
+              <hr className={styles.separator}></hr>
+            </form>
+
+              <div className={styles.users}>
+              </div>
+          </div>
+          
+          <div className={styles.container}>
+            <h2 className={styles.title}>Active Reports </h2><span className={styles.subtitle}>({props.reports.length})</span>
+            <hr className={styles.separator}></hr>
+              <div className={styles.report}>
+                {props.reports.map((user, idx) => (
+                  <AdminReport key={`user-${idx}`} data={user} />
+                ))}
+              </div>
+          </div>
+      <Footer />
+    </div>
+  )
+}
+*/}

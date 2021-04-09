@@ -20,6 +20,23 @@ router.post('/list', async function (req, res) {
     return res.status(500).send({ id: 0, message: error.message });
   }
 });
+// get list of 5 users
+router.post('/list5', async function (req, res) {
+  try {
+    const userList = await sequelize.query(
+      `SELECT * 
+      FROM users 
+      WHERE admin = 1 OR disabled = 1
+      LIMIT 5`,
+      {
+        type: QueryTypes.SELECT
+      }
+    );
+    res.status(200).send({ id: 0, list: userList });
+  } catch (error) {
+    return res.status(500).send({ id: 0, message: error.message });
+  }
+});
 // get user data
 router.post('/getUser', async function (req, res) {
   console.log(req.body); // will display { blogID: 2632 } in console, as sent by frontend/pages/user in the selectAPI() function
