@@ -5,6 +5,7 @@ import Footer from '../../components/Footer';
 import AdminReport from '../../components/AdminReport';
 import AdminUser from '../../components/AdminUser';
 import axios from 'axios';
+import { useEffect, useState } from "react";
 
 {/*
   Feature Tree:
@@ -28,54 +29,54 @@ const Navbar = dynamic(() => import('../../components/Navbar'), {
 import * as cfg from '../../config';
 const backend = 'http://' + cfg.BACKEND_IP + ':' + cfg.BACKEND_PORT;
 
-export default function HomePage(props) {
+export default function HomePage() {
+
+  const [users, setUsers] = useState([]);
+  const [reports, setReports] = useState([]);
+  
+  async function getReports(){
+    const getUsers = await axios.post(backend + '/postreport/list')
+    setReports(getUsers.data.list);
+  }
+  async function getUsers(){
+    const getReports = await axios.post(backend + '/user/list')
+    setUsers(getReports.data.list);
+  }
+  useEffect(() => {
+    getReports();
+    getUsers();
+  }, []);
+
+
   return (
     <div className={styles.page}>
-
         <Head>
           <title>Blogaru - Admin</title>
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <Header />
         <Navbar />
-          
+          {/*Users*/}
           <div className={styles.container}>
-            <h2 className={styles.title}>Users</h2><span className={styles.subtitle}>({props.users.length})</span>
+            <h2 className={styles.title}>Users</h2>
             <hr className={styles.separator}></hr>
             <div className={styles.users}>
-                {props.users.map((user, idx) => (
+                {users.map((user, idx) => (
                   <AdminUser key={`user-${idx}`} data={user} />
                 ))}
             </div>
           </div>
-
-
-          
+          {/*Reports*/}
           <div className={styles.container}>
-            <h2 className={styles.title}>Active Reports</h2><span className={styles.subtitle}>({props.reports.length})</span>
+            <h2 className={styles.title}>Active Reports</h2>
             <hr className={styles.separator}></hr>
             <div className={styles.report}>
-                {props.reports.map((user, idx) => (
+                {reports.map((user, idx) => (
                   <AdminReport key={`user-${idx}`} data={user} />
                 ))}
             </div>
           </div>
-
       <Footer />
-
     </div>
   )
-}
-
-export async function getStaticProps() {
-  const getpostreports = await axios.post(backend + '/postreport/list');
-  const reports = getpostreports.data.list;
-  const getusers = await axios.post(backend + '/user/list');
-  const users = getusers.data.list;
-  return {
-    props: {
-      reports,
-      users
-    }
-  }
 }
