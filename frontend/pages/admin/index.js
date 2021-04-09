@@ -6,6 +6,15 @@ import AdminReport from '../../components/AdminReport';
 import AdminUser from '../../components/AdminUser';
 import axios from 'axios';
 import { useEffect, useState } from "react";
+import * as cfg from '../../config';
+const backend = 'http://' + cfg.BACKEND_IP + ':' + cfg.BACKEND_PORT;
+const Header = dynamic(() => import('../../components/Header'), {
+  ssr: false
+});
+const Navbar = dynamic(() => import('../../components/Navbar'), {
+  ssr: false
+});
+
 
 {/*
   Feature Tree:
@@ -20,16 +29,10 @@ import { useEffect, useState } from "react";
           > Edit/Remove Comment
 */}
 
-const Header = dynamic(() => import('../../components/Header'), {
-  ssr: false
-});
-const Navbar = dynamic(() => import('../../components/Navbar'), {
-  ssr: false
-});
-import * as cfg from '../../config';
-const backend = 'http://' + cfg.BACKEND_IP + ':' + cfg.BACKEND_PORT;
+
 
 export default function HomePage() {
+
 
   const [users, setUsers] = useState([]);
   const [reports, setReports] = useState([]);
@@ -79,4 +82,6 @@ export default function HomePage() {
       <Footer />
     </div>
   )
+
+  
 }
