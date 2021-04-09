@@ -51,6 +51,7 @@ export default function AdminPage() {
     getUsers();
   }, []);
 
+
   // Search Users handler
   function handleSubmit(event){
     event.preventDefault();
@@ -61,6 +62,10 @@ export default function AdminPage() {
       username,
       email,
     }).then(data => updateUsers(data.data));
+  }
+  // Apply search results to users state variable
+  function updateUsers(data){
+    setUsers(data);
   }
 
 
