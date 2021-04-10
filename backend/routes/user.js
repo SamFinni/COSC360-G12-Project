@@ -91,7 +91,26 @@ router.post('/login', async function (req, res) {
     res.status(500).send(error);
   }
 });
+// insert (single & multi)
+router.post('/insertUser', async function (req, res) {
+  console.log(req.body); // will display { blogID: 2632 } in console, as sent by frontend/pages/user in the selectAPI() function
 
+  try {
+    // can modify/parse/do whatever with 'user' here before sending it back
+    const userData = await sequelize.query(
+      `INSERT INTO users (email, username, bio, image)
+      VALUES email = "`+req.body.email+`", username = "`+req.body.username+`",  bio= "`+req.body.bio +`", image= "`+ req.body.pic+`"
+      WHERE id = `+req.body.uid,
+      {
+        type: QueryTypes.INSERT
+      }
+    );
+    console.log(userData);
+    res.status(200).send(userData);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
 // select
 router.post('/select', async function (req, res) {
   console.log(req.body); // will display { blogID: 2632 } in console, as sent by frontend/pages/user in the selectAPI() function
@@ -102,26 +121,6 @@ router.post('/select', async function (req, res) {
     // can modify/parse/do whatever with 'user' here before sending it back
 
     res.status(200).send(test);
-  } catch (error) {
-    res.status(500).send(error);
-  }
-});
-  
-// insert (single & multi)
-router.post('/insertUser', async function (req, res) {
-  console.log(req.body); // will display { blogID: 2632 } in console, as sent by frontend/pages/user in the selectAPI() function
-
-  try {
-    // can modify/parse/do whatever with 'user' here before sending it back
-    const userData = await sequelize.query(
-      `INSERT INTO users 
-      WHERE id = `+req.body.uid,
-      {
-        type: QueryTypes.INSERT
-      }
-    );
-    console.log(userData);
-    res.status(200).send(userData);
   } catch (error) {
     res.status(500).send(error);
   }
