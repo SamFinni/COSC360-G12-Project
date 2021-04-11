@@ -31,6 +31,7 @@ export default function Signup(props) {
     username: null,
     authkey: null,
   });
+  
   async function checkExists() {
     const userData = await axios.post(backend + "/user/checkExists", {
       username,
@@ -43,8 +44,8 @@ export default function Signup(props) {
       alert("Username and/or email are already taken!");
     }
   }
+  
   async function addUser() {
-    
     const userData = await axios.post(backend + "/user/insertUser", {
       email,
       username,
@@ -54,6 +55,7 @@ export default function Signup(props) {
     });
     login();
   }
+  
   async function login() {
     const userData = await axios.post(backend + "/user/login", {
       username,
@@ -72,9 +74,11 @@ export default function Signup(props) {
     });
     router.push("/");
   }
+  
   function validateForm() {
     return username.length > 0 && password.length > 0 && email.length > 0;
   }
+  
   function submitHandler() {
     if (!validateForm()) {
       alert("Please fill out the form!");
@@ -82,6 +86,7 @@ export default function Signup(props) {
     }
     checkExists();
   }
+  
   return (
     <div className={styles.page}>
       <Head>
