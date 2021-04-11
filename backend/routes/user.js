@@ -26,6 +26,7 @@ router.post('/list', async function (req, res) {
     return res.status(500).send({ id: 0, message: error.message });
   }
 });
+
 // get list of 10 important users 
 router.post('/listDisabledAndAdmin', async function (req, res) {
   try {
@@ -49,7 +50,6 @@ router.post('/getUser', async function (req, res) {
   console.log(req.body); // will display { blogID: 2632 } in console, as sent by frontend/pages/user in the selectAPI() function
 
   try {
-    // can modify/parse/do whatever with 'user' here before sending it back
     const userData = await sequelize.query(
       `SELECT username, bio, image 
       FROM users 
@@ -66,14 +66,7 @@ router.post('/getUser', async function (req, res) {
 });
 
 router.post('/login', async function (req, res) {
-  console.log(req.body); // will display { blogID: 2632 } in console, as sent by frontend/pages/user in the selectAPI() function
-//for signup:
-  //   bcrypt.hash(req.body.password, 10, function(err, hash) {
-//     console.log(hash);
-// });
-
   try {
-    // can modify/parse/do whatever with 'user' here before sending it back
     const userData = await sequelize.query(
       `SELECT username, password, email, id
       FROM users 
@@ -193,36 +186,33 @@ router.post('/resetPassword', async function (req, res) {
   }
 });
 
+// insert user
+router.post('/insertUser', async function (req, res) {
+  try {
+    bcrypt.hash(req.body.password, 10, async function(err, hash) {
+      const userData = await sequelize.query(
+        `INSERT INTO users (email, username, bio, image, password)
+        VALUES ("`+req.body.email+`", "`+req.body.username+`", "`+req.body.bio +`", "`+ req.body.pic+`","`+hash +`");`,
+        {
+          type: QueryTypes.INSERT
+        }
+      );
+      res.status(200).send(userData);
+    });
+    // can modify/parse/do whatever with 'user' here before sending it back
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
 // select
 router.post('/select', async function (req, res) {
-  console.log(req.body); // will display { blogID: 2632 } in console, as sent by frontend/pages/user in the selectAPI() function
-
   try {
     const test = await User.findAll();
 
     // can modify/parse/do whatever with 'user' here before sending it back
 
     res.status(200).send(test);
-  } catch (error) {
-    res.status(500).send(error);
-  }
-});
-  
-// insert (single & multi)
-router.post('/insertUser', async function (req, res) {
-  console.log(req.body); // will display { blogID: 2632 } in console, as sent by frontend/pages/user in the selectAPI() function
-
-  try {
-    // can modify/parse/do whatever with 'user' here before sending it back
-    const userData = await sequelize.query(
-      `INSERT INTO users 
-      WHERE id = `+req.body.uid,
-      {
-        type: QueryTypes.INSERT
-      }
-    );
-    console.log(userData);
-    res.status(200).send(userData);
   } catch (error) {
     res.status(500).send(error);
   }
@@ -309,25 +299,20 @@ router.post('/delete', async function (req, res) {
 });
 
 // search for user by username/email
-router.post('/search', async function (req, res) {
+
+router.post('/checkExists', async function (req, res) {
   console.log(req.body); // will display { blogID: 2632 } in console, as sent by frontend/pages/user in the selectAPI() function
 
   try {
     const userData = await sequelize.query(
       `SELECT * 
       FROM users 
-      WHERE username LIKE "%`+req.body.username +`%" OR email LIKE "%`+req.body.email +`%" 
-      ORDER BY admin DESC, disabled DESC`,
+      WHERE username ="`+req.body.username +`" OR email = "`+req.body.email +`";`,
       {
         type: QueryTypes.SELECT
       }
     );
-    if(userData.length == 0){
-      return res.status(200).send({ id: 0, message: "No users found" });
-    }
-    else{
-      return res.status(200).send(userData);
-    }
+    return res.status(200).send(userData.length > 0);
   } catch (error) {
     res.status(500).send(error);
   }
