@@ -8,6 +8,7 @@ import Footer from "../../components/Footer";
 import Link from "next/link";
 import axios from "axios";
 import * as cfg from "../../config";
+import { BiSliderAlt } from "react-icons/bi";
 const backend = "http://" + cfg.BACKEND_IP + ":" + cfg.BACKEND_PORT;
 
 const Header = dynamic(() => import("../../components/Header"), {
@@ -25,52 +26,61 @@ export default function Signup(props) {
   const [pic, setPic] = useState("");
   const [error, setError] = useState("");
   const router = useRouter();
-  const [exists, setExists] = useState(true);
   const [auth, setAuth] = useLocalStorage("auth", {
     email: null,
     username: null,
     authkey: null,
   });
-  async function checkExists(){
-    const userData = await axios.post(backend + "/user/search", {
-      username, email,
+  async function checkExists() {
+    const userData = await axios.post(backend + "/user/checkExists", {
+      username,
+      email,
     });
-    if(userData.data.message = "No users found"){
-      setExists == false;
+   
+    if (!userData.data) {
+      addUser();
     }else{
-      setExists == true;
+      alert("Username and/or email are already taken!");
     }
   }
-  async function addUser(){
-    if(setExists == false){
-      const userData = await axios.post(backend + "/user/insertUser", {
-        email, username, bio, password, pic,
-      });
-    }
+  async function addUser() {
+    
+    const userData = await axios.post(backend + "/user/insertUser", {
+      email,
+      username,
+      bio,
+      password,
+      pic,
+    });
+    login();
   }
   async function login() {
     const userData = await axios.post(backend + "/user/login", {
-      username, password,
+      username,
+      password,
     });
-    if(userData.data.message){
+   
+    if (userData.data.message) {
       setError(userData.data.message);
       return;
     }
-    console.log(userData);
-    setAuth({email: userData.data[0].email, uid: userData.data[0].id, username: userData.data[0].username})
-    router.push('/');
+ 
+    setAuth({
+      email: userData.data[0].email,
+      uid: userData.data[0].id,
+      username: userData.data[0].username,
+    });
+    router.push("/");
   }
   function validateForm() {
-    return username.length > 0 && password.length > 0;
+    return username.length > 0 && password.length > 0 && email.length > 0;
   }
   function submitHandler() {
     if (!validateForm()) {
       alert("Please fill out the form!");
       return;
     }
-
-    setAuth({ email: "test@test.com", username, authkey: "abc123" });
-    router.push("/");
+    checkExists();
   }
   return (
     <div className={styles.page}>
@@ -95,6 +105,8 @@ export default function Signup(props) {
                 <b>Email</b>
               </label>
               <input
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 type="text"
                 placeholder="Enter Email"
                 id="email"
@@ -118,7 +130,13 @@ export default function Signup(props) {
               <label fhtmlForor="bio" className={styles.label}>
                 <b>Bio</b>
               </label>
-              <textarea placeholder="Enter Bio" id="bio" required></textarea>
+              <textarea
+                value={bio}
+                onChange={(e) => setBio(e.target.value)}
+                placeholder="Enter Bio"
+                id="bio"
+                required
+              ></textarea>
             </div>
             <div className={styles.input}>
               <label htmlFor="psw" className={styles.label}>
