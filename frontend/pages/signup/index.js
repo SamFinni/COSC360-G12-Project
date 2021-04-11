@@ -33,7 +33,7 @@ export default function Signup(props) {
       return;
     }
 
-    setAuth({ email: "test@test.com", username, authkey: "abc123" });
+    setAuth({ email: "test@test.com", username, uid: 1 });
     router.push("/");
   }
   return (

@@ -3,7 +3,13 @@ const router = express.Router();
 const {QueryTypes } = require('sequelize');
 const sequelize = require('../db/sequelize');
 const User = require('../models/user.model');
+const ResetKey = require('../models/resetkey.model');
 const bcrypt = require('bcrypt');
+const crypto = require('crypto');
+const nodemailer = require('nodemailer');
+const cfg = require('./../config');
+const ip = cfg.FRONTEND_IP;
+const port = cfg.FRONTEND_PORT;
 
 // get list of all users
 router.post('/list', async function (req, res) {
@@ -58,6 +64,7 @@ router.post('/getUser', async function (req, res) {
     res.status(500).send(error);
   }
 });
+
 router.post('/login', async function (req, res) {
   console.log(req.body); // will display { blogID: 2632 } in console, as sent by frontend/pages/user in the selectAPI() function
 //for signup:
@@ -89,6 +96,100 @@ router.post('/login', async function (req, res) {
   } catch (error) {
     console.log(error);
     res.status(500).send(error);
+  }
+});
+
+// forgot password (send email)
+router.post('/forgotPassword', async function (req, res) {
+  const { email } = req.body;
+  
+  if (!email) return res.status(500).send({ id: 1, message: "`email` missing from body" });
+
+  try {
+    // make sure email user exists, get uid
+    const user = await User.findAll({
+      attributes: [ 'id', 'email' ],
+      where: { email },
+    });
+    if (user.length == 0) return res.status(500).send({ id: 3, message: "`email` user does not exist" });
+
+    // delete any existing resetkey before continuing
+    await ResetKey.destroy({
+      where: { uid: user[0].id }
+    });
+
+    // generate 32-char key, create resetkey entry
+    const key = crypto.randomBytes(16).toString('hex');
+    await sequelize.query(
+      `INSERT INTO resetkeys (uid, rkey)
+      VALUES (?, ?)`,
+      {
+        replacements: [user[0].id, key],
+        type: QueryTypes.INSERT
+      }
+    );
+
+    // send email
+    const transporter = await nodemailer.createTransport({
+      host: 'mail.gmx.com',
+      port: 587,
+      tls: {
+        ciphers:'SSLv3',
+        rejectUnauthorized: false
+      },
+      debug: true,
+      auth: {
+        user: "blogaru@gmx.com",
+        pass: "Bloggy123"
+      }
+    });
+  
+    let mailOptions = {
+      from: 'blogaru@gmx.com',
+      to: email,
+      subject: 'Blogaru - Password reset',
+      html: `<a href="http://` + ip + `:` + port + `/resetPassword?key=` + key + `&uid=` + user[0].id + `">Click here</a> to reset your Blogaru password.`
+    };
+
+    await transporter.sendMail(mailOptions);
+
+    res.status(200).send({ id: 0 });
+  } catch (error) {
+    return res.status(500).send({ id: 0, message: error.message });
+  }
+});
+
+// reset password
+router.post('/resetPassword', async function (req, res) {
+  const { key, uid, password } = req.body;
+  
+  if (!key || !uid || !password) return res.status(500).send({ id: 1, message: "`key`, `uid`, or `password` missing from body" });
+
+  try {
+    // make sure key is correct
+    const resetkey = await ResetKey.findAll({
+      where: { uid, rkey: key },
+    });
+
+    if (resetkey.length == 0) return res.status(500).send({ id: 2, message: "Invalid `uid` or `key`" });
+
+    // delete resetkey
+    await ResetKey.destroy({
+      where: { uid }
+    });
+
+    // hash & update password
+    await bcrypt.hash(password, 10, async function(err, hash) {
+      await User.update({ password: hash }, {
+        where: {
+          id: uid
+        }
+      });
+    });
+
+    res.status(200).send({ id: 0 });
+  } catch (error) {
+    return res.status(500).send({ id: 0, message: error.message });
   }
 });
 
@@ -149,8 +250,6 @@ router.post('/updateUser', async function (req, res) {
   }
 });
 
-
-
 // Update admin
 router.post('/updateAdmin', async function (req, res) {
   console.log(req.body); // will display { blogID: 2632 } in console, as sent by frontend/pages/user in the selectAPI() function
@@ -171,6 +270,7 @@ router.post('/updateAdmin', async function (req, res) {
     res.status(500).send(error);
   }
 });
+
 // Update disabled
 router.post('/updateDisabled', async function (req, res) {
   console.log(req.body); // will display { blogID: 2632 } in console, as sent by frontend/pages/user in the selectAPI() function

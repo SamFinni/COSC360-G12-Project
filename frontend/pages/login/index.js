@@ -95,8 +95,8 @@ export default function Login(props) {
                 required
               ></input>
             </div>
-            <p>Forgot Password?</p>
-              <div className={styles.button} onClick={submitHandler}>Login</div>
+            <Link href="/resetPassword"><p style={{ cursor: 'pointer' }}>Forgot Password?</p></Link>
+            <div className={styles.button} onClick={submitHandler}>Login</div>
           </form>
           {errorElement}
         </div>
