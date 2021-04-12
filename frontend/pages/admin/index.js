@@ -67,7 +67,7 @@ export default function AdminPage() {
     const username = event.target.input.value;
     const email = event.target.input.value;
     // Search for users with input anywhere in username or email
-    axios.post(backend + "/user/search", {
+    axios.post(backend + "/user/searchLike", {
       username,
       email,
     }).then(data => updateUsers(data.data));
@@ -90,7 +90,7 @@ export default function AdminPage() {
     const reason = event.target.input.value;
     const createdAt = event.target.input.value;
     // Search for reports with input anywhere in reason or createdAt
-    axios.post(backend + "/postreport/search", {
+    axios.post(backend + "/postreport/searchLike", {
       reason,
       createdAt,
     }).then(data => updateReports(data.data));

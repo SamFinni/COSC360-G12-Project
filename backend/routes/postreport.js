@@ -84,10 +84,8 @@ router.post('/select', async function (req, res) {
   });
 
   
-// search for report by reason/createdAt
-router.post('/search', async function (req, res) {
-  console.log(req.body);
-
+// search for report by *LIKE* reason/createdAt
+router.post('/searchLike', async function (req, res) {
   try {
     const reportList = await sequelize.query(
       `SELECT * 

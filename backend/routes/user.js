@@ -298,7 +298,7 @@ router.post('/delete', async function (req, res) {
   }
 });
 
-// search for user **like** username/email
+// search for user username/email
 router.post('/search', async function (req, res) {
   console.log(req.body); // will display { blogID: 2632 } in console, as sent by frontend/pages/user in the selectAPI() function
 
@@ -312,6 +312,31 @@ router.post('/search', async function (req, res) {
       }
     );
     return res.status(200).send(userData.length > 0);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+
+// search for user with *like* username/email
+// Used in Admin Page
+router.post('/searchLike', async function (req, res) {
+  try {
+    const userData = await sequelize.query(
+      `SELECT * 
+      FROM users 
+      WHERE username LIKE "%`+ req.body.username +`%" OR email LIKE "%`+ req.body.email +`%" 
+      ORDER BY admin DESC, disabled DESC`,
+      {
+        type: QueryTypes.SELECT
+      }
+    );
+    if(userData.length == 0){
+      return res.status(200).send({ id: 0, message: "No users found" });
+    }
+    else{
+      return res.status(200).send(userData);
+    }
   } catch (error) {
     res.status(500).send(error);
   }
