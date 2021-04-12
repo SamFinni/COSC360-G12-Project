@@ -23,6 +23,7 @@ const Navbar = dynamic(() => import('../../components/Navbar'), {
         > Enable/Disable user (Ban/Unban)
         > Admin/RevokeAdmin
     View all Reports
+      > Search Reports by keyword
         > Dismiss Report
         > View Post
           > Edit/Remove Post
@@ -30,7 +31,14 @@ const Navbar = dynamic(() => import('../../components/Navbar'), {
 */}
 
 
+{/*
+  REMAINING ISSUES:
+    - Footer is not pinned to the bottom of the screen, if no users or reports are returned
+      the footer will be elevated.
+*/}
+
 export default function AdminPage() {
+
 
   // Defaults:
   //  Users: display all users that are disabled OR admin
@@ -51,38 +59,54 @@ export default function AdminPage() {
   }, []);
 
 
+
+
   // Search Users handler
-  function handleSubmit(event){
+  function handleUserSubmit(event){
     event.preventDefault();
-    if(event.target.input.value != "id" &&
-       event.target.input.value != "createdAt" &&
-       event.target.input.value != "updatedAt" &&
-       event.target.input.value != "email" &&
-       event.target.input.value != "username" &&
-       event.target.input.value != "bio" &&
-       event.target.input.value != "image" &&
-       event.target.input.value != "admin" &&
-       event.target.input.value != "disabled" &&
-       event.target.input.value != "password") // searching with db attributes seems to cause a strange bug.
-    {
-      const username = event.target.input.value;
-      const email = event.target.input.value;
-      // Search for users with input anywhere in username or email
-      axios.post(backend + "/user/search", {
-        username,
-        email,
-      }).then(data => updateUsers(data.data));
-    }
-    else
-    {
-      window.alert(event.target.input.value + " is a restricted search term!");
-    }
-  }
-  // Apply search results to users state variable
-  function updateUsers(data){
-    setUsers(data);
+    const username = event.target.input.value;
+    const email = event.target.input.value;
+    // Search for users with input anywhere in username or email
+    axios.post(backend + "/user/search", {
+      username,
+      email,
+    }).then(data => updateUsers(data.data));
   }
 
+  // Apply search results to users state variable
+  function updateUsers(data){
+    if(data.length > 0)
+      setUsers(data);
+    else // If no users are found, return a defined, empty array.
+      setUsers([]);
+  }
+
+
+
+
+  // Search Reports handler
+  function handleReportSubmit(event){
+    event.preventDefault();
+    const reason = event.target.input.value;
+    const createdAt = event.target.input.value;
+    // Search for reports with input anywhere in reason or createdAt
+    axios.post(backend + "/postreport/search", {
+      reason,
+      createdAt,
+    }).then(data => updateReports(data.data));
+  }
+
+  // Apply search results to reports state variable
+  function updateReports(data){
+    if(data.length > 0)
+      setReports(data);
+    else // If no reports are found, return a defined, empty array.
+      setReports([]);
+  }
+
+
+
+  // RENDER ===============================================================================================================
 
   return (
     <div className={styles.page}>
@@ -95,7 +119,7 @@ export default function AdminPage() {
         <div className={styles.container}>
           <h2 className={styles.title}>Users </h2><span className={styles.subtitle}>({users.length})</span>
           
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleUserSubmit}>
             <hr className={styles.separator}></hr>
             <h3 className={styles.lefttext}>Search Users: </h3>
             <input className={styles.textinput}
@@ -115,6 +139,17 @@ export default function AdminPage() {
         
         <div className={styles.container}>
           <h2 className={styles.title}>Active Reports </h2><span className={styles.subtitle}>({reports.length})</span>
+
+          <form onSubmit={handleReportSubmit}>
+            <hr className={styles.separator}></hr>
+            <h3 className={styles.lefttext}>Search Reports: </h3>
+            <input className={styles.textinput}
+              type = "text"
+              name = "input"
+            />
+            <hr className={styles.separator}></hr>
+          </form>
+
           <hr className={styles.separator}></hr>
             <div className={styles.report}>
               {reports.map((user, idx) => (
@@ -122,7 +157,7 @@ export default function AdminPage() {
               ))}
             </div>
           </div>
-      <Footer />
+        <Footer />
     </div>
   )
 }

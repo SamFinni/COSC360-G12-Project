@@ -298,9 +298,8 @@ router.post('/delete', async function (req, res) {
   }
 });
 
-// search for user by username/email
-
-router.post('/checkExists', async function (req, res) {
+// search for user **like** username/email
+router.post('/search', async function (req, res) {
   console.log(req.body); // will display { blogID: 2632 } in console, as sent by frontend/pages/user in the selectAPI() function
 
   try {
