@@ -74,7 +74,7 @@ router.post('/select', async function (req, res) {
     try {
       await PostReport.destroy({
         where: {
-          title: 'Big Red Truck'
+          id: req.body.id
         }
       });
       res.status(200).send();
@@ -82,25 +82,29 @@ router.post('/select', async function (req, res) {
       res.status(500).send(error);
     }
   });
+
   
-  // drop table
-  router.post('/drop', async function (req, res) {
-    try {
-      await PostReport.drop();
-      res.status(200).send();
-    } catch (error) {
-      res.status(500).send(error);
+// search for report by *LIKE* reason/createdAt
+router.post('/searchLike', async function (req, res) {
+  try {
+    const reportList = await sequelize.query(
+      `SELECT * 
+      FROM postreports 
+      WHERE reason LIKE "%`+req.body.reason +`%" OR createdAt LIKE "%`+req.body.createdAt +`%" 
+      ORDER BY createdAt DESC`,
+      {
+        type: QueryTypes.SELECT
+      }
+    );
+    if(reportList.length == 0){
+      return res.status(200).send({ id: 0, message: "No reports found" });
     }
-  });
-  
-  // create table (sync)
-  router.post('/create', async function (req, res) {
-    try {
-      await PostReport.sync();
-      res.status(200).send();
-    } catch (error) {
-      res.status(500).send(error);
+    else{
+      return res.status(200).send(reportList);
     }
-  });
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
 
 module.exports = router;

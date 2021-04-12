@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import useInterval from '../../functions/useInterval';
 import Link from 'next/link';
 import axios from 'axios';
 import update from 'immutability-helper';
@@ -12,17 +13,18 @@ export default function Notifications() {
   const [auth, ] = useLocalStorage('auth', { email: null, uid: null, username: null, authkey: null });
   const [notis, setNotis] = useState([]);
   const [expand, setExpand] = useState(false);
+  const pollTime = 5000;
 
   async function getNotifications() {
     const notifications = await axios.post(backend + '/notification/list', {
       uid: auth.uid
     });
-
-    console.log(notifications.data.list);
-
     setNotis(notifications.data.list);
   }
-  useEffect(getNotifications, [auth]);
+  useInterval(async () => {
+    if (!auth.uid || expand) return;
+    getNotifications();
+  }, pollTime)
 
   function notiMouseOver(nid, idx) {
     if (notis[idx].seen) return;

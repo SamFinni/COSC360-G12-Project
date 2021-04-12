@@ -5,7 +5,7 @@ const router = express.Router();
 const Friend = require('../models/friend.model');
 const User = require('../models/user.model');
 
-// add a friend
+// add a friend (or accept friend request)
 router.post('/add', async function (req, res) {
   const { uid, fuid } = req.body;
 
@@ -84,6 +84,59 @@ router.post('/add', async function (req, res) {
   }
 });
 
+// remove a friend (or deny friend request)
+router.post('/remove', async function (req, res) {
+  const { uid, fuid } = req.body;
+
+  if (!uid || !fuid) return res.status(500).send({ id: 1, message: "`uid` or `fuid` missing from body" });
+  if (uid == fuid) return res.status(500).send({ id: 2, message: "You can't remove yourself!" });
+
+  try {
+    // make sure uid and fuid users exist
+    const uidUser = await User.findAll({
+      attributes: [ 'id' ],
+      where: { id: uid },
+    });
+    const fuidUser = await User.findAll({
+      attributes: [ 'id' ],
+      where: { id: fuid },
+    });
+    if (uidUser.length == 0) return res.status(500).send({ id: 3, message: "`uid` user does not exist" });
+    if (fuidUser.length == 0) return res.status(500).send({ id: 4, message: "`fuid` user does not exist" });
+
+    // check that a friendship (accepted or not) exists
+    const friendship = await Friend.findAll({
+      where: {
+        [Op.or]: [
+          {
+            uid: fuid,
+            fuid: uid,
+          },
+          {
+            uid,
+            fuid,
+          },
+        ]
+      },
+    });
+    
+    // if friendship doesn't exist, return, else delete friendship
+    if (friendship.length === 0) return res.status(200).send({ id: 1, message: "Friendship does not exist" });
+    else {
+      await Friend.destroy({
+        where: {
+          uid: friendship[0].uid,
+          fuid: friendship[0].fuid,
+        }
+      });
+
+      return res.status(200).send({ id: 0, message: "Friendship removed" });
+    }
+  } catch (error) {
+    return res.status(500).send({ id: 0, message: error.message });
+  }
+});
+
 // get list of friends (usernames, ids, and images)
 router.post('/list', async function (req, res) {
   const { uid } = req.body;
@@ -103,6 +156,36 @@ router.post('/list', async function (req, res) {
       FROM friends F
       JOIN users U ON (F.uid = ` + uid + ` AND F.fuid = U.id OR F.fuid = ` + uid + ` AND F.uid = U.id)
       WHERE F.accepted = true`,
+      {
+        type: QueryTypes.SELECT
+      }
+    );
+
+    res.status(200).send({ id: 0, list: friendList });
+  } catch (error) {
+    return res.status(500).send({ id: 0, message: error.message });
+  }
+});
+
+// get list of friend requests (usernames, ids, and images)
+router.post('/requests', async function (req, res) {
+  const { uid } = req.body;
+
+  if (!uid) return res.status(500).send({ id: 1, message: "`uid` missing from body" });
+  
+  try {
+    // make sure uid user exists
+    const uidUser = await User.findAll({
+      attributes: [ 'id' ],
+      where: { id: uid },
+    });
+    if (uidUser.length == 0) return res.status(500).send({ id: 3, message: "`uid` user does not exist" });
+
+    const friendList = await sequelize.query(
+      `SELECT DISTINCT U.id, U.username, U.image
+      FROM friends F
+      JOIN users U ON (F.uid = U.id)
+      WHERE F.fuid = ` + uid + ` AND F.accepted = false`,
       {
         type: QueryTypes.SELECT
       }

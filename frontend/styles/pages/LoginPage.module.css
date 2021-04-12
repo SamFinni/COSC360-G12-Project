@@ -71,12 +71,13 @@
   color: #ee8e67;
   padding: 0.5em 1em;
   margin-top: 1em;
-  float: center;
   border-radius: 2em;
   box-shadow: 0 0 6px gray;
   font-weight: bold;
+  cursor: pointer;
   user-select: none;
 }
+
 .button:hover {
   background: rgb(255,255,255);
   background: linear-gradient(225deg, rgba(255,255,255,1) 0%, rgba(167,238,232,1) 75%);

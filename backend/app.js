@@ -60,6 +60,9 @@ app.use('/postscore', postscoreRouter);
 const notificationRouter = require('./routes/notification');
 app.use('/notification', notificationRouter);
 
+const resetkeyRouter = require('./routes/resetkey');
+app.use('/resetkey', resetkeyRouter);
+
 //const abcRouter = require('./routes/abc');
 //app.use('/abc', abcRouter);
 

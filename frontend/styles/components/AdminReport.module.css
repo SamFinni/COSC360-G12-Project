@@ -3,9 +3,13 @@
   width: 100%;
   background: rgb(253, 251, 250);
   border-radius: 8px;
-  border: 1px solid #CCCCCC;
+  border: 2px outset #d8d3d0;
   margin: 0 0 0.25em 0;
-  background-image: linear-gradient(to right, rgb(253, 248, 236), rgb(255, 255, 255));
+  background-image: linear-gradient(to right, rgb(255, 243, 233), rgb(253, 242, 242));
+}
+.report:hover {
+  transition: 0.1s;
+  box-shadow: 0px 0px 6px rgb(122, 122, 122);
 }
 
 .text {
@@ -27,16 +31,6 @@
   color: #b8b5a5;
 }
 
-.link {
-  float: right;
-  margin: 0.25em;
-  color: #dba66e;
-}
-.link:hover {
-  color:#ee8e67;
-  font-weight: 600;
-}
-
 .separator {
   margin: 0;
   border: none;
@@ -44,4 +38,87 @@
   color: #d0e0df;
   background-color: #d0e0df;
   box-shadow: 1px 1px 3px rgb(180, 180, 180);
+}
+
+/* Button like things */
+
+.link {
+  float: right;
+  margin: 0.25em;
+  color: rgb(255, 255, 255);
+  display: inline-block;
+  border-radius: 0.4em;
+  background-color: #77a4ad;
+  border: none;
+  text-align: center;
+  font-size: 1em;
+  padding: 0.2em;
+  width: 9.5em;
+  cursor: pointer;
+}
+.link:hover {
+  color:#ffffff;
+  background-color: #009aa5;
+  transition: 0.1s;
+}
+.link span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.3s;
+}
+.link span:after {
+  content: '\25B8';
+  position: absolute;
+  opacity: 0;
+  right: -1em;
+  transition: 0.2s;
+}
+.link:hover span {
+  padding-right: 1em;
+}
+.link:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+
+/* Fancy buttons */
+.button {
+  float: right;
+  display: inline-block;
+  margin: 0.25em;
+  border-radius: 0.4em;
+  background-color: #76ac8c;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 1em;
+  padding: 0.2em;
+  width: 9.5em;
+  cursor: pointer;
+}
+.button:hover {
+  background-color: #2ebe6f;
+}
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.3s;
+}
+.button span:after {
+  content: '\2714';
+  position: absolute;
+  opacity: 0;
+  right: -1em;
+  top: -0.2em;
+  transition: 0.2s;
+}
+.button:hover span {
+  padding-right: 1.5em;
+}
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
 }

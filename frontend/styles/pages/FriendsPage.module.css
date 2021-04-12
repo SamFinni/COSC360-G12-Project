@@ -20,16 +20,3 @@
   margin: 0;
   padding: 0;
 }
-
-.friendlist {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  width: 75%;
-  background: #FFFFFF;
-  border-radius: 16px;
-  margin: 4em auto;
-  padding: 2em;
-  box-shadow: 0 0 6px gray;
-  color: #616161;
-}
