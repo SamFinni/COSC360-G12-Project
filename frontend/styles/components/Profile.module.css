@@ -32,7 +32,30 @@
     text-align: center;
   
   }
-
+  .input input {
+    flex-grow: 1;
+  }
+  
+  .input {
+    display: flex;
+    margin-bottom: 2em;
+  }
+  .content {
+    display: flex;
+    flex-wrap: wrap;
+    width: 75%;
+    background: #FFFFFF;
+    border-radius: 16px;
+    margin: 4em auto;
+    padding: 2em;
+    box-shadow: 0 0 6px gray;
+    color: #616161;
+}
+.label {
+  display: inline;
+   width: 7em;
+   text-align: left;
+ }
 .button {
   display: inline-block;
   border: 2px solid #ee8e67;
