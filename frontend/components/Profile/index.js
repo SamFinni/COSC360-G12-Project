@@ -43,11 +43,9 @@ export default function Profile({ data }) {
     editField = (
       <>
         <img className={styles.pic} src={pic != "" ? pic : "/user.png"} />
-
         <p id="un" className={styles.username}>
           Username: @{username}
         </p>
-
         <p id="bi" className={styles.bio}>
           Bio: {bio}
         </p>
@@ -57,6 +55,17 @@ export default function Profile({ data }) {
     editField = (
       <>
         <img className={styles.pic} src={pic != "" ? pic : "/user.png"} />
+        <div className={styles.input}>
+          <label htmlFor="pic" className={styles.label}>
+            <b>Choose a new image: </b>
+          </label>
+          <input
+            id="pic"
+            type="file"
+            value={pic}
+            onChange={(e) => setPic(e.target.files[0])}
+          ></input>
+        </div>
         <div className={styles.input}>
           <label htmlFor="uname" className={styles.label}>
             <b>Username: </b>
