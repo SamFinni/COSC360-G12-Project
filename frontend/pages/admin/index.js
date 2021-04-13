@@ -27,20 +27,17 @@ const Navbar = dynamic(() => import('../../components/Navbar'), {
         > View Post
           > Edit/Remove Post
           > Edit/Remove Comment
-
-  REMAINING ISSUES:
-    - Footer is not pinned to the bottom of the screen, if no users or reports are returned
-      the footer will be elevated.
 */}
 
 export default function AdminPage() {
+
   // Defaults:
   //  Users: display all users that are disabled OR admin
   //  Reports: display all reports
   const [users, setUsers] = useState([]);               // Currently displayed users
   const [reports, setReports] = useState([]);           // Currently displayed reports
-  const [totalusers, setTotalUsers] = useState([]);     // Total users
-  const [totalreports, setTotalReports] = useState([]); // Total reports
+  const [totalusers, setTotalUsers] = useState([]);     // All users
+  const [totalreports, setTotalReports] = useState([]); // All reports
   async function getReports(){
     // get default selection
     await axios.post(backend + '/postreport/list').then(data => setReports(data.data.list));
@@ -120,66 +117,67 @@ export default function AdminPage() {
   // RENDER ===============================================================================================================
 
   return (
-    <div className={styles.page}>
-      <Head>
-        <title>Blogaru - Admin</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <Header />
-      <Navbar />
-        <div className={styles.container}>
-          <span className={styles.left}><h2 className={styles.title}>Users </h2></span>
-          <span className={styles.right}><span className={styles.subtitle}>{users.length}</span> / {totalusers.length}</span>
+    <div>
+      <div className={styles.page}>
+        <Head>
+          <title>Blogaru - Admin</title>
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+        <Header />
+        <Navbar />
+          <div className={styles.container}>
+            <span className={styles.left}><h2 className={styles.title}>Users </h2></span>
+            <span className={styles.right}><span className={styles.subtitle}>{users.length}</span> / {totalusers.length}</span>
+            
+            <form onSubmit={handleUserSubmit} className={styles.inline}>
+              <input className={styles.textinput}
+                type = "text"
+                name = "input"
+                placeholder = "Search or Filter"
+              />
+              <input className={styles.textinput}
+                type = "submit"
+                value = "Update"
+              />
+            </form>
+            <form onSubmit={handleUserReset} className={styles.inline}>
+              <input className={styles.textinput}
+                type = "submit"
+                value = "Reset"
+              />
+            </form>
+            <hr className={styles.separator}></hr>
+
+              <div className={styles.users}>
+                {users.map((user, idx) => (
+                  <AdminUser key={`user-${idx}`} data={user} />
+                ))}
+              </div>
+          </div>
+
           
-          <form onSubmit={handleUserSubmit} className={styles.inline}>
-            <input className={styles.textinput}
-              type = "text"
-              name = "input"
-              placeholder = "Search or Filter"
-            />
-            <input className={styles.textinput}
-              type = "submit"
-              value = "Update"
-            />
-          </form>
-          <form onSubmit={handleUserReset} className={styles.inline}>
-            <input className={styles.textinput}
-              type = "submit"
-              value = "Reset"
-            />
-          </form>
-          <hr className={styles.separator}></hr>
+          <div className={styles.container}>
+          <span className={styles.left}><h2 className={styles.title}>Reports </h2></span>
+            <span className={styles.right}><span className={styles.subtitle}>{reports.length}</span> / {totalreports.length}</span>
 
-            <div className={styles.users}>
-              {users.map((user, idx) => (
-                <AdminUser key={`user-${idx}`} data={user} />
-              ))}
-            </div>
-        </div>
-
-        
-        <div className={styles.container}>
-        <span className={styles.left}><h2 className={styles.title}>Reports </h2></span>
-          <span className={styles.right}><span className={styles.subtitle}>{reports.length}</span> / {totalreports.length}</span>
-
-          <form onSubmit={handleReportSubmit} className={styles.inline}>
-            <input className={styles.textinput}
-              type = "text"
-              name = "input"
-              placeholder = "Search or Filter"
-            />
-            <input className={styles.textinput}
-              type = "submit"
-              value = "Update"
-            />
-          </form>
-          <form onSubmit={handleReportReset} className={styles.inline}>
-            <input className={styles.textinput}
-              type = "submit"
-              value = "Reset"
-            />
-          </form>
-          <hr className={styles.separator}></hr>
+            <form onSubmit={handleReportSubmit} className={styles.inline}>
+              <input className={styles.textinput}
+                type = "text"
+                name = "input"
+                placeholder = "Search or Filter"
+              />
+              <input className={styles.textinput}
+                type = "submit"
+                value = "Update"
+              />
+            </form>
+            <form onSubmit={handleReportReset} className={styles.inline}>
+              <input className={styles.textinput}
+                type = "submit"
+                value = "Reset"
+              />
+            </form>
+            <hr className={styles.separator}></hr>
 
             <div className={styles.report}>
               {reports.map((user, idx) => (
@@ -187,7 +185,8 @@ export default function AdminPage() {
               ))}
             </div>
           </div>
-        <Footer />
+      </div>
+      <Footer />
     </div>
   )
 }
