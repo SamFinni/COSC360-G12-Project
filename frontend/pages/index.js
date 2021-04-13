@@ -1,8 +1,20 @@
+{/*
+  INCOMPLETE
+
+  FEATURES:
+    View top posts by score and date
+
+*/}
+
 import Head from 'next/head';
 import dynamic from "next/dynamic";
 import styles from '../styles/pages/HomePage.module.css';
 import Footer from '../components/Footer';
 import PostPreview from '../components/PostPreview';
+import axios from 'axios';
+import { useEffect, useState } from "react";
+import * as cfg from '../config';
+const backend = 'http://' + cfg.BACKEND_IP + ':' + cfg.BACKEND_PORT;
 const Header = dynamic(() => import('../components/Header'), {
   ssr: false
 });
@@ -11,15 +23,19 @@ const Navbar = dynamic(() => import('../components/Navbar'), {
 });
 
 export default function HomePage(props) {
+
+  const [posts, setPosts] = useState([]); // Currently displayed posts
+  async function getPosts() {
+    await axios.post(backend + '/post/list').then(data => setPosts(data.data.list));
+  }
+  
   return (
     <div className={styles.page}>
       <Head>
         <title>Blogaru</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
       <Header />
-
       <Navbar />
 
       <div className={styles.container}>

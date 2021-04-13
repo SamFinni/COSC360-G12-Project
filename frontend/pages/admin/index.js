@@ -1,9 +1,31 @@
+{/*
+  COMPLETED
+  April 13th, 2021
+  Matthew Borle
+
+
+  FEATURES:
+    Authenticate User
+      > Search for user
+          > Enable/Disable user (Ban/Unban)
+          > Admin/RevokeAdmin
+      > View all Reports
+        > Search Reports by keyword
+          > Dismiss Report
+          > View Post
+            > Edit/Remove Post *
+            > Edit/Remove Comments on Post *
+
+    * refers to features after redirect
+*/}
+
 import Head from 'next/head';
 import dynamic from "next/dynamic";
 import styles from '../../styles/pages/AdminPage.module.css';
 import Footer from '../../components/Footer';
 import AdminReport from '../../components/AdminReport';
 import AdminUser from '../../components/AdminUser';
+import useLocalStorage from '../../functions/useLocalStorage';
 import axios from 'axios';
 import { useEffect, useState } from "react";
 import * as cfg from '../../config';
@@ -16,20 +38,7 @@ const Navbar = dynamic(() => import('../../components/Navbar'), {
 });
 
 
-{/*
-  FEATURES:
-    Search for user
-        > Enable/Disable user (Ban/Unban)
-        > Admin/RevokeAdmin
-    View all Reports
-      > Search Reports by keyword
-        > Dismiss Report
-        > View Post
-          > Edit/Remove Post
-          > Edit/Remove Comment
-*/}
-
-export default function AdminPage() {
+export default function Admin() {
 
   // Defaults:
   //  Users: display all users that are disabled OR admin
@@ -54,8 +63,6 @@ export default function AdminPage() {
   }, []);
 
 
-
-
   // Search Users handler
   function handleUserSubmit(event){
     event.preventDefault();
@@ -77,8 +84,6 @@ export default function AdminPage() {
   }
 
 
-
-
   // Search Reports handler
   function handleReportSubmit(event){
     event.preventDefault();
@@ -95,11 +100,9 @@ export default function AdminPage() {
   function updateReports(data){
     if(data.length > 0)
       setReports(data);
-    else // If no reports are found, return a defined, empty array.
+    else // If no reports are found, return a defined but empty array to state.
       setReports([]);
   }
-
-
 
 
   //Reset to defaults
@@ -113,9 +116,7 @@ export default function AdminPage() {
   }
 
 
-
   // RENDER ===============================================================================================================
-
   return (
     <div>
       <div className={styles.page}>
