@@ -50,6 +50,7 @@
     padding: 2em;
     box-shadow: 0 0 6px gray;
     color: #616161;
+    min-width: 75%;
 }
 .label {
   display: inline;
