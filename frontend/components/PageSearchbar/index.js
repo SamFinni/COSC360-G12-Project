@@ -2,6 +2,9 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import styles from '../../styles/components/PageSearchbar.module.css';
 import { BiSearch } from 'react-icons/bi';
+import axios from 'axios';
+import * as cfg from '../../config';
+const backend = 'http://' + cfg.BACKEND_IP + ':' + cfg.BACKEND_PORT;
 
 export default function Searchbar() {
   const router = useRouter();
@@ -9,7 +12,10 @@ export default function Searchbar() {
 
   function submit() {
     if (query == '') return;
-    router.push('/search/' + query);
+    // router.push('/search/' + query);
+    axios.post(backend + "/post/search", {
+      
+    });
   }
 
   return (

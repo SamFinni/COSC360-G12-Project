@@ -49,7 +49,7 @@ export default function PostPreview({ data }) {
       </div>
       <div className={styles.right}>
         <div className={styles.head}>
-          <Link href={`/post/${data.pid}`}>
+          <Link href={`/viewPost/${data.pid}`}>
             <a><h2 className={styles.title}>{data.title}</h2></a>
           </Link>
           <p className={styles.date}>{data.date}</p>
@@ -62,8 +62,7 @@ export default function PostPreview({ data }) {
           </div>
         </div>
         <div>
-          {/* <Link href={`/post/${data.pid}`}> */}
-          {/* temporary link */}
+          {/* <Link href={`/viewPost/${data.pid}`}> */}
           <Link href={`/viewPost`}>
             <a className={styles.readMore}>Read More</a>
           </Link>
