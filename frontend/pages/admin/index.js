@@ -119,14 +119,14 @@ export default function AdminPage() {
           <span className={styles.right}><span className={styles.subtitle}>{users.length}</span> / {totalusers.length}</span>
           
           <form onSubmit={handleUserSubmit}>
-            <h3 className={styles.lefttext}>Search or Filter Users: </h3>
             <input className={styles.textinput}
               type = "text"
               name = "input"
+              placeholder = "Search or Filter"
             />
             <input className={styles.textinput}
               type = "submit"
-              value = "Filter"
+              value = "Update"
             />
             <hr className={styles.separator}></hr>
           </form>
@@ -144,14 +144,14 @@ export default function AdminPage() {
           <span className={styles.right}><span className={styles.subtitle}>{reports.length}</span> / {totalreports.length}</span>
 
           <form onSubmit={handleReportSubmit}>
-            <h3 className={styles.lefttext}>Search or Filter Reports: </h3>
             <input className={styles.textinput}
               type = "text"
               name = "input"
+              placeholder = "Search or Filter"
             />
             <input className={styles.textinput}
               type = "submit"
-              value = "Filter"
+              value = "Update"
             />
             <hr className={styles.separator}></hr>
           </form>
