@@ -319,7 +319,7 @@ router.post('/search', async function (req, res) {
 
 
 // search for user with *like* username/email
-// Used in Admin Page
+// Used for user lookup
 router.post('/searchLike', async function (req, res) {
   try {
     const userData = await sequelize.query(
@@ -337,6 +337,26 @@ router.post('/searchLike', async function (req, res) {
     else{
       return res.status(200).send(userData);
     }
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+// get user data
+// used to return the admin and disabled status of a user by id
+router.post('/status', async function (req, res) {
+  console.log(req.body); // will display { blogID: 2632 } in console, as sent by frontend/pages/user in the selectAPI() function
+  try {
+    const userData = await sequelize.query(
+      `SELECT admin, disabled 
+      FROM users 
+      WHERE id = `+req.body.uid,
+      {
+        type: QueryTypes.SELECT
+      }
+    );
+    console.log(userData);
+    res.status(200).send(userData);
   } catch (error) {
     res.status(500).send(error);
   }
