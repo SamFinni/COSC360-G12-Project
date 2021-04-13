@@ -18,7 +18,7 @@ router.post('/list', async function (req, res) {
   } catch (error) {
     return res.status(500).send({ id: 0, message: error.message });
   }
-})
+});
 
 // select
 router.post('/select', async function (req, res) {

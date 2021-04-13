@@ -17,8 +17,7 @@ const Navbar = dynamic(() => import('../../components/Navbar'), {
 
 
 {/*
-  Feature Tree:
-
+  FEATURES:
     Search for user
         > Enable/Disable user (Ban/Unban)
         > Admin/RevokeAdmin
@@ -28,30 +27,29 @@ const Navbar = dynamic(() => import('../../components/Navbar'), {
         > View Post
           > Edit/Remove Post
           > Edit/Remove Comment
-*/}
 
-
-{/*
   REMAINING ISSUES:
     - Footer is not pinned to the bottom of the screen, if no users or reports are returned
       the footer will be elevated.
 */}
 
 export default function AdminPage() {
-
-
   // Defaults:
   //  Users: display all users that are disabled OR admin
   //  Reports: display all reports
-  const [users, setUsers] = useState([]);
-  const [reports, setReports] = useState([]);
+  const [users, setUsers] = useState([]);               // Currently displayed users
+  const [reports, setReports] = useState([]);           // Currently displayed reports
+  const [totalusers, setTotalUsers] = useState([]);     // Total users
+  const [totalreports, setTotalReports] = useState([]); // Total reports
   async function getReports(){
-    const getUsers = await axios.post(backend + '/postreport/list')
-    setReports(getUsers.data.list);
+    // get default selection
+    await axios.post(backend + '/postreport/list').then(data => setReports(data.data.list));
+    await axios.post(backend + '/postreport/list').then(data => setTotalReports(data.data.list));
   }
   async function getUsers(){
-    const getReports = await axios.post(backend + '/user/listDisabledAndAdmin')
-    setUsers(getReports.data.list);
+    // get default selection
+    await axios.post(backend + '/user/listDisabledAndAdmin').then(data => setUsers(data.data.list));
+    await axios.post(backend + '/user/list').then(data => setTotalUsers(data.data.list));
   }
   useEffect(() => {
     getReports();
@@ -117,7 +115,7 @@ export default function AdminPage() {
       <Header />
       <Navbar />
         <div className={styles.container}>
-          <h2 className={styles.title}>Users </h2><span className={styles.subtitle}>({users.length})</span>
+          <h2 className={styles.title}>Users </h2><span className={styles.subtitle}>({users.length}/{totalusers.length})</span>
           
           <form onSubmit={handleUserSubmit}>
             <hr className={styles.separator}></hr>
@@ -138,7 +136,7 @@ export default function AdminPage() {
 
         
         <div className={styles.container}>
-          <h2 className={styles.title}>Active Reports </h2><span className={styles.subtitle}>({reports.length})</span>
+          <h2 className={styles.title}>Active Reports </h2><span className={styles.subtitle}>({reports.length}/{totalreports.length})</span>
 
           <form onSubmit={handleReportSubmit}>
             <hr className={styles.separator}></hr>
