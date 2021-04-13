@@ -43,16 +43,12 @@ export default function Profile({ data }) {
     editField = (
       <>
         <img className={styles.pic} src={pic != "" ? pic : "/user.png"} />
-        <label htmlFor="un" className={styles.label}>
-          <b>Username: </b>
-        </label>
         <p id="un" className={styles.username}>
-          @{username}
+          Username: @{username}
         </p>
-        <label htmlFor="bi" className={styles.label}>
-          <b>Bio: </b>
-        </label>
-        <p id="bi" className={styles.bio}>{bio}</p>
+        <p id="bi" className={styles.bio}>
+          Bio: {bio}
+        </p>
       </>
     );
   } else {
@@ -60,6 +56,20 @@ export default function Profile({ data }) {
       <>
         <img className={styles.pic} src={pic != "" ? pic : "/user.png"} />
         <div className={styles.input}>
+          <label htmlFor="pic" className={styles.label}>
+            <b>Choose a new image: </b>
+          </label>
+          <input
+            id="pic"
+            type="file"
+            value={pic}
+            onChange={(e) => setPic(e.target.files[0])}
+          ></input>
+        </div>
+        <div className={styles.input}>
+          <label htmlFor="uname" className={styles.label}>
+            <b>Username: </b>
+          </label>
           <input
             className={styles.username}
             value={username}
@@ -70,6 +80,9 @@ export default function Profile({ data }) {
           ></input>
         </div>
         <div className={styles.input}>
+          <label htmlFor="bio" className={styles.label}>
+            <b>Bio: </b>
+          </label>
           <input
             className={styles.bio}
             value={bio}
@@ -88,14 +101,14 @@ export default function Profile({ data }) {
 
   return (
     <div className={styles.content}>
-    <div className={styles.user}>
-      <img
-        className={styles.edit}
-        src={"/edit.png"}
-        onClick={() => setEditing(!editing)}
-      />
-      {editField}
-    </div>
+      <div className={styles.user}>
+        <img
+          className={styles.edit}
+          src={"/edit.png"}
+          onClick={() => setEditing(!editing)}
+        />
+        {editField}
+      </div>
     </div>
   );
 }

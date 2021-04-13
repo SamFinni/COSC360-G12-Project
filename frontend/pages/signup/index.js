@@ -31,20 +31,20 @@ export default function Signup(props) {
     username: null,
     authkey: null,
   });
-  
+
   async function checkExists() {
     const userData = await axios.post(backend + "/user/checkExists", {
       username,
       email,
     });
-   
+
     if (!userData.data) {
       addUser();
-    }else{
+    } else {
       alert("Username and/or email are already taken!");
     }
   }
-  
+
   async function addUser() {
     const userData = await axios.post(backend + "/user/insertUser", {
       email,
@@ -55,18 +55,18 @@ export default function Signup(props) {
     });
     login();
   }
-  
+
   async function login() {
     const userData = await axios.post(backend + "/user/login", {
       username,
       password,
     });
-   
+
     if (userData.data.message) {
       setError(userData.data.message);
       return;
     }
- 
+
     setAuth({
       email: userData.data[0].email,
       uid: userData.data[0].id,
@@ -74,11 +74,11 @@ export default function Signup(props) {
     });
     router.push("/");
   }
-  
+
   function validateForm() {
     return username.length > 0 && password.length > 0 && email.length > 0;
   }
-  
+
   function submitHandler() {
     if (!validateForm()) {
       alert("Please fill out the form!");
@@ -86,7 +86,7 @@ export default function Signup(props) {
     }
     checkExists();
   }
-  
+
   return (
     <div className={styles.page}>
       <Head>
@@ -103,7 +103,15 @@ export default function Signup(props) {
         <div className={styles.formContainer}>
           <form className={styles.form} onSubmit={submitHandler}>
             <div className={styles.input}>
-              <p>Upload a profile picture</p>
+              <label htmlFor="pic" className={styles.label}>
+                <b>Upload image </b>
+              </label>
+              <input
+                id="pic"
+                type="file"
+                value={pic}
+                onChange={(e) => setPic(e.target.files[0])}
+              ></input>
             </div>
             <div className={styles.input}>
               <label htmlFor="email" className={styles.label}>
