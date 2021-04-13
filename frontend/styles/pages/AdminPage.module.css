@@ -43,6 +43,18 @@
     padding-bottom: 0.5em;
 }
 
+.subtitle {
+    font-size: x-large;
+    font-weight: 1000;
+}
+
+.right {
+    float: right;
+}
+.left {
+    float: left;
+}
+
 .adminPanel {
     display: flex;
     flex-wrap: wrap;

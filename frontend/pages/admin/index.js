@@ -115,14 +115,18 @@ export default function AdminPage() {
       <Header />
       <Navbar />
         <div className={styles.container}>
-          <h2 className={styles.title}>Users </h2><span className={styles.subtitle}>({users.length}/{totalusers.length})</span>
+          <span className={styles.left}><h2 className={styles.title}>Users </h2></span>
+          <span className={styles.right}><span className={styles.subtitle}>{users.length}</span> / {totalusers.length}</span>
           
           <form onSubmit={handleUserSubmit}>
-            <hr className={styles.separator}></hr>
-            <h3 className={styles.lefttext}>Search Users: </h3>
+            <h3 className={styles.lefttext}>Search or Filter Users: </h3>
             <input className={styles.textinput}
               type = "text"
               name = "input"
+            />
+            <input className={styles.textinput}
+              type = "submit"
+              value = "Filter"
             />
             <hr className={styles.separator}></hr>
           </form>
@@ -136,19 +140,22 @@ export default function AdminPage() {
 
         
         <div className={styles.container}>
-          <h2 className={styles.title}>Active Reports </h2><span className={styles.subtitle}>({reports.length}/{totalreports.length})</span>
+        <span className={styles.left}><h2 className={styles.title}>Reports </h2></span>
+          <span className={styles.right}><span className={styles.subtitle}>{reports.length}</span> / {totalreports.length}</span>
 
           <form onSubmit={handleReportSubmit}>
-            <hr className={styles.separator}></hr>
-            <h3 className={styles.lefttext}>Search Reports: </h3>
+            <h3 className={styles.lefttext}>Search or Filter Reports: </h3>
             <input className={styles.textinput}
               type = "text"
               name = "input"
             />
+            <input className={styles.textinput}
+              type = "submit"
+              value = "Filter"
+            />
             <hr className={styles.separator}></hr>
           </form>
 
-          <hr className={styles.separator}></hr>
             <div className={styles.report}>
               {reports.map((user, idx) => (
                 <AdminReport key={`user-${idx}`} data={user} />
