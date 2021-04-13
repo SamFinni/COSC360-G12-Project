@@ -25,8 +25,8 @@ export default function Profile({ data }) {
     console.log(userData);
     setUsername(userData.data[0].username);
     setBio(userData.data[0].bio);
-      setPic(userData.data[0].image)
-      console.log(base64data);
+    setPic("data:image/jpeg;base64,"+userData.data[0].image);
+    
     console.log(userData.data[0].image);
   }
   function fileToDataUri(file) {
@@ -84,8 +84,7 @@ export default function Profile({ data }) {
           <input
             id="pic"
             type="file"
-            value={pic}
-            onChange={(e) => setPic(e.target.files[0])}
+            onChange={(e) => handlePic(e.target.files[0])}
           ></input>
         </div>
         <div className={styles.input}>

@@ -58,11 +58,12 @@ router.post("/getUser", async function (req, res) {
         type: QueryTypes.SELECT,
       }
     );
-    console.log(userData);
-    var buffer = Buffer.from(userData.data[0].image);
-    userData.data[0].image = buffer.toString("base64");
+    console.log(userData[0].image);
+    var buffer = Buffer.from(userData[0].image, 'binary');
+    userData[0].image = buffer.toString("base64");
     res.status(200).send(userData);
   } catch (error) {
+    console.log(error);
     res.status(500).send(error);
   }
 });
