@@ -1,10 +1,11 @@
 const express = require('express');
+const {QueryTypes } = require('sequelize');
 const sequelize = require('../db/sequelize');
 const router = express.Router();
 const Post = require('../models/post.model');
 
 // get list of posts
-router.post('/select', async function (req, res) {
+router.post('/list', async function (req, res) {
     const { uid } = req.body;
 
     if (!uid) return res.status(500).send({ id: 1, message: "`uid` missing from body" });
@@ -34,8 +35,12 @@ router.post('/add', async function (req, res){
     if (!uid || !title || !body) return res.status(500).send({ id: 1, message: "`uid`, `title`, or `body` missing from body" });
 
     try {
-        await Post.create({ uid, title, body, tags });
-        return res.status(200).send({ id:0, message: "Post successfully created." });
+        const postData = await sequelize.query(
+            `INSERT INTO posts (uid, title, body, tags)
+            VALUES (`+uid+`, "`+title+`", "`+body+`", "`+tags+`")`,
+            { type: QueryTypes.INSERT }
+        );
+        return res.status(200).send(postData);
     } catch (error) {
         res.status(500).send({ id: 0, message: error.message });
     }
@@ -66,5 +71,27 @@ router.post('/remove', async function (req, res) {
         res.status(500).send(error);
     }
 });
+
+// search for posts
+router.post('/search', async function (req, res) {
+    try {
+      const postData = await sequelize.query(
+        `SELECT * 
+        FROM posts 
+        WHERE title LIKE "%`+req.body.title +`%" OR body LIKE "%`+req.body.body +`%"`,
+        {
+          type: QueryTypes.SELECT
+        }
+      );
+      if (postData.length == 0) {
+        return res.status(200).send({ id: 0, message: "No posts found." });
+      }
+      else {
+        return res.status(200).send(postData);
+      }
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  });
 
 module.exports = router;

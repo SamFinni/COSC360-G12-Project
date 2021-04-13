@@ -6,7 +6,7 @@ import Link from 'next/link';
 import axios from 'axios';
 import useLocalStorage from '../../functions/useLocalStorage';
 import * as cfg from '../../config';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 const backend = 'http://' + cfg.BACKEND_IP + ':' + cfg.BACKEND_PORT;
 
 const Header = dynamic(() => import('../../components/Header'), {
@@ -20,30 +20,29 @@ export default function NewPostPage() {
     const [auth, ] = useLocalStorage('auth', { email: null, uid: null, username: null, authkey: null });
     const [postTitle, setPostTitle] = useState('');
     const [postBody, setPostBody] = useState('');
-    const [errorMessage, showErrorMessage] = useState(false);
+    const [postId, setPostId] = useState('');
 
-    const error = errorMessage ? '' : `${styles.hidden}`;
-    const errorClass = `${styles.errorMessage} ${error}`;
+    const errorClass = `${styles.errorMessage} ${styles.hidden}`;
     
-    function createPost() {
+    function createPost(e) {
         const title = postTitle.trim();
         const body = postBody.trim();
         
-        // if title and body are empty - display a message and block
-        if (title == '' && body == '') {
-            alert("Don't post");
-            // display error message here by changing className
+        // if title and body are empty - display error message and block submission
+        if (title == '' || body == '') {
+            var errorMessage = document.getElementById("error-message");
+            errorMessage.classList.remove(`${styles.hidden}`);
+            e.preventDefault();
             return;
         }
 
+        // add new post
         axios.post(backend + '/post/add', {
             uid: auth.uid,
             title: title,
             body: body,
             tags: null
-        });
-        // Temporary success notifier:
-        alert("Post successfully created! :^)");
+        }).then(response => {setPostId(response.data[0])});
         setPostTitle('');
         setPostBody('');
     }
@@ -70,11 +69,10 @@ export default function NewPostPage() {
                         <textarea name="bodyPost" className={styles.bodyInput} value={postBody} onChange={(e) => setPostBody(e.target.value)}></textarea>
                     </div>
                     <div className={styles.submitSection}>
-                        {/* Redirect page to ViewPost page? */}
-                        {/* <Link href={`/success`}> */}
-                            <span className={errorClass} onChange={() => showErrorMessage()}>The post must have both a title and body.</span>
+                        <span className={errorClass} id="error-message">The post must have both a title and body.</span>
+                        <Link href={`/viewPost/${postId}`}>
                             <a className={styles.postButton} onClick={createPost}>Create Post</a>
-                        {/* </Link> */}
+                        </Link>
                     </div>
                 </div>
             </div>
