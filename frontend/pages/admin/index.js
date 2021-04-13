@@ -104,6 +104,19 @@ export default function AdminPage() {
 
 
 
+
+  //Reset to defaults
+  function handleReportReset(event){
+    event.preventDefault();
+    getReports();
+  }
+  function handleUserReset(event){
+    event.preventDefault();
+    getUsers();
+  }
+
+
+
   // RENDER ===============================================================================================================
 
   return (
@@ -118,7 +131,7 @@ export default function AdminPage() {
           <span className={styles.left}><h2 className={styles.title}>Users </h2></span>
           <span className={styles.right}><span className={styles.subtitle}>{users.length}</span> / {totalusers.length}</span>
           
-          <form onSubmit={handleUserSubmit}>
+          <form onSubmit={handleUserSubmit} className={styles.inline}>
             <input className={styles.textinput}
               type = "text"
               name = "input"
@@ -128,8 +141,14 @@ export default function AdminPage() {
               type = "submit"
               value = "Update"
             />
-            <hr className={styles.separator}></hr>
           </form>
+          <form onSubmit={handleUserReset} className={styles.inline}>
+            <input className={styles.textinput}
+              type = "submit"
+              value = "Reset"
+            />
+          </form>
+          <hr className={styles.separator}></hr>
 
             <div className={styles.users}>
               {users.map((user, idx) => (
@@ -143,7 +162,7 @@ export default function AdminPage() {
         <span className={styles.left}><h2 className={styles.title}>Reports </h2></span>
           <span className={styles.right}><span className={styles.subtitle}>{reports.length}</span> / {totalreports.length}</span>
 
-          <form onSubmit={handleReportSubmit}>
+          <form onSubmit={handleReportSubmit} className={styles.inline}>
             <input className={styles.textinput}
               type = "text"
               name = "input"
@@ -153,8 +172,14 @@ export default function AdminPage() {
               type = "submit"
               value = "Update"
             />
-            <hr className={styles.separator}></hr>
           </form>
+          <form onSubmit={handleReportReset} className={styles.inline}>
+            <input className={styles.textinput}
+              type = "submit"
+              value = "Reset"
+            />
+          </form>
+          <hr className={styles.separator}></hr>
 
             <div className={styles.report}>
               {reports.map((user, idx) => (

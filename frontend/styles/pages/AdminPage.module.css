@@ -54,6 +54,9 @@
 .left {
     float: left;
 }
+.inline {
+    display: inline;
+}
 
 .adminPanel {
     display: flex;
