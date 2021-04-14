@@ -5,17 +5,25 @@ import { IoIosArrowUp, IoIosArrowDown } from 'react-icons/io';
 import { HiShare } from 'react-icons/hi';
 import { toast } from 'react-toastify';
 
+// structure of a post:
+// post { pid, title, body, tags, createdAt, uid, username, image, score }
 export default function PostPreview({ data }) {
   const [score, setScore] = useState(0);
 
-  function updateScore(s) {
-    if (score == 0) setScore(s ? 1 : -1);
-    else if (score == 1) setScore(s ? 0 : -1);
-    else if (score == -1) setScore(s ? 1 : 0);
+  function updateScore(s){
+    if (score == 0){
+      setScore(s ? 1 : -1);
+    }
+    else if (score == 1){
+      setScore(s ? 0 : -1);
+    }
+    else if (score == -1){
+      setScore(s ? 1 : 0);
+    }
   }
 
   function getShareLink() {
-    navigator.clipboard.writeText(window.location.href + 'post/' + data.pid);
+    navigator.clipboard.writeText(window.location.href + 'viewPost/' + data.pid);
     toast("Post link copied to clipboard!");
   }
 
@@ -27,7 +35,7 @@ export default function PostPreview({ data }) {
         <Link href={`/user/${data.uid}`}>
           <a>
             <div className={styles.user}>
-              <img className={styles.pic} src={data.pic} />
+              <img className={styles.pic} src={data.image} alt="placeholder"/>
               <p className={styles.username}>@{data.username}</p>
             </div>
           </a>
@@ -52,7 +60,7 @@ export default function PostPreview({ data }) {
           <Link href={`/viewPost/${data.pid}`}>
             <a><h2 className={styles.title}>{data.title}</h2></a>
           </Link>
-          <p className={styles.date}>{data.date}</p>
+          <p className={styles.date}>{data.createdAt.substring(0,10)}</p>
         </div>
         <div className={styles.bodyContainer}>
           <div style={{ overflow: 'hidden', height: '100%', textOverflow: 'ellipsis' }}>

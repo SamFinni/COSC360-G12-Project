@@ -25,7 +25,6 @@ import styles from '../../styles/pages/AdminPage.module.css';
 import Footer from '../../components/Footer';
 import AdminReport from '../../components/AdminReport';
 import AdminUser from '../../components/AdminUser';
-import useLocalStorage from '../../functions/useLocalStorage';
 import axios from 'axios';
 import { useEffect, useState } from "react";
 import * as cfg from '../../config';

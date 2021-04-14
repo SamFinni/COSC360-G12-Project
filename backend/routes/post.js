@@ -94,4 +94,27 @@ router.post('/search', async function (req, res) {
     }
   });
 
+// get list of top posts ordered by rating and date
+router.post('/listTop', async function (req, res) {
+    try {
+        const postData = await sequelize.query(
+          `SELECT P.id AS pid, P.title, P.body, P.tags, P.createdAt, U.id AS uid, U.username, U.image, PS.score 
+          FROM posts P JOIN postscores PS ON P.id = PS.pid JOIN users U ON PS.uid = U.id 
+          ORDER BY PS.score DESC, P.createdAt DESC 
+          LIMIT 10`,
+          {
+            type: QueryTypes.SELECT
+          }
+        );
+        if (postData.length == 0) {
+          return res.status(200).send({ id: 0, message: "No posts found." });
+        }
+        else {
+          return res.status(200).send(postData);
+        }
+    } catch (error) {
+        res.status(500).send(error);
+    }
+});
+
 module.exports = router;

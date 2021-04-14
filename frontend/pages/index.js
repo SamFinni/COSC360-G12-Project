@@ -22,12 +22,21 @@ const Navbar = dynamic(() => import('../components/Navbar'), {
   ssr: false
 });
 
-export default function HomePage(props) {
+export default function HomePage() {
 
+  // structure of a post in posts:
+  // post { pid, title, body, tags, createdAt, uid, username, image, score }
   const [posts, setPosts] = useState([]); // Currently displayed posts
+
+  // Get top posts and setPosts to top posts
   async function getPosts() {
-    await axios.post(backend + '/post/list').then(data => setPosts(data.data.list));
+    await axios.post(backend + '/post/listTop').then(data => setPosts(data.data));
   }
+  useEffect(() => {
+    getPosts();
+  }, []);
+
+  console.log(posts);
   
   return (
     <div className={styles.page}>
@@ -40,32 +49,15 @@ export default function HomePage(props) {
 
       <div className={styles.container}>
         <div className={styles.postlist}>
-          {props.posts.map((post, idx) => (
+          
+          {posts.map((post, idx) => (
             <PostPreview key={`postpreview-${idx}`} data={post} />
           ))}
+          
         </div>
       </div>
 
       <Footer />
     </div>
   )
-}
-
-export async function getStaticProps() {
-  const posts = [
-    { pid: 1647, title: "Blog Post Title",
-    body: `	Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-    Vestibulum sed arcu non odio euismod lacinia at quis risus. Vulputate dignissim suspendisse in est ante in. Mattis ullamcorper velit sed ullamcorper morbi tincidunt ornare massa. Tincidunt tortor aliquam nulla facilisi cras fermentum odio eu. At erat pellentesque adipiscing commodo elit at. In nibh mauris cursus mattis. Magnis dis parturient montes nascetur ridiculus mus mauris vitae. Id nibh tortor id aliquet lectus. Enim nec dui nunc enim ut. Elementum facilisis leo vel fringilla est ullamcorper eget dui sapien eget mi proin. Faucibus purus in massa... `,
-    score: 226, date: 'Sep. 23, 2020', uid: 132624, username: "KangaRupert", pic: "/pic1.png" },
-    { pid: 1634, title: "VeryVeryVeryVeryVeryVeryVeryVeryVery Long and Wordy Blog Post Title",
-    body: `	Elit sed vulputate mi sit. Posuere sollicitudin aliquam ultrices sagittis orci a scelerisque purus semper. Sit amet risus nullam eget felis eget. Leo vel fringilla est ullamcorper eget. Leo in vitae turpis massa sed elementum tempus egestas sed. Consectetur adipiscing elit duis tristique sollicitudin nibh. Egestas congue quisque egestas diam in arcu cursus euismod. Aliquam purus sit amet luctus venenatis lectus magna fringilla. Ultrices dui sapien eget mi proin. Faucibus purus in massa tempor nec feugiat nisl pretium. Tellus elementum sagittis vitae et leo duis ut. Eget egestas purus viverra accumsan in nisl nisi scelerisque. Feugiat nisl pretium fusce id velit ut tortor pretium. Et tortor at risus viverra adipiscing at in tellus integer. Etiam sit amet nisl purus in mollis nunc sed id. Hac habitasse platea dictumst quisque. Convallis tellus id interdum velit laoreet id donec ultrices tincidunt.
-    Scelerisque in dictum non consectetur a. Potenti nullam ac tortor vitae. Gravida quis blandit turpis cursus. Et netus et malesuada fames ac...`,
-    score: 3, date: 'Aug. 8, 2020', uid: 458543, username: "HenryHops", pic: "/pic2.png" }
-  ];
-
-  return {
-    props: {
-      posts
-    }
-  }
 }
