@@ -78,6 +78,25 @@ export default function Signup(props) {
   function validateForm() {
     return username.length > 0 && password.length > 0 && email.length > 0;
   }
+  function fileToDataUri(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        resolve(event.target.result);
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+  function handlePic(file) {
+    console.log(file);
+    if (!file) {
+      setPic("");
+      return;
+    }
+    fileToDataUri(file).then((pic) => {
+      setPic(pic);
+    });
+  }
 
   function submitHandler() {
     if (!validateForm()) {
@@ -109,8 +128,7 @@ export default function Signup(props) {
               <input
                 id="pic"
                 type="file"
-                value={pic}
-                onChange={(e) => setPic(e.target.files[0])}
+                onChange={(e) => handlePic(e.target.files[0])}
               ></input>
             </div>
             <div className={styles.input}>
@@ -140,7 +158,7 @@ export default function Signup(props) {
               ></input>
             </div>{" "}
             <div className={styles.input}>
-              <label fhtmlForor="bio" className={styles.label}>
+              <label htmlFor="bio" className={styles.label}>
                 <b>Bio</b>
               </label>
               <textarea

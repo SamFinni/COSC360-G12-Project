@@ -25,12 +25,35 @@ export default function Profile({ data }) {
     console.log(userData);
     setUsername(userData.data[0].username);
     setBio(userData.data[0].bio);
+    setPic(userData.data[0].image);
+    
+    console.log(userData.data[0].image);
+  }
+  function fileToDataUri(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        resolve(event.target.result);
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+  function handlePic(file) {
+    console.log(file);
+    if (!file) {
+      setPic("");
+      return;
+    }
+    fileToDataUri(file).then((pic) => {
+      setPic(pic);
+    });
   }
   async function updateUserData() {
     const userData = await axios.post(backend + "/user/updateUser", {
       uid: auth.uid,
       bio,
       username,
+      pic,
     });
     console.log(userData);
     await setAuth({ ...auth, username });
@@ -62,8 +85,7 @@ export default function Profile({ data }) {
           <input
             id="pic"
             type="file"
-            value={pic}
-            onChange={(e) => setPic(e.target.files[0])}
+            onChange={(e) => handlePic(e.target.files[0])}
           ></input>
         </div>
         <div className={styles.input}>

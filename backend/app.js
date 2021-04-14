@@ -21,7 +21,7 @@ app.use(cors());
 app.use(helmet());
 
 // to parse JSON into JS objects
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '10mb'}));
 
 // to log HTTP requests
 app.use(morgan('combined'));
