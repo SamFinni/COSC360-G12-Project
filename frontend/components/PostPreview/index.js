@@ -42,11 +42,11 @@ export default function PostPreview({ data }) {
         </Link>
         <div className={styles.interact}>
           <div className={styles.score}>
-            <div className={styles.arrow} onClick={() => updateScore(true)}>
+            <div className={styles.uparrow} onClick={() => updateScore(true)}>
               <IoIosArrowUp style={score == 1 ? scoreHighlight : {}} size={'2em'} />
             </div>
             <p className={styles.scoreText}>{data.score + score}</p>
-            <div className={styles.arrow} onClick={() => updateScore(false)}>
+            <div className={styles.downarrow} onClick={() => updateScore(false)}>
               <IoIosArrowDown style={score == -1 ? scoreHighlight : {}} size={'2em'} />
             </div>
           </div>

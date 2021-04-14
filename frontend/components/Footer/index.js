@@ -37,7 +37,7 @@ export default function Footer() {
         <Link href="/contact">
           <a>Contact Us</a>
         </Link>
-        <Link href="/admin"><a>{adminLink}</a></Link>
+        <Link href="/admin"><b>{adminLink}</b></Link>
       </div>
     </>
   );

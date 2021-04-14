@@ -2,10 +2,15 @@
   display: flex;
   background: #FFFFFF;
   border-radius: 16px;
-  margin-top: 4em;
+  margin-top: 1em;
+  margin-bottom: 2em;
   padding: 1em 0;
-  box-shadow: 0 0 6px gray;
+  box-shadow: 0 0 4px gray;
   color: #616161;
+}
+.container:hover {
+  transition: 0.1s;
+  box-shadow: 0 0 8px rgb(89, 99, 104);
 }
 
 .left {
@@ -50,28 +55,39 @@
 .scoreText {
   font-size: 1.5em;
   font-weight: bold;
-  color: #ee8e67;
+  color: #5da4ce;
   margin: 0;
 }
 
-.arrow {
-  color: #ee8e67;
+.uparrow {
+  color: #939d9e;
   height: 2em;
   cursor: pointer;
 }
+.uparrow:hover {
+  color: #82cbd3;
+  filter: drop-shadow(0 0 3px rgb(41, 165, 155));
+}
 
-.arrow:hover {
-  filter: drop-shadow(0 0 4px rgb(167, 238, 232));
+.downarrow {
+  color: #939d9e;
+  height: 2em;
+  cursor: pointer;
+}
+.downarrow:hover {
+  color: #e7b282;
+  filter: drop-shadow(0 0 3px rgb(185, 102, 46));
 }
 
 .share {
   margin: auto 0;
-  color: #ee8e67;
+  color: #67c8ee;
   cursor: pointer;
 }
 
 .share:hover {
-  filter: drop-shadow(0 0 4px rgb(167, 238, 232));
+  color: #5ae5fd;
+  filter: drop-shadow(0 0 4px rgb(63, 136, 132));
 }
 
 
@@ -110,28 +126,29 @@
 
 .bodyContainer {
   background: #FFFFFF;
-  border-radius: 16px;
+  border-radius: 0.5em;
   padding: 0.8em 1em 1em 1em;
-  margin: 1em 3em 0 0;
-  border: 1px solid #CCCCCC;
+  margin: 1em 1em 0 0;
+  border: 1px solid #e4e4e4;
   max-height: 10em;
   overflow: hidden;
 }
 
 .body {
   font-family: PTSerif;
+  text-align: left;
   margin: 0;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .readMore {
-  border: 2px solid #ee8e67;
-  color: #ee8e67;
+  border: 1px solid #67c8ee;
+  color: #48a8af;
   padding: 0.5em 1em;
-  margin: 1em 3em 0 0;
+  margin: 1em 1em 0 0;
   float: right;
-  border-radius: 2em;
+  border-radius: 0.5em;
   box-shadow: 0 0 6px gray;
   font-weight: bold;
   user-select: none;
@@ -139,5 +156,6 @@
 
 .readMore:hover {
   background: rgb(255,255,255);
-  background: linear-gradient(225deg, rgba(255,255,255,1) 0%, rgba(167,238,232,1) 75%);
+  background: linear-gradient(225deg, rgba(255,255,255,1) 0%, rgb(227, 255, 252) 75%);
+  filter: drop-shadow(0 0 4px rgb(160, 207, 203));
 }
