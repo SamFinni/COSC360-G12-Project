@@ -35,8 +35,6 @@ export default function HomePage() {
   useEffect(() => {
     getPosts();
   }, []);
-
-  console.log(posts);
   
   return (
     <div className={styles.page}>

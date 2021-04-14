@@ -30,21 +30,20 @@ export default function PostPreview({ data }) {
     else if (scoreChange == -1) setScoreChange(s ? 1 : 0);
     updateDatabaseScore();
   }
-  //================================================================CURRENT ISSUE=============================
+
   function updateDatabaseScore() {
     console.log(score+scoreChange);
+    
+    /*
     const pid = data.pid;
     const newScore = score+scoreChange;
-    // Search for users with input anywhere in username or email
-    // issues:
-    //    newScore is 1 update old
-    //    updatePostScore sends error 500 
     axios.post(backend + "/postscore/updatePostScore", {
       pid,
       newScore,
     })
+    */
   }
-  //==========================================================================================================
+
   function getShareLink() {
     navigator.clipboard.writeText(window.location.href + 'viewPost/' + data.pid);
     toast("Post link copied to clipboard!");
