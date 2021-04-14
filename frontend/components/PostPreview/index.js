@@ -15,33 +15,44 @@ export default function PostPreview({ data }) {
 
   const [scoreChange, setScoreChange] = useState(0); // the change in score when voting
   const [score, setScore] = useState(0); // the score of the post considering votes
+  const [initialScore, setInitialScore] = useState(0);
 
   async function initializeScore() {
     setScore(data.score);
+    setInitialScore(data.score);
   }
   useEffect(() => {
     initializeScore();
   }, []);
 
   function updateScore(s) {
+    var immediateScore = data.score;
     // change/reset scoreChange arrows
     if (scoreChange == 0) setScoreChange(s ? 1 : -1);
     else if (scoreChange == 1) setScoreChange(s ? 0 : -1);
     else if (scoreChange == -1) setScoreChange(s ? 1 : 0);
-    updateDatabaseScore();
+    // change/reset score value for display and database
+    if(s){
+      if(scoreChange == 0 || scoreChange == -1)
+        setScore(immediateScore = initialScore+1);
+      else
+        setScore(immediateScore = initialScore);
+    }else{
+      if(scoreChange == 0 || scoreChange == 1)
+        setScore(immediateScore = initialScore-1);
+      else
+        setScore(immediateScore = initialScore);
+    }
+    updateDatabaseScore(immediateScore);
   }
 
-  function updateDatabaseScore() {
-    console.log(score+scoreChange);
-    
-    /*
+  function updateDatabaseScore(immediateScore) {
     const pid = data.pid;
-    const newScore = score+scoreChange;
+    const newScore = immediateScore;
     axios.post(backend + "/postscore/updatePostScore", {
       pid,
       newScore,
     })
-    */
   }
 
   function getShareLink() {
@@ -68,7 +79,7 @@ export default function PostPreview({ data }) {
             <div className={styles.uparrow} onClick={() => updateScore(true)}>
               <IoIosArrowUp style={scoreChange == 1 ? scoreHighlightUp : {}} size={'2em'} />
             </div>
-            <p className={styles.scoreText}>{score+scoreChange}</p>
+            <p className={styles.scoreText}>{score}</p>
             <div className={styles.downarrow} onClick={() => updateScore(false)}>
               <IoIosArrowDown style={scoreChange == -1 ? scoreHighlightDown : {}} size={'2em'} />
             </div>
