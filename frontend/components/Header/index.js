@@ -16,7 +16,7 @@ export default function Header() {
         </Link>
         <Searchbar />
       </div>
-      <Notifications />
+      { auth.uid != null ? <Notifications /> : null }
     </>
   );
 }

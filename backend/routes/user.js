@@ -45,6 +45,7 @@ router.post('/listDisabledAndAdmin', async function (req, res) {
     return res.status(500).send({ id: 0, message: error.message });
   }
 });
+
 // get user data
 router.post('/getUser', async function (req, res) {
   console.log(req.body); // will display { blogID: 2632 } in console, as sent by frontend/pages/user in the selectAPI() function
@@ -282,8 +283,6 @@ router.post('/updateDisabled', async function (req, res) {
   }
 });
   
-
-
 // delete
 router.post('/delete', async function (req, res) {
   try {
@@ -316,7 +315,6 @@ router.post('/search', async function (req, res) {
     res.status(500).send(error);
   }
 });
-
 
 // search for user with *like* username/email
 // Used for user lookup

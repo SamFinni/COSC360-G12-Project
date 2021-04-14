@@ -16,6 +16,8 @@ export default function Footer() {
 
   function getThisUser(){
     var uid = auth.uid;
+    if (!uid) return;
+    
     axios.post(backend + '/user/status', {
       uid,
     }).then(data => authenticate(data.data[0].admin));
