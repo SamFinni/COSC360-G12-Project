@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import useLocalStorage from '../../functions/useLocalStorage';
 import styles from '../../styles/components/Header.module.css';
-import Searchbar from '../Searchbar';
 import Notifications from '../Notifications';
 
 export default function Header() {
@@ -14,7 +13,6 @@ export default function Header() {
         <Link href="/">
           <a><img className={styles.logo} src="./logo.png" /></a>
         </Link>
-        <Searchbar />
       </div>
       { auth.uid != null ? <Notifications /> : null }
     </>

@@ -25,8 +25,7 @@
     width: 100%;
     background: #FFFFFF;
     border-radius: 16px;
-    margin: 2em auto;
-    
+    margin: 0.5em auto;
     box-shadow: 0 0 6px gray;
     color: #616161;
 }
@@ -37,6 +36,9 @@
 }
 
 .results {
-    padding: 2em;
+    padding-top: 1em;
+}
+
+.hidden {
     display: none;
 }

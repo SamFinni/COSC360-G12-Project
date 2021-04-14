@@ -13,6 +13,21 @@
 
 .container a {
   margin-left: 3em;
-  font-size: 0.9em;
+  font-size: 1em;
   font-weight: bold;
+  font-variant: small-caps;
+}
+.container a:hover {
+  filter: drop-shadow(0px 0px 3px rgb(255, 211, 129));
+}
+.container b {
+  margin-left: 3em; 
+  font-size: 1em;
+  font-weight: bold;
+  font-style: italic;
+  font-variant: small-caps;
+}
+.container b:hover {
+  cursor: pointer;
+  filter: drop-shadow(0px 0px 3px rgb(255, 211, 129));
 }

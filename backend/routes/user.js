@@ -433,8 +433,7 @@ router.post("/status", async function (req, res) {
         type: QueryTypes.SELECT,
       }
     );
-    console.log(userData);
-    res.status(200).send(userData);
+    return res.status(200).send(userData);
   } catch (error) {
     res.status(500).send(error);
   }

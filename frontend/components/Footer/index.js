@@ -1,8 +1,33 @@
 import Link from 'next/link';
 import styles from '../../styles/components/Footer.module.css';
+import { useEffect, useState } from "react";
+import useLocalStorage from '../../functions/useLocalStorage';
+import axios from 'axios';
+const backend = 'http://' + cfg.BACKEND_IP + ':' + cfg.BACKEND_PORT;
+import * as cfg from '../../config';
 
-export default function Header() {
-  return (
+export default function Footer() {
+
+  const [adminLink, setAdminLink] = useState([]);
+
+  // Auth: check if user is an admin
+  const [auth, setAuth] = useLocalStorage('auth');  // auth info: { email, uid, username, authkey }
+  useEffect(() => getThisUser(), [auth]);
+
+  function getThisUser(){
+    var uid = auth.uid;
+    if (!uid) return;
+    
+    axios.post(backend + '/user/status', {
+      uid,
+    }).then(data => authenticate(data.data[0].admin));
+  }
+  function authenticate(admin){
+    console.log(admin);
+    if(admin == 1) setAdminLink("Admin");
+  }
+
+  return(
     <>
       <div className={styles.container}>
         <Link href="/pp">
@@ -14,13 +39,7 @@ export default function Header() {
         <Link href="/contact">
           <a>Contact Us</a>
         </Link>
-
-      { /*============================================================
-          TODO: Make this link ONLY visible when logged in as an admin
-          ============================================================*/}
-        <Link href="/admin">
-          <a>Admin</a>
-        </Link>
+        <Link href="/admin"><b>{adminLink}</b></Link>
       </div>
     </>
   );
