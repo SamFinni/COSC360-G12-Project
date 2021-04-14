@@ -75,15 +75,15 @@ router.post('/remove', async function (req, res) {
 // search for posts
 router.post('/search', async function (req, res) {
     try {
-      const postData = await sequelize.query(
-        `SELECT P.id AS pid, P.title, P.body, P.createdAt, U.id AS uid, U.username, U.image, PS.score 
-        FROM posts P JOIN users U ON P.uid = U.id JOIN postscores PS ON P.id = PS.pid 
-        WHERE P.title LIKE "%`+req.body.query+`%" OR P.body LIKE "%`+req.body.query+`%" OR U.username LIKE "%`+req.body.query+`%"`,
-        {
-          type: QueryTypes.SELECT
-        }
-      );
-      return res.status(200).send(postData);
+        const postData = await sequelize.query(
+            `SELECT P.id AS pid, P.title, P.body, P.createdAt, U.id AS uid, U.username, U.image, PS.score 
+            FROM posts P JOIN users U ON P.uid = U.id JOIN postscores PS ON P.id = PS.pid 
+            WHERE P.title LIKE "%`+req.body.query+`%" OR P.body LIKE "%`+req.body.query+`%" OR U.username LIKE "%`+req.body.query+`%"`,
+            {
+                type: QueryTypes.SELECT
+            }
+        );
+        return res.status(200).send(postData);
     } catch (error) {
       res.status(500).send(error);
     }

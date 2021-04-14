@@ -52,4 +52,21 @@ router.post('/update', async function (req, res) {
     }
 });
 
+// update a post score
+router.post('/updatePostScore', async function (req, res) {
+    try {
+        const updateScore = await sequelize.query(
+            `UPDATE postscores 
+            SET score = `+req.body.newScore+` 
+            WHERE pid = `+req.body.pid+`;`,
+          {
+            type: QueryTypes.UPDATE
+          }
+        );
+        return res.status(200).send(updateScore);
+    } catch (error) {
+        res.status(500).send(error);
+    }
+});
+
 module.exports = router;
