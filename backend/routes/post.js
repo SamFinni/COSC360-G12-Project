@@ -31,16 +31,25 @@ router.post('/list', async function (req, res) {
 // add a post
 router.post('/add', async function (req, res){
     const { uid, title, body, tags } = req.body;
-
     if (!uid || !title || !body) return res.status(500).send({ id: 1, message: "`uid`, `title`, or `body` missing from body" });
-
+    
     try {
+        // add post
         const postData = await sequelize.query(
             `INSERT INTO posts (uid, title, body, tags)
             VALUES (`+uid+`, "`+title+`", "`+body+`", "`+tags+`")`,
             { type: QueryTypes.INSERT }
         );
-        return res.status(200).send(postData);
+
+        // add postscores based on the post inserted above ^
+        const pid = postData[0]; // id of the post just inserted. This will match the id of it's postscores entry.  Yes- this is dumb as shit but we got 2 days to go. Just pretend we haven't taken any database courses :^)
+        const postscoreData = await sequelize.query(
+            `INSERT INTO postscores (pid, uid, score)
+            VALUES (`+pid+`, "`+uid+`", "1")`,
+            { type: QueryTypes.INSERT }
+        );
+
+    return res.status(200).send(postData + "\n" + postscoreData);
     } catch (error) {
         res.status(500).send({ id: 0, message: error.message });
     }
