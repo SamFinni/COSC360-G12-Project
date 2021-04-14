@@ -4,40 +4,56 @@ import styles from '../../styles/pages/SearchPage.module.css';
 import sbStyles from '../../styles/components/PageSearchbar.module.css';
 import Footer from '../../components/Footer';
 import PostPreview from '../../components/PostPreview';
-import { useState } from 'react';
+import { withRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import { BiSearch } from 'react-icons/bi';
 import axios from 'axios';
 import * as cfg from '../../config';
 const backend = 'http://' + cfg.BACKEND_IP + ':' + cfg.BACKEND_PORT;
 
-const Header = dynamic(() => import('../../components/Header'), {
+const Header = dynamic(() => import('../../components/SearchPageHeader'), {
   ssr: false
 });
 const Navbar = dynamic(() => import('../../components/Navbar'), {
   ssr: false
 });
 
-export default function SearchPage() {
+function SearchPage({ router }) {
   const [query, setQuery] = useState('');
   const [posts, setPosts] = useState([]);
   const resultsClass = `${styles.results} ${styles.hidden}`;
+  async function getPosts(){
+    await axios.post(backend + '/post/search', {
+      query: router.query.searchQuery
+    }).then(response => getResults(response.data, router.query.searchQuery));
+  }
 
+  useEffect(() => {
+    if(typeof router.query.searchQuery !== 'undefined'){
+      console.log(router.query.searchQuery);
+      getPosts();
+    }
+  }, []);
+  
   function submit() {
     if (query == '') return;
     axios.post(backend + "/post/search", {
       query
-    }).then(response => {
-      if (response.data.length === 0) {
-        document.getElementById("error-message").classList.remove(`${styles.hidden}`);
-      }else{
-        document.getElementById("error-message").classList.add(`${styles.hidden}`);
-      }
-      var resultsContainer = document.getElementById("search-results");
-      if (resultsContainer.classList.contains(`${styles.hidden}`)) {
-        resultsContainer.classList.remove(`${styles.hidden}`);
-      }
-      setPosts(response.data);
-    });
+    }).then(response => getResults(response.data, query));
+  }
+
+  function getResults(data, searchQuery){
+    document.getElementById("results-header").innerHTML = "Results for '" + searchQuery + "'";
+    if (data.length === 0) {
+      document.getElementById("error-message").classList.remove(`${styles.hidden}`);
+    }else{
+      document.getElementById("error-message").classList.add(`${styles.hidden}`);
+    }
+    var resultsContainer = document.getElementById("search-results");
+    if (resultsContainer.classList.contains(`${styles.hidden}`)) {
+      resultsContainer.classList.remove(`${styles.hidden}`);
+    }
+    setPosts(data);
   }
 
   return (
@@ -76,13 +92,13 @@ export default function SearchPage() {
               </div>
           </div>
           <div className={resultsClass} id="search-results">
-            <h2>Results</h2>
+            <h2 id="results-header">Results</h2>
               <div id="results">
                 {posts.map((post, index) => (
                   <PostPreview key={`postpreview-${index}`} data={post} />
                 ))}
               </div>
-              <p className={styles.hidden} id="error-message">We couldn't find a match for you search. Please try another search.</p>
+              <p className={styles.hidden} id="error-message">We couldn't find a match for your search. Please try another search.</p>
           </div>
       </div>
 
@@ -90,3 +106,5 @@ export default function SearchPage() {
     </div>
   )
 }
+
+export default withRouter(SearchPage)

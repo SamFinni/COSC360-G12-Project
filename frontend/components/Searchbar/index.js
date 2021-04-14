@@ -9,7 +9,10 @@ export default function Searchbar() {
 
   function submit() {
     if (query == '') return;
-    router.push('/search/' + query);
+    router.push({
+      pathname: '/search',
+      query: { searchQuery: query }
+    });
   }
 
   return (
