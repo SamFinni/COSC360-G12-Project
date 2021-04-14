@@ -58,7 +58,7 @@ router.post("/getUser", async function (req, res) {
         type: QueryTypes.SELECT,
       }
     );
-    console.log(userData[0].image);
+    //console.log(userData[0].image);
     var buffer = Buffer.from(userData[0].image, 'binary');
     userData[0].image = buffer.toString("base64");
     res.status(200).send(userData);

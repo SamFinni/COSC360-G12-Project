@@ -53,6 +53,7 @@ export default function Profile({ data }) {
       uid: auth.uid,
       bio,
       username,
+      pic,
     });
     console.log(userData);
     await setAuth({ ...auth, username });
