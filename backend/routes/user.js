@@ -45,10 +45,9 @@ router.post("/listDisabledAndAdmin", async function (req, res) {
     return res.status(500).send({ id: 0, message: error.message });
   }
 });
+
 // get user data
 router.post("/getUser", async function (req, res) {
-  console.log(req.body); // will display { blogID: 2632 } in console, as sent by frontend/pages/user in the selectAPI() function
-
   try {
     const userData = await sequelize.query(
       `SELECT username, bio, image 
@@ -58,12 +57,9 @@ router.post("/getUser", async function (req, res) {
         type: QueryTypes.SELECT,
       }
     );
-    //console.log(userData[0].image);
-    var buffer = Buffer.from(userData[0].image, 'binary');
-    userData[0].image = buffer.toString("base64");
+    userData[0].image = userData[0].image.toString();
     res.status(200).send(userData);
   } catch (error) {
-    console.log(error);
     res.status(500).send(error);
   }
 });
@@ -239,7 +235,9 @@ router.post("/insertUser", async function (req, res) {
         {
           type: QueryTypes.INSERT,
         }
-      );
+      ).catch((error) => {
+        res.status(500).send(error);
+      })
       res.status(200).send(userData);
     });
     // can modify/parse/do whatever with 'user' here before sending it back
@@ -285,8 +283,6 @@ router.post("/select", async function (req, res) {
 
 // update
 router.post("/updateUser", async function (req, res) {
-  console.log(req.body); // will display { blogID: 2632 } in console, as sent by frontend/pages/user in the selectAPI() function
-
   try {
     // can modify/parse/do whatever with 'user' here before sending it back
     const userData = await sequelize.query(

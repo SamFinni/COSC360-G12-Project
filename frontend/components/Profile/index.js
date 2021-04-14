@@ -25,7 +25,7 @@ export default function Profile({ data }) {
     console.log(userData);
     setUsername(userData.data[0].username);
     setBio(userData.data[0].bio);
-    setPic("data:image/jpeg;base64,"+userData.data[0].image);
+    setPic(userData.data[0].image);
     
     console.log(userData.data[0].image);
   }

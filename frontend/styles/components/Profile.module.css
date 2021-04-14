@@ -6,8 +6,9 @@
   }
   
   .pic {
-   display: inline;
+    display: inline;
     width: 300px;
+    aspect-ratio: 1;
     border-radius: 300px;
     box-shadow: 1px 1px 6px gray;
     margin-bottom: 0.5em;
@@ -33,16 +34,15 @@
     margin-top: 2em;
   }
   .content {
-    display: flex;
+    display: inline-flex;
     flex-wrap: wrap;
-    width: 75%;
     background: #FFFFFF;
     border-radius: 16px;
     margin: 4em auto;
     padding: 2em;
     box-shadow: 0 0 6px gray;
     color: #616161;
-    min-width: 75%;
+    min-width: 25em;
 }
 .label {
   display: inline;
