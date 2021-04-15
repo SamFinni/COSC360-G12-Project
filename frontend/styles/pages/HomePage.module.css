@@ -7,8 +7,10 @@
 }
 
 .container {
+  border-radius: 0.5em;
   width: 60%;
   margin: auto;
+  margin-bottom: 2em;
   background-color: #f5f5f5;
   padding: 1em 1em 4em 1em;
   text-align: center;
@@ -27,7 +29,36 @@
 .container::-webkit-scrollbar-thumb {
   background-color: rgb(206, 206, 206);    /* color of the scroll thumb */
 }
+
+.container::-webkit-scrollbar-thumb {
+  background-color: rgb(206, 206, 206);    /* color of the scroll thumb */
+}
 .postlist {
   width: 100%;
 }
 
+.form {
+  float: right;
+  font-size: larger;
+}
+.select {
+  font-size: large;
+  color: rgb(75, 75, 75);
+  border: 1px solid rgb(141, 164, 175);
+  box-shadow: 0 0 2px rgb(141, 160, 175);
+}
+.select:hover  {
+  border: 1px solid rgb(90, 149, 167);
+  box-shadow: 0 0 2px rgb(62, 86, 104);
+  background-color: #f5f5f5;
+}
+.button {
+  border: 1px solid rgb(161, 161, 161);
+  font-size: 100%;
+  background-color: white;
+}
+.button:hover  {
+  border: 1px solid rgb(90, 149, 167);
+  box-shadow: 0 0 2px rgb(62, 86, 104);
+  background-color: #f5f5f5;
+}

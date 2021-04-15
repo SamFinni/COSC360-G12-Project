@@ -35,6 +35,9 @@ export default function PostPreview({ data }) {
     else signedIn = false;
   }
   async function initializeScore() {
+    setInitialScore(0);
+    setScore(0);
+    setScoreChange(0);
     setScore(data.score);
     setInitialScore(data.score);
   }
@@ -58,15 +61,21 @@ export default function PostPreview({ data }) {
       else if (scoreChange == -1) setScoreChange(s ? 1 : 0);
       // change/reset score value for display and database
       if(s){
-        if(scoreChange == 0 || scoreChange == -1)
+        if(scoreChange == 0 || scoreChange == -1){
           setScore(immediateScore = initialScore+1);
-        else
+          data.score = initialScore+1;
+        }else{
           setScore(immediateScore = initialScore);
+          data.score = initialScore;
+        }
       }else{
-        if(scoreChange == 0 || scoreChange == 1)
+        if(scoreChange == 0 || scoreChange == 1){
           setScore(immediateScore = initialScore-1);
-        else
+          data.score = initialScore-1;
+        }else{
           setScore(immediateScore = initialScore);
+          data.score = initialScore;
+        }
       }
       updateDatabaseScore(immediateScore);
     }
@@ -104,15 +113,15 @@ export default function PostPreview({ data }) {
         <div className={styles.interact}>
           <div className={styles.score}>
             <div className={styles.uparrow} onClick={() => updateScore(true)}>
-              <IoIosArrowUp style={scoreChange == 1 ? scoreHighlightUp : {}} size={'2em'} />
+              <IoIosArrowUp style={scoreChange == 1 ? scoreHighlightUp : {}} size={'1.5em'} />
             </div>
-            <p className={styles.scoreText}>{score}</p>
+            <p className={styles.scoreText}>{data.score}</p>
             <div className={styles.downarrow} onClick={() => updateScore(false)}>
-              <IoIosArrowDown style={scoreChange == -1 ? scoreHighlightDown : {}} size={'2em'} />
+              <IoIosArrowDown style={scoreChange == -1 ? scoreHighlightDown : {}} size={'1.5em'} />
             </div>
           </div>
           <div className={styles.share} onClick={() => getShareLink()}>
-            <HiShare size={'3em'} />
+            <HiShare size={'2em'} />
           </div>
         </div>
       </div>
