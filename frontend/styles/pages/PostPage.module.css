@@ -49,7 +49,6 @@
 
 .user {
     text-align: center;
-    cursor: pointer;
     margin: 0em 1em 1em 1em;
 }
 
@@ -58,12 +57,14 @@
     border-radius: 128px;
     box-shadow: 1px 1px 6px gray;
     margin-bottom: 0.5em;
+    cursor: pointer;
 }
 
 .username {
     margin: 0;
     padding: 0;
     word-wrap: break-word;
+    cursor: pointer;
 }
 
 .date {
@@ -145,7 +146,7 @@
 
 .toast.info {
     width: 100%;
-  }
+}
 
 .commentContent {
     display: flex;
@@ -174,8 +175,11 @@
 }
 
 .addComment {
+    border-top: 1px solid #CCCCCC;
     width: 100%;
     display: flex;
+    padding-top: 1em;
+    margin-top: 1em;
     flex-direction: column;
 }
 
@@ -183,6 +187,10 @@
     resize: vertical;
     min-height: 10em;
     margin: 1em 0em;
+}
+
+.commentList {
+
 }
 
 .adminbutton {
