@@ -166,6 +166,7 @@ export default function Post() {
             uid: auth.uid,
             reason : reason,
         });
+        toast('Report submitted');
     }
 
 
