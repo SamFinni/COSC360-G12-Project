@@ -70,7 +70,7 @@ export default function NewPostPage() {
                     </div>
                     <div className={styles.submitSection}>
                         <span className={errorClass} id="error-message">The post must have both a title and body.</span>
-                        <Link href={`/viewPost/${postId}`}>
+                        <Link href={`/post/${postId}`}>
                             <a className={styles.postButton} onClick={createPost}>Create Post</a>
                         </Link>
                     </div>

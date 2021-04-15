@@ -4,27 +4,22 @@ const sequelize = require('../db/sequelize');
 const router = express.Router();
 const Post = require('../models/post.model');
 
-// get list of posts
-router.post('/list', async function (req, res) {
-    const { uid } = req.body;
-
-    if (!uid) return res.status(500).send({ id: 1, message: "`uid` missing from body" });
+// get post
+router.post('/getPost', async function (req, res) {
+    const { id } = req.body;
 
     try {
-        // make sure uid user exists
-        const uidUser = await User.findAll({
-            attributes: [ 'id' ],
-            where: { id: uid },
-        });
-        if (uidUser.length == 0) return res.status(500).send({ id: 3, message: "`uid` user does not exist" });
-
-        const postList = await sequelize.query(
-            //TODO
+        const data = await sequelize.query(
+            `SELECT P.id AS pid, P.title, P.body, P.createdAt, U.id AS uid, U.username, U.image, PS.score 
+            FROM posts P JOIN users U ON P.uid = U.id JOIN postscores PS ON P.id = PS.pid 
+            WHERE P.id = ` + id + ``,
+            {
+                type: QueryTypes.SELECT
+            }
         );
-
-        res.status(200).send({id: 0, list: postList});
+        return res.status(200).send(data);
     } catch (error) {
-        res.status(500).send({id: 0, message: error});
+      res.status(500).send(error);
     }
 });
 
