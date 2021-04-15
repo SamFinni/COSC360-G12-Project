@@ -136,11 +136,13 @@
 }
 
 .body {
+  min-height: 5.5em;
   font-family: PTSerif;
   text-align: left;
   margin: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
 }
 
 .readMore {
