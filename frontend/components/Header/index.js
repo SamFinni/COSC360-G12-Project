@@ -12,7 +12,7 @@ export default function Header() {
       <div className={styles.container}>
         { auth.email != null ? <p className={styles.name}>Logged in as: <Link href='/profile'><a><b>@{auth.username}</b></a></Link></p> : <></> }
         <Link href="/">
-          <a><img className={styles.logo} src="./logo.png" /></a>
+          <a><img className={styles.logo} src="../logo.png" /></a>
         </Link>
         <Searchbar />
       </div>
