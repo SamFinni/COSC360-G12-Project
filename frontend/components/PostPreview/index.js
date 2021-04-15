@@ -20,12 +20,13 @@ export default function PostPreview({ data }) {
 
   // Auth: check if user is signed in
   const [auth, setAuth] = useLocalStorage('auth');  // auth info: { email, uid, username, authkey }
-
+  const [pic, setPic] = useState("");
 
 
   var signedIn = false;
   useEffect(() => {
     initializeScore();
+    getUserData();
   }, []);
   checkUserSignedIn();
 
@@ -37,6 +38,13 @@ export default function PostPreview({ data }) {
     setScore(data.score);
     setInitialScore(data.score);
   }
+  async function getUserData() {
+    const userData = await axios.post(backend + "/user/getUser", {
+      uid: data.uid,
+    });
+    setPic(userData.data[0].image);
+  }
+
   function updateScore(s) {
     if(signedIn){
       var immediateScore = data.score;
@@ -84,7 +92,7 @@ export default function PostPreview({ data }) {
         <Link href={`/user/${data.uid}`}>
           <a>
             <div className={styles.user}>
-              <img className={styles.pic} src={data.image} alt="placeholder"/>
+              <img className={styles.pic} src={pic != "" ? pic : "/user.png"} />
               <p className={styles.username}>@{data.username}</p>
             </div>
           </a>
