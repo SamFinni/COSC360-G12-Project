@@ -15,7 +15,7 @@ export default function MessagesPage() {
   const [convo, setConvo] = useState({});
   const [sendMsg, setSendMsg] = useState('');
   const [searchUser, setSearchUser] = useState('');
-  const pollTime = 5000;
+  const pollTime = 1000;
 
   // scroll last message of convo into view
   const convoRef = React.createRef();
@@ -29,11 +29,20 @@ export default function MessagesPage() {
     setData(messages.data.list);
   }
   useEffect(getConvos, [auth]);
+  
+  async function pollGetConvos() {
+    const messages = await axios.post(backend + '/message/list', {
+      uid: auth.uid
+    });
+
+    await setData(messages.data.list);
+    selection(convo.uid);
+  }
   useInterval(async () => {
     if (!auth.uid) return;
-    getConvos();
+    pollGetConvos();
   }, pollTime);
-
+  
   let convoElement = <></>;
   if (!convo || Object.keys(convo).length === 0) convoElement = (
     <div className={styles.choose}>
