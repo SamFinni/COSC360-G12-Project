@@ -233,6 +233,7 @@ router.post("/insertUser", async function (req, res) {
           hash +
           `");`,
         {
+          logging: false,
           type: QueryTypes.INSERT,
         }
       ).catch((error) => {

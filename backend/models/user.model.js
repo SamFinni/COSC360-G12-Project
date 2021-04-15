@@ -16,7 +16,7 @@ const User = sequelize.define(
       type: DataTypes.STRING(2048),
     },
     image: {
-      type: DataTypes.BLOB,
+      type: DataTypes.BLOB("medium"),
     },
     admin: {
       type: DataTypes.BOOLEAN,
