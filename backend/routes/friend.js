@@ -194,6 +194,10 @@ router.post('/requests', async function (req, res) {
         type: QueryTypes.SELECT
       }
     );
+    
+    friendList.forEach((x) => {
+      x.image = x.image.toString();
+    });
 
     res.status(200).send({ id: 0, list: friendList });
   } catch (error) {

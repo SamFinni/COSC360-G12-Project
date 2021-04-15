@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import useInterval from '../../functions/useInterval';
 import Link from 'next/link';
 import useLocalStorage from '../../functions/useLocalStorage';
 import styles from '../../styles/components/RequestList.module.css';
@@ -9,6 +10,7 @@ const backend = 'http://' + cfg.BACKEND_IP + ':' + cfg.BACKEND_PORT;
 export default function RequestList() {
   const [auth, ] = useLocalStorage('auth', { email: null, uid: null, username: null, authkey: null });
   const [requests, setRequests] = useState([]);
+  const pollTime = 5000;
 
   async function getRequests() {
     if (!auth.uid) return;
@@ -18,6 +20,10 @@ export default function RequestList() {
     setRequests(f.data.list);
   }
   useEffect(() => getRequests(), []);
+  useInterval(async () => {
+    if (!auth.uid) return;
+    getRequests();
+  }, pollTime);
 
   async function acceptRequest(fuid) {
     await axios.post(backend + '/friend/add', {
@@ -47,7 +53,7 @@ export default function RequestList() {
                   <p className={styles.username}>@{request.username}</p>
                 </div>
               </Link>
-              <div>
+              <div classname={styles.buttonContainer}>
                 <div className={styles.accept} onClick={() => acceptRequest(request.id)}>Accept</div>
                 <div className={styles.deny} onClick={() => denyRequest(request.id)}>Deny</div>
               </div>
