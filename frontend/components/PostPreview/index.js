@@ -72,7 +72,7 @@ export default function PostPreview({ data }) {
     })
   }
   function getShareLink() {
-    navigator.clipboard.writeText(window.location.href + 'viewPost/' + data.pid);
+    navigator.clipboard.writeText(window.location.href + 'post/' + data.pid);
     toast("Post link copied to clipboard!");
   }
   const scoreHighlightUp = { color: 'Cyan', filter: 'drop-shadow(0 0 2px #000)' }
@@ -106,7 +106,7 @@ export default function PostPreview({ data }) {
       </div>
       <div className={styles.right}>
         <div className={styles.head}>
-          <Link href={`/viewPost/${data.pid}`}>
+          <Link href={`/post/${data.pid}`}>
             <a><h2 className={styles.title}>{data.title}</h2></a>
           </Link>
           <p className={styles.date}>{data.createdAt.substring(0,10)}</p>
@@ -119,7 +119,7 @@ export default function PostPreview({ data }) {
           </div>
         </div>
         <div>
-          <Link href={`/viewPost/${data.pid}`}>
+          <Link href={`/post/${data.pid}`}>
             <a className={styles.readMore}>Read More</a>
           </Link>
         </div>
