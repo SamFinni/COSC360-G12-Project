@@ -29,13 +29,38 @@ export default function HomePage() {
   const [posts, setPosts] = useState([]); // Currently displayed posts
 
   // Get top posts and setPosts to top posts
-  async function getPosts() {
-    await axios.post(backend + '/post/listTop').then(data => setPosts(data.data));
+  function getTopPosts() {
+    axios.post(backend + '/post/listTop').then(data => setPosts(data.data));
+  }
+  // Get worst posts and setPosts to worst posts
+  function getWorstPosts() {
+    axios.post(backend + '/post/listWorst').then(data => setPosts(data.data));
+  }
+  // Get all posts and setPosts to all posts
+  function getAllPosts() {
+    axios.post(backend + '/post/listAll').then(data => setPosts(data.data));
+  }
+  // Get date ordered posts and setPosts to date ordered posts
+  function getDatePosts() {
+    axios.post(backend + '/post/listByDate').then(data => setPosts(data.data));
   }
   useEffect(() => {
-    getPosts();
+    getDatePosts();
   }, []);
   
+  function handleSortSubmit(event) {
+    event.preventDefault();
+    if(event.target.value == 'worst'){      // sort by worst
+      getWorstPosts();
+    }else if(event.target.value == 'all'){  // sort by all
+      getAllPosts();
+    }else if(event.target.value == 'best'){ // sort by best
+      getTopPosts();
+    }else{                                  // sort by date (default)
+      getDatePosts();
+    }
+  }
+
   return (
     <div className={styles.page}>
       <Head>
@@ -44,6 +69,18 @@ export default function HomePage() {
       </Head>
       <Header />
       <Navbar />
+
+      <div className={styles.topcontainer}>
+        <div className={styles.form}>
+          <span className={styles.subtitle}>Sort by: </span>
+          <select name="sort" className={styles.select} onChange={handleSortSubmit}>
+          <option value="date" defaultValue="selected">Date</option>
+            <option value="best">Best</option>
+            <option value="worst">Worst</option>
+            <option value="all">All</option>
+          </select>
+        </div>
+      </div>
 
       <div className={styles.container}>
         <div className={styles.postlist}>

@@ -14,7 +14,6 @@ export default function AdminReport({ data }) {
       const userData = axios.post(backend + "/postreport/delete", {
           id: data.id,
       });
-      console.log(userData);
       // force reload page
       window.location.reload();
     }
