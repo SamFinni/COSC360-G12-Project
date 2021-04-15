@@ -40,18 +40,24 @@ export default function HomePage() {
   function getAllPosts() {
     axios.post(backend + '/post/listAll').then(data => setPosts(data.data));
   }
+  // Get date ordered posts and setPosts to date ordered posts
+  function getDatePosts() {
+    axios.post(backend + '/post/listByDate').then(data => setPosts(data.data));
+  }
   useEffect(() => {
-    getTopPosts();
+    getDatePosts();
   }, []);
   
   function handleSortSubmit(event) {
     event.preventDefault();
-    if(event.target.value == 'worst'){    // sort by worst
+    if(event.target.value == 'worst'){      // sort by worst
       getWorstPosts();
-    }else if(event.target.value == 'all'){// sort by all
+    }else if(event.target.value == 'all'){  // sort by all
       getAllPosts();
-    }else{                                // sort by best (default)
+    }else if(event.target.value == 'best'){ // sort by best
       getTopPosts();
+    }else{                                  // sort by date (default)
+      getDatePosts();
     }
   }
 
@@ -66,9 +72,10 @@ export default function HomePage() {
 
       <div className={styles.topcontainer}>
         <div className={styles.form}>
-          <span className={styles.subtitle}>Sort: </span>
+          <span className={styles.subtitle}>Sort by: </span>
           <select name="sort" className={styles.select} onChange={handleSortSubmit}>
-            <option value="best" defaultValue="selected">Best</option>
+          <option value="date" defaultValue="selected">Date</option>
+            <option value="best">Best</option>
             <option value="worst">Worst</option>
             <option value="all">All</option>
           </select>
