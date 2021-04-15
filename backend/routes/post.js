@@ -10,7 +10,7 @@ router.post('/getPost', async function (req, res) {
 
     try {
         const data = await sequelize.query(
-            `SELECT P.id AS pid, P.title, P.body, P.createdAt, U.id AS uid, U.username, U.image, PS.score 
+            `SELECT P.id AS pid, P.title, P.body, P.createdAt, U.id AS uid, U.username, PS.score 
             FROM posts P JOIN users U ON P.uid = U.id JOIN postscores PS ON P.id = PS.pid 
             WHERE P.id = ` + id + ``,
             {
