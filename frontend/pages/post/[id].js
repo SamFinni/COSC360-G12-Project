@@ -155,8 +155,8 @@ export default function Post() {
                 <div className={styles.content}>
                     <span className={styles.date}>{ !post.createdAt ? '' : post.createdAt.substring(0,10)}</span>
                     <div className={styles.user}>
-                        <Link href={`/user/`+post.uid}><img className={styles.pic} src={ pic } /></Link>
-                        <Link href={`/user/`+post.uid}><p className={styles.username}>@{post.username}</p></Link>
+                        <Link href={`/viewprofile/`+post.uid}><img className={styles.pic} src={ pic } /></Link>
+                        <Link href={`/viewprofile/`+post.uid}><p className={styles.username}>@{post.username}</p></Link>
                     </div>
                     <div>
                         <h2 className={styles.title}>{post.title}</h2>
