@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import dynamic from "next/dynamic";
 import Footer from '../../components/Footer';
+import Comment from '../../components/Comment';
 import Link from 'next/link';
 import styles from '../../styles/pages/PostPage.module.css';
 import { useEffect, useState } from 'react';
@@ -25,27 +26,28 @@ export default function Post() {
     const [scoreChange, setScoreChange] = useState(0); // the change in score when voting
     const [score, setScore] = useState(0); // the score of the post considering votes
     const [initialScore, setInitialScore] = useState(0);
+    const [comments, setComments] = useState([]);
+    const [commentBody, setCommentBody] = useState('');
     const [pic, setPic] = useState("");
     const [auth, setAuth] = useLocalStorage('auth');  // auth info: { email, uid, username, authkey }
     const [userAdmin, setUserAdmin] = useState(false);
-
+    const [user, setUser] = useState(false);
     const router = useRouter();
-    var signedIn = false;
     
     useEffect(() => {
         if(!router.isReady) return <></>;
         getPost();
     }, [router.isReady]);
-
+    
     async function getPost() {
-        console.log(router.query.id);
         await axios.post(backend + '/post/getPost', {
             id: parseInt(router.query.id)
         }).then(response => {
             setPost(response.data[0]);
             getUserData(response.data[0].uid);
-            checkUserSignedIn();
             initializeScore(response.data[0].score);
+            getComments(response.data[0].pid);
+            checkUserSignedIn(auth.uid);
         });
     }
     
@@ -57,9 +59,10 @@ export default function Post() {
         getThisUserAdmin();
     }
 
-    function checkUserSignedIn() {
-        if (auth.uid != null) signedIn = true;
-        else signedIn = false;
+    async function getComments(postId){
+        await axios.post(backend + "/comment/list", {
+            id: postId
+        }).then(response => setComments(response.data));
     }
 
     async function initializeScore(postScore) {
@@ -67,8 +70,13 @@ export default function Post() {
         setInitialScore(postScore);
     }
 
+    function checkUserSignedIn(currentUserId) {
+        if(currentUserId != null) setUser(true);
+        else setUser(false);
+    }
+
     function updateScore(s) {
-        if (signedIn) {
+        if (user) {
             var immediateScore = post.score;
             // change/reset scoreChange arrows
             if (scoreChange == 0) setScoreChange(s ? 1 : -1);
@@ -101,17 +109,28 @@ export default function Post() {
             newScore,
         })
     }
+
     function getShareLink() {
-        navigator.clipboard.writeText(window.location.href + 'post/' + post.pid);
+        navigator.clipboard.writeText(window.location.href);
         toast("Post link copied to clipboard!");
     }
     const scoreHighlightUp = { color: 'Cyan', filter: 'drop-shadow(0 0 2px #000)' }
     const scoreHighlightDown = { color: 'Orange', filter: 'drop-shadow(0 0 2px #000)' }
 
-    function addComment() {
-        alert("Post comment.");
+    function addComment(e) {
+        const body = commentBody.trim();
+        if (body == '') {
+            e.preventDefault();
+            return;
+        }
+        
+        axios.post(backend + '/comment/add', {
+            pid: post.pid,
+            uid: auth.uid,
+            body: body
+        });
+        setCommentBody('');
     }
-
     
     // Auth: check if user is an admin
     function getThisUserAdmin(){
@@ -181,12 +200,25 @@ export default function Post() {
                 </div>
                 <div className={styles.commentContent}>
                     <h3 className={styles.commentHeader}>Comments</h3>
-
-                    {/* WIP */}
-                    <div className={styles.addComment}>
-                        <textarea className={styles.commentInput} id="commentInput" refs="newCommentInput"></textarea>
-                        <a className={styles.addCommentButton} onClick={() => addComment()}>Add a comment</a>
+                    <div>
+                        {comments.length ? (
+                            <div className={styles.commentList}>
+                                {comments.map((comment, idx) => (
+                                   <Comment key={`comment-${idx}`} data={comment} /> 
+                                ))}
+                            </div>
+                        ) : (
+                            <p>There are no comments on this post. Be the first to add one!</p>
+                        )}
                     </div>
+                    {user ? (
+                        <div className={styles.addComment}>
+                            <textarea name="commentBody" className={styles.commentInput} value={commentBody} onChange={(e) => setCommentBody(e.target.value)}></textarea>
+                            <a className={styles.addCommentButton} onClick={addComment}>Add a comment</a>
+                        </div>
+                    ) : (
+                        <p>Sign up to leave a comment!</p>
+                    )}
                 </div>
             </div>
             <Footer />
