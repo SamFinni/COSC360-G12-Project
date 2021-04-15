@@ -24,7 +24,7 @@ export default function Notifications() {
   useInterval(async () => {
     if (!auth.uid || expand) return;
     getNotifications();
-  }, pollTime)
+  }, pollTime);
 
   function notiMouseOver(nid, idx) {
     if (notis[idx].seen) return;

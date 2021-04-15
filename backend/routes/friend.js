@@ -161,6 +161,10 @@ router.post('/list', async function (req, res) {
       }
     );
 
+    friendList.forEach((x) => {
+      x.image = x.image.toString();
+    });
+
     res.status(200).send({ id: 0, list: friendList });
   } catch (error) {
     return res.status(500).send({ id: 0, message: error.message });

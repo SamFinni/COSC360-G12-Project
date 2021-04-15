@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import useInterval from '../../functions/useInterval';
 import axios from 'axios';
 import update from 'immutability-helper';
 import useLocalStorage from '../../functions/useLocalStorage';
@@ -14,6 +15,7 @@ export default function MessagesPage() {
   const [convo, setConvo] = useState({});
   const [sendMsg, setSendMsg] = useState('');
   const [searchUser, setSearchUser] = useState('');
+  const pollTime = 5000;
 
   // scroll last message of convo into view
   const convoRef = React.createRef();
@@ -26,7 +28,11 @@ export default function MessagesPage() {
 
     setData(messages.data.list);
   }
-  useEffect(getConvos, [auth]); // run once auth is populated
+  useEffect(getConvos, [auth]);
+  useInterval(async () => {
+    if (!auth.uid) return;
+    getConvos();
+  }, pollTime);
 
   let convoElement = <></>;
   if (!convo || Object.keys(convo).length === 0) convoElement = (

@@ -48,6 +48,10 @@ router.post('/list', async function (req, res) {
       }
     );
 
+    messageUsers.forEach((x) => {
+      x.image = x.image.toString();
+    });
+
     messages = messages.reduce(
       function (memo, x) {
         if (!memo[x['uid']]) memo[x['uid']] = [];
