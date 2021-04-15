@@ -29,15 +29,12 @@ export default function Post() {
     const [auth, setAuth] = useLocalStorage('auth');  // auth info: { email, uid, username, authkey }
 
     const router = useRouter();
-    var postId = parseInt(router.query.id);
     var signedIn = false;
     
     useEffect(() => {
+        if(!router.isReady) return <></>;
         getPost();
-        initializeScore();
-        checkUserSignedIn();
-        getUserData();
-    }, [postId]);
+    }, [router.isReady]);
 
     async function getPost() {
         console.log(router.query.id);
@@ -45,7 +42,17 @@ export default function Post() {
             id: parseInt(router.query.id)
         }).then(response => {
             setPost(response.data[0]);
+            getUserData(response.data[0].uid);
+            checkUserSignedIn();
+            initializeScore(response.data[0].score);
         });
+    }
+    
+    async function getUserData(id) {
+        const userData = await axios.post(backend + "/user/getUser", {
+          uid: id
+        });
+        setPic(userData.data[0].image);
     }
 
     function checkUserSignedIn() {
@@ -53,17 +60,10 @@ export default function Post() {
         else signedIn = false;
     }
 
-    async function initializeScore() {
-        setScore(post.score);
-        setInitialScore(post.score);
+    async function initializeScore(postScore) {
+        setScore(postScore);
+        setInitialScore(postScore);
     }
-
-    async function getUserData() {
-        const userData = await axios.post(backend + "/user/getUser", {
-          uid: data.uid,
-        });
-        setPic(userData.data[0].image);
-      }
 
     function updateScore(s) {
         if (signedIn) {
@@ -106,9 +106,10 @@ export default function Post() {
     const scoreHighlightUp = { color: 'Cyan', filter: 'drop-shadow(0 0 2px #000)' }
     const scoreHighlightDown = { color: 'Orange', filter: 'drop-shadow(0 0 2px #000)' }
 
-    if (!post) {
-        return <></>;
+    function addComment() {
+        alert("Post comment.");
     }
+
     return (
         <div className={styles.page}>
             <Head>
@@ -124,7 +125,7 @@ export default function Post() {
                 <div className={styles.content}>
                     <span className={styles.date}>{ !post.createdAt ? '' : post.createdAt.substring(0,10)}</span>
                     <div className={styles.user}>
-                        <Link href={`/user/`+post.uid}><img className={styles.pic} src={pic != "" ? pic : "/user.png" } /></Link>
+                        <Link href={`/user/`+post.uid}><img className={styles.pic} src={ pic } /></Link>
                         <Link href={`/user/`+post.uid}><p className={styles.username}>@{post.username}</p></Link>
                     </div>
                     <div>
@@ -149,7 +150,13 @@ export default function Post() {
                     </div>
                 </div>
                 <div className={styles.commentContent}>
-                    <p>test</p>
+                    <h3 className={styles.commentHeader}>Comments</h3>
+
+                    {/* WIP */}
+                    <div className={styles.addComment}>
+                        <textarea className={styles.commentInput} id="commentInput" refs="newCommentInput"></textarea>
+                        <a className={styles.addCommentButton} onClick={() => addComment()}>Add a comment</a>
+                    </div>
                 </div>
             </div>
             <Footer />
