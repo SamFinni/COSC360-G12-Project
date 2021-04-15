@@ -1,15 +1,15 @@
 import Head from 'next/head';
 import dynamic from "next/dynamic";
 import Footer from '../../components/Footer';
-
 import Link from 'next/link';
-import styles from '../../styles/pages/ViewPostPage.module.css'; // note: update CSS file names later to 'post'
-// import styles from '../../styles/components/ViewPost.module.css';
+import styles from '../../styles/pages/PostPage.module.css';
 import { useEffect, useState } from 'react';
 import { IoIosArrowUp, IoIosArrowDown } from 'react-icons/io';
 import { HiShare } from 'react-icons/hi';
 import { useRouter } from 'next/router';
+import { toast } from 'react-toastify';
 import axios from 'axios';
+import useLocalStorage from '../../functions/useLocalStorage';
 import * as cfg from '../../config';
 const backend = 'http://' + cfg.BACKEND_IP + ':' + cfg.BACKEND_PORT;
 
@@ -22,28 +22,89 @@ const Navbar = dynamic(() => import('../../components/Navbar'), {
 
 export default function Post() {
     const [post, setPost] = useState([]);
+    const [scoreChange, setScoreChange] = useState(0); // the change in score when voting
+    const [score, setScore] = useState(0); // the score of the post considering votes
+    const [initialScore, setInitialScore] = useState(0);
+    const [pic, setPic] = useState("");
+    const [auth, setAuth] = useLocalStorage('auth');  // auth info: { email, uid, username, authkey }
 
     const router = useRouter();
     var postId = parseInt(router.query.id);
-    console.log(postId);
-
-   
+    var signedIn = false;
     
+    useEffect(() => {
+        getPost();
+        initializeScore();
+        checkUserSignedIn();
+        getUserData();
+    }, [postId]);
+
     async function getPost() {
         console.log(router.query.id);
         await axios.post(backend + '/post/getPost', {
             id: parseInt(router.query.id)
         }).then(response => {
             setPost(response.data[0]);
-            console.log(response.data);
         });
     }
-    
-    useEffect(() => {
-        getPost();
-    }, [postId]);
-    console.log(post);
 
+    function checkUserSignedIn() {
+        if (auth.uid != null) signedIn = true;
+        else signedIn = false;
+    }
+
+    async function initializeScore() {
+        setScore(post.score);
+        setInitialScore(post.score);
+    }
+
+    async function getUserData() {
+        const userData = await axios.post(backend + "/user/getUser", {
+          uid: data.uid,
+        });
+        setPic(userData.data[0].image);
+      }
+
+    function updateScore(s) {
+        if (signedIn) {
+            var immediateScore = post.score;
+            // change/reset scoreChange arrows
+            if (scoreChange == 0) setScoreChange(s ? 1 : -1);
+            else if (scoreChange == 1) setScoreChange(s ? 0 : -1);
+            else if (scoreChange == -1) setScoreChange(s ? 1 : 0);
+            // change/reset score value for display and database
+            if (s) {
+                if (scoreChange == 0 || scoreChange == -1)
+                    setScore(immediateScore = initialScore + 1);
+                else
+                    setScore(immediateScore = initialScore);
+            } else {
+                if (scoreChange == 0 || scoreChange == 1)
+                    setScore(immediateScore = initialScore - 1);
+                else
+                    setScore(immediateScore = initialScore);
+            }
+            updateDatabaseScore(immediateScore);
+        }
+        else {
+            toast('Log in or sign up to vote!');
+        }
+    }
+
+    function updateDatabaseScore(immediateScore) {
+        const pid = post.pid;
+        const newScore = immediateScore;
+        axios.post(backend + "/postscore/updatePostScore", {
+            pid,
+            newScore,
+        })
+    }
+    function getShareLink() {
+        navigator.clipboard.writeText(window.location.href + 'post/' + post.pid);
+        toast("Post link copied to clipboard!");
+    }
+    const scoreHighlightUp = { color: 'Cyan', filter: 'drop-shadow(0 0 2px #000)' }
+    const scoreHighlightDown = { color: 'Orange', filter: 'drop-shadow(0 0 2px #000)' }
 
     if (!post) {
         return <></>;
@@ -59,15 +120,36 @@ export default function Post() {
 
             <Navbar />
 
-            <div className={styles.container}>
+            <div className={styles.holder}>
                 <div className={styles.content}>
-                    <p>pid: {post.pid}</p>
-                    <p>title: {post.title}</p>
-                    <p>body: {post.body}</p>
-                    <p>date: {post.createdAt}</p>
-                    <p>uid: {post.uid}</p>
-                    <p>username: {post.username}</p>
-                    <p>score: {post.score}</p>
+                    <span className={styles.date}>{ !post.createdAt ? '' : post.createdAt.substring(0,10)}</span>
+                    <div className={styles.user}>
+                        <Link href={`/user/`+post.uid}><img className={styles.pic} src={pic != "" ? pic : "/user.png" } /></Link>
+                        <Link href={`/user/`+post.uid}><p className={styles.username}>@{post.username}</p></Link>
+                    </div>
+                    <div>
+                        <h2 className={styles.title}>{post.title}</h2>
+                        <div className={styles.bodyContainer}>
+                            <p className={styles.body}>{post.body}</p>
+                        </div>
+                    </div>
+                    <div className={styles.interact}>
+                        <div className={styles.score}>
+                            <div className={styles.uparrow} onClick={() => updateScore(true)}>
+                                <IoIosArrowUp style={scoreChange == 1 ? scoreHighlightUp : {}} size={'2em'} />
+                            </div>
+                            <p className={styles.scoreText}>{score}</p>
+                            <div className={styles.downarrow} onClick={() => updateScore(false)}>
+                                <IoIosArrowDown style={scoreChange == -1 ? scoreHighlightDown : {}} size={'2em'} />
+                            </div>
+                        </div>
+                        <div className={styles.share} onClick={() => getShareLink()}>
+                            <HiShare size={'3em'} />
+                        </div>
+                    </div>
+                </div>
+                <div className={styles.commentContent}>
+                    <p>test</p>
                 </div>
             </div>
             <Footer />
