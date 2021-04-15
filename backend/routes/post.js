@@ -65,12 +65,27 @@ router.post('/update', async function (req, res) {
 
 // remove a post
 router.post('/remove', async function (req, res) {
-    const {id, uid} = req.body;
+    const id = req.body.id;
 
-    if (!uid || !id) return res.status(500).send({ id: 1, message: "`uid` or `id` missing from body" });
-
+    if (!id) return res.status(500).send({ id: 1, message: "`id` missing from body" });
     try {
-        // TODO
+        // delete postscores
+        const postscoresData = await sequelize.query(
+            `DELETE FROM postscores 
+            WHERE pid = `+id,
+            {
+                type: QueryTypes.DELETE
+            }
+        );
+        // delete post
+        const postsData = await sequelize.query(
+            `DELETE FROM posts 
+            WHERE id = `+id,
+            {
+                type: QueryTypes.DELETE
+            }
+        );
+        return res.status(200).send(postsData +"\n"+ postscoresData);
     } catch (error) {
         res.status(500).send(error);
     }

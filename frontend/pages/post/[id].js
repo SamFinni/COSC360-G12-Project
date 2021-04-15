@@ -27,6 +27,7 @@ export default function Post() {
     const [initialScore, setInitialScore] = useState(0);
     const [pic, setPic] = useState("");
     const [auth, setAuth] = useLocalStorage('auth');  // auth info: { email, uid, username, authkey }
+    const [userAdmin, setUserAdmin] = useState(false);
 
     const router = useRouter();
     var signedIn = false;
@@ -53,6 +54,7 @@ export default function Post() {
           uid: id
         });
         setPic(userData.data[0].image);
+        getThisUserAdmin();
     }
 
     function checkUserSignedIn() {
@@ -110,6 +112,34 @@ export default function Post() {
         alert("Post comment.");
     }
 
+    
+    // Auth: check if user is an admin
+    function getThisUserAdmin(){
+        var uid = auth.uid;
+        if (!uid) return;
+        
+        axios.post(backend + '/user/status', {
+          uid,
+        }).then(data => authenticate(data.data[0].admin));
+    }
+    function authenticate(admin){
+        setUserAdmin(admin);
+    }
+    // Remove post
+    function removePost() {
+        if(confirm("Are you sure you wish to delete this post?"))
+        {
+        // delete post
+        const id = post.pid;
+        axios.post(backend + "/post/remove", {
+            id,
+        });
+        // force redirect
+        window.location.replace("http://localhost:3000/");
+        }
+    }
+
+
     return (
         <div className={styles.page}>
             <Head>
@@ -160,6 +190,17 @@ export default function Post() {
                 </div>
             </div>
             <Footer />
+            {/* ADMIN */}
+            {userAdmin == 1 &&
+                <fieldset className={styles.admincontainer}>
+                    <legend className={styles.admintitle}>Admin Control</legend>
+                    <button className={styles.adminbutton} // Toggle button for disabled value
+                        onClick={()=> removePost()}
+                        name="remove" 
+                    ><span>Remove Post</span></button>
+                </fieldset>
+            }
+            {/* ADMIN */}
         </div>
     )
 }

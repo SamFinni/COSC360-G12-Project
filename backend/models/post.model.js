@@ -15,7 +15,7 @@ const Post = sequelize.define('post', {
         type: DataTypes.STRING,
     },
     body: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(8000),
     },
     tags: {
         type: DataTypes.STRING,

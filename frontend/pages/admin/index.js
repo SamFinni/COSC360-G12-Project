@@ -13,8 +13,8 @@
         > Search Reports by keyword
           > Dismiss Report
           > View Post
-            > Edit/Remove Post *
-            > Edit/Remove Comments on Post *
+            > Remove Post *
+            > Remove Comments on Post *
 
     * refers to features after redirect
 */}
