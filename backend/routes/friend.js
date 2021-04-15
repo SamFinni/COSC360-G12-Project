@@ -171,6 +171,30 @@ router.post('/list', async function (req, res) {
   }
 });
 
+// check if fuid is a friend of uid
+router.post('/check', async function (req, res) {
+  const { uid, fuid } = req.body;
+
+  if (!uid || !fuid) return res.status(500).send({ id: 1, message: "`uid` or `fuid` missing from body" });
+  
+  try {
+    const friendStatus = await sequelize.query(
+      `SELECT 1
+      FROM friends F
+      WHERE F.accepted = true AND (F.uid = ` + uid + ` AND F.fuid = ` + fuid + ` OR F.fuid = ` + uid + ` AND F.uid = ` + fuid + `)`,
+      {
+        type: QueryTypes.SELECT
+      }
+    );
+
+    console.log(friendStatus);
+
+    res.status(200).send({ id: 0, status: friendStatus.length > 0 });
+  } catch (error) {
+    return res.status(500).send({ id: 0, message: error.message });
+  }
+});
+
 // get list of friend requests (usernames, ids, and images)
 router.post('/requests', async function (req, res) {
   const { uid } = req.body;
