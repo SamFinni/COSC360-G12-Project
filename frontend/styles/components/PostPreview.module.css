@@ -159,3 +159,6 @@
   background: linear-gradient(225deg, rgba(255,255,255,1) 0%, rgb(227, 255, 252) 75%);
   filter: drop-shadow(0 0 4px rgb(160, 207, 203));
 }
+.toast.info {
+  width: 100%;
+}

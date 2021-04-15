@@ -27,11 +27,9 @@ export default function PostPreview({ data }) {
   useEffect(() => {
     initializeScore();
   }, []);
+  checkUserSignedIn();
 
-
-
-  useEffect(() => checkUserSignedIn(), [auth]);
-  async function checkUserSignedIn() {
+  function checkUserSignedIn() {
     if(auth.uid != null) signedIn = true;
     else signedIn = false;
   }
@@ -62,7 +60,7 @@ export default function PostPreview({ data }) {
     }
     else
     {
-      toast("Log in or sign up to vote!");
+      toast('Log in or sign up to vote!');
     }
   }
   function updateDatabaseScore(immediateScore) {
