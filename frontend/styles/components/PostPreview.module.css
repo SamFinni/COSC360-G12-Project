@@ -116,7 +116,8 @@
 }
 
 .date {
-  min-width: 8em;
+  color: #b3b3b3;
+  min-width: 6em;
   text-align: right;
   font-size: 0.85em;
   font-weight: bold;
@@ -153,7 +154,6 @@
   font-weight: bold;
   user-select: none;
 }
-
 .readMore:hover {
   background: rgb(255,255,255);
   background: linear-gradient(225deg, rgba(255,255,255,1) 0%, rgb(227, 255, 252) 75%);

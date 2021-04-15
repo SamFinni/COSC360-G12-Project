@@ -6,6 +6,7 @@ import { IoIosArrowUp, IoIosArrowDown } from 'react-icons/io';
 import { HiShare } from 'react-icons/hi';
 import { toast } from 'react-toastify';
 import * as cfg from '../../config';
+import useLocalStorage from '../../functions/useLocalStorage';
 const backend = 'http://' + cfg.BACKEND_IP + ':' + cfg.BACKEND_PORT;
 
 
@@ -17,35 +18,53 @@ export default function PostPreview({ data }) {
   const [score, setScore] = useState(0); // the score of the post considering votes
   const [initialScore, setInitialScore] = useState(0);
 
-  async function initializeScore() {
-    setScore(data.score);
-    setInitialScore(data.score);
-  }
+  // Auth: check if user is signed in
+  const [auth, setAuth] = useLocalStorage('auth');  // auth info: { email, uid, username, authkey }
+
+
+
+  var signedIn = false;
   useEffect(() => {
     initializeScore();
   }, []);
 
-  function updateScore(s) {
-    var immediateScore = data.score;
-    // change/reset scoreChange arrows
-    if (scoreChange == 0) setScoreChange(s ? 1 : -1);
-    else if (scoreChange == 1) setScoreChange(s ? 0 : -1);
-    else if (scoreChange == -1) setScoreChange(s ? 1 : 0);
-    // change/reset score value for display and database
-    if(s){
-      if(scoreChange == 0 || scoreChange == -1)
-        setScore(immediateScore = initialScore+1);
-      else
-        setScore(immediateScore = initialScore);
-    }else{
-      if(scoreChange == 0 || scoreChange == 1)
-        setScore(immediateScore = initialScore-1);
-      else
-        setScore(immediateScore = initialScore);
-    }
-    updateDatabaseScore(immediateScore);
-  }
 
+
+  useEffect(() => checkUserSignedIn(), [auth]);
+  async function checkUserSignedIn() {
+    if(auth.uid != null) signedIn = true;
+    else signedIn = false;
+  }
+  async function initializeScore() {
+    setScore(data.score);
+    setInitialScore(data.score);
+  }
+  function updateScore(s) {
+    if(signedIn){
+      var immediateScore = data.score;
+      // change/reset scoreChange arrows
+      if (scoreChange == 0) setScoreChange(s ? 1 : -1);
+      else if (scoreChange == 1) setScoreChange(s ? 0 : -1);
+      else if (scoreChange == -1) setScoreChange(s ? 1 : 0);
+      // change/reset score value for display and database
+      if(s){
+        if(scoreChange == 0 || scoreChange == -1)
+          setScore(immediateScore = initialScore+1);
+        else
+          setScore(immediateScore = initialScore);
+      }else{
+        if(scoreChange == 0 || scoreChange == 1)
+          setScore(immediateScore = initialScore-1);
+        else
+          setScore(immediateScore = initialScore);
+      }
+      updateDatabaseScore(immediateScore);
+    }
+    else
+    {
+      toast("Log in or sign up to vote!");
+    }
+  }
   function updateDatabaseScore(immediateScore) {
     const pid = data.pid;
     const newScore = immediateScore;
@@ -54,12 +73,10 @@ export default function PostPreview({ data }) {
       newScore,
     })
   }
-
   function getShareLink() {
     navigator.clipboard.writeText(window.location.href + 'viewPost/' + data.pid);
     toast("Post link copied to clipboard!");
   }
-
   const scoreHighlightUp = { color: 'Cyan', filter: 'drop-shadow(0 0 2px #000)' }
   const scoreHighlightDown = { color: 'Orange', filter: 'drop-shadow(0 0 2px #000)' }
 
