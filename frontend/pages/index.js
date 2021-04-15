@@ -72,14 +72,16 @@ export default function HomePage() {
 
       <div className={styles.topcontainer}>
         <div className={styles.form}>
-          <span className={styles.subtitle}>Sort by: </span>
+          <span className={styles.subtitle}>Sort by:&nbsp;
           <select name="sort" className={styles.select} onChange={handleSortSubmit}>
           <option value="date" defaultValue="selected">Date</option>
             <option value="best">Best</option>
             <option value="worst">Worst</option>
             <option value="all">All</option>
           </select>
+          </span>
         </div>
+        <span className={styles.count}>{posts.length}</span><span className={styles.count2}>&nbsp;Posts</span>
       </div>
 
       <div className={styles.container}>

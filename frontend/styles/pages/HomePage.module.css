@@ -39,6 +39,19 @@
   box-shadow: 0 0 4px rgb(165, 165, 165);
   overflow: auto;
 }
+.count {
+  float:left;
+  font-size: larger;
+  font-weight: 1000;
+}
+.count2 {
+  color: #8a8a8a;
+  float:left;
+  font-size: larger;
+}
+.subtitle {
+  font-weight: 1000;
+}
 
 .form {
   float: right;
