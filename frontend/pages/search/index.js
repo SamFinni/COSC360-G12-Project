@@ -30,7 +30,6 @@ function SearchPage({ router }) {
 
   useEffect(() => {
     if(typeof router.query.searchQuery !== 'undefined'){
-      console.log(router.query.searchQuery);
       getPosts();
     }
   }, []);
