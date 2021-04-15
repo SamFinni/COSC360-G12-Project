@@ -105,7 +105,7 @@ router.post('/listTop', async function (req, res) {
           `SELECT P.id AS pid, P.title, P.body, P.tags, P.createdAt, U.id AS uid, U.username, U.image, PS.score 
           FROM posts P JOIN postscores PS ON P.id = PS.pid JOIN users U ON PS.uid = U.id 
           ORDER BY PS.score DESC, P.createdAt DESC 
-          LIMIT 10`,
+          LIMIT 50`,
           {
             type: QueryTypes.SELECT
           }

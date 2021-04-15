@@ -13,8 +13,21 @@
   padding: 1em 1em 1em 1em;
   text-align: center;
   box-shadow: 0 0 4px rgb(165, 165, 165);
+  max-height: 100vh;
+  overflow: auto;
+}
+.container::-webkit-scrollbar {
+  width: 4px;               /* width of the entire scrollbar */
 }
 
+.container::-webkit-scrollbar-track {
+  background: rgb(255, 255, 255);        /* color of the tracking area */
+}
+
+.container::-webkit-scrollbar-thumb {
+  background-color: rgb(206, 206, 206);    /* color of the scroll thumb */
+}
 .postlist {
   width: 100%;
 }
+
