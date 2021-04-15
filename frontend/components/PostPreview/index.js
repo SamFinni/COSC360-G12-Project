@@ -42,7 +42,11 @@ export default function PostPreview({ data }) {
     const userData = await axios.post(backend + "/user/getUser", {
       uid: data.uid,
     });
-    setPic(userData.data[0].image);
+    if(userData.data[0].image.length > 10){
+      setPic(userData.data[0].image);
+    }else{
+        setPic('../user.png');
+    }
   }
 
   function updateScore(s) {
@@ -92,7 +96,7 @@ export default function PostPreview({ data }) {
         <Link href={`/user/${data.uid}`}>
           <a>
             <div className={styles.user}>
-              <img className={styles.pic} src={pic != "" ? pic : "/user.png"} />
+              <img className={styles.pic} src={pic} />
               <p className={styles.username}>@{data.username}</p>
             </div>
           </a>

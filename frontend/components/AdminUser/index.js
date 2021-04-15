@@ -1,9 +1,12 @@
 import styles from '../../styles/components/AdminUser.module.css';
 import axios from 'axios';
+import { useEffect, useState } from "react";
 import * as cfg from "../../config";
 const backend = "http://" + cfg.BACKEND_IP + ":" + cfg.BACKEND_PORT;
 
 export default function AdminUser({ data }) {
+
+    const [pic, setPic] = useState("");
 
     const uid = data.id;
     // Borders
@@ -56,6 +59,21 @@ export default function AdminUser({ data }) {
             window.location.reload();
         }
     }
+    async function getUserData() {
+        const userData = await axios.post(backend + "/user/getUser", {
+          uid: uid,
+        });
+        if(userData.data[0].image.length > 10){
+            setPic(userData.data[0].image);
+        }else{
+            setPic('../user.png');
+        }
+        
+    }
+
+    useEffect(() => {
+        getUserData();
+    }, []);
 
     if(data.admin)
     {
@@ -81,7 +99,7 @@ export default function AdminUser({ data }) {
       <div className={styles.user} style={{border: currentBorderColor, backgroundColor: currentBackgroundColor}}>
         <table className={styles.table}>
             <tr className={styles.tablerow}>
-                <td rowSpan="4"><img className={styles.pic} src='/pic1.png'></img></td>
+                <td rowSpan="4"><img className={styles.pic} src={pic} /></td>
                 <td className={styles.tabletext}>
                     <div className={styles.text}>Username:</div>
                 </td>
