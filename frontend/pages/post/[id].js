@@ -6,7 +6,7 @@ import Link from 'next/link';
 import styles from '../../styles/pages/PostPage.module.css';
 import { useEffect, useState } from 'react';
 import { IoIosArrowUp, IoIosArrowDown } from 'react-icons/io';
-import { HiShare } from 'react-icons/hi';
+import { HiDocumentRemove, HiDocumentReport, HiShare, HiExclamation } from 'react-icons/hi';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 import axios from 'axios';
@@ -158,6 +158,17 @@ export default function Post() {
         }
     }
 
+    function reportPost() {
+        const reason = prompt("Please give a reason for your report:");
+        // report post
+        axios.post(backend + "/postreport/insert", {
+            pid: post.pid,
+            uid: auth.uid,
+            reason : reason,
+        });
+        toast('Report submitted');
+    }
+
 
     return (
         <div className={styles.page}>
@@ -195,6 +206,9 @@ export default function Post() {
                         </div>
                         <div className={styles.share} onClick={() => getShareLink()}>
                             <HiShare size={'3em'} />
+                        </div>
+                        <div className={styles.report} onClick={() => reportPost()}>
+                            <HiExclamation size={'3em'} />
                         </div>
                     </div>
                 </div>

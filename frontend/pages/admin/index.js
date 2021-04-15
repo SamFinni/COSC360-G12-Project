@@ -180,8 +180,8 @@ export default function Admin() {
             <hr className={styles.separator}></hr>
 
             <div className={styles.report}>
-              {reports.map((user, idx) => (
-                <AdminReport key={`user-${idx}`} data={user} />
+              {reports.map((report, idx) => (
+                <AdminReport key={`report-${idx}`} data={report} />
               ))}
             </div>
           </div>

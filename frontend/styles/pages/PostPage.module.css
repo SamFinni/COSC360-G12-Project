@@ -130,6 +130,17 @@
     filter: drop-shadow(0 0 4px rgb(63, 136, 132));
 }
 
+.report {
+    margin: auto 0;
+    color: #ee8d67;
+    cursor: pointer;
+}
+  
+.report:hover {
+    color: #ffae6b;
+    filter: drop-shadow(0 0 4px rgb(218, 176, 137));
+}
+
 .bodyContainer {
     background: #FFFFFF;
     border-radius: 0.5em;

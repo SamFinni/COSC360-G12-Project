@@ -39,15 +39,7 @@ router.post('/select', async function (req, res) {
   router.post('/insert', async function (req, res) {
     try {
       // single insert
-      await PostReport.create({ title: 'Big Red Truck', price: 10000.00 });
-  
-      // multi insert
-      const data = [
-        { title: 'I\'m free!!' }, // price has default value of 0.00 (see models/postreport.model.js)
-        { title: 'Best I can do', price: 3.50 },
-      ];
-      await PostReport.bulkCreate(data);
-      
+      await PostReport.create({pid: req.body.pid, uid: req.body.uid, reason: req.body.reason});
       res.status(200).send();
     } catch (error) {
       res.status(500).send(error);
