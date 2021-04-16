@@ -38,13 +38,13 @@ router.post('/add', async function (req, res){
 
         // add postscores based on the post inserted above ^
         const pid = postData[0]; // id of the post just inserted. This will match the id of it's postscores entry.  Yes- this is dumb as shit but we got 2 days to go. Just pretend we haven't taken any database courses :^)
-        const postscoreData = await sequelize.query(
+        await sequelize.query(
             `INSERT INTO postscores (pid, uid, score)
             VALUES (`+pid+`, "`+uid+`", "1")`,
             { type: QueryTypes.INSERT }
         );
 
-    return res.status(200).send(postData + "\n" + postscoreData);
+    return res.status(200).send(postData);
     } catch (error) {
         res.status(500).send({ id: 0, message: error.message });
     }

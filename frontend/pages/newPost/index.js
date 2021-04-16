@@ -42,9 +42,12 @@ export default function NewPostPage() {
             title: title,
             body: body,
             tags: null
-        }).then(response => {setPostId(response.data[0])});
-        setPostTitle('');
-        setPostBody('');
+        }).then(response => redirect(response.data[0]));
+    }
+
+    function redirect(data) {
+        setPostId(data)
+        window.location.replace("http://" + cfg.FRONTEND_IP + ":" + cfg.FRONTEND_PORT + "/post/" + data);
     }
     
     return (
@@ -70,9 +73,9 @@ export default function NewPostPage() {
                     </div>
                     <div className={styles.submitSection}>
                         <span className={errorClass} id="error-message">The post must have both a title and body.</span>
-                        <Link href={`/post/${postId}`}>
+                        <span>
                             <a className={styles.postButton} onClick={createPost}>Create Post</a>
-                        </Link>
+                        </span>
                     </div>
                 </div>
             </div>
