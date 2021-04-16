@@ -133,7 +133,7 @@ export default function AdminUser({ data }) {
         </table>
             <hr className={styles.separator}></hr>
             <p className={styles.date}>ID: <span className={styles.emphasis}>{uid}</span> &nbsp; Created: {data.createdAt.substring(0,10)}</p>
-            <a className={styles.link} href={`/Profile/${uid}`} target="_blank"><span>Profile</span></a>
+            <a className={styles.link} href={`/profile/${uid}`} target="_blank"><span>Profile</span></a>
       </div>
     </div>
     );
