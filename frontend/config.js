@@ -1,10 +1,10 @@
 // Frontend
-export const FRONTEND_IP = 'localhost';
-export const FRONTEND_PORT = 3000;
+export const FRONTEND_IP = 'blogaru.finnigan.me';
+export const FRONTEND_PORT = 80;
 
 // Backend
-export const BACKEND_IP = 'localhost';
-export const BACKEND_PORT = 3001;
+export const BACKEND_IP = 'blogaruapi.finnigan.me';
+export const BACKEND_PORT = 80;
 
 // Database
 export const DATABASE_IP = 'finnigan.me';

@@ -1,10 +1,10 @@
 // Frontend
-module.exports.FRONTEND_IP = 'localhost';
-module.exports.FRONTEND_PORT = 3000;
+module.exports.FRONTEND_IP = 'blogaru.finnigan.me';
+module.exports.FRONTEND_PORT = 80;
 
 // Backend
-module.exports.BACKEND_IP = 'localhost';
-module.exports.BACKEND_PORT = 3001;
+module.exports.BACKEND_IP = 'blogaruapi.finnigan.me';
+module.exports.BACKEND_PORT = 80;
 
 // Database
 module.exports.DATABASE_IP = 'finnigan.me';
