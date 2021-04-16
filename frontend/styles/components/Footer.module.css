@@ -1,6 +1,4 @@
 .container {
-  position: absolute;
-  bottom: 0;
   display: flex;
   height: 5vh;
   min-height: 2em;
