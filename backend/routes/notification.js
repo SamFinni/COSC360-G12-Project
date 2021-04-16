@@ -27,7 +27,7 @@ router.post('/list', async function (req, res) {
 // add new notification (to be used by other endpoints)
 router.post('/add', async function (req, res) {
   const { uid, title, text } = req.body;
-  const link = req.body.link ?? null;
+  const link = req.body.link ? req.body.link : null;
 
   if (!uid || !title || !text) return res.status(500).send({ id: 1, message: "`uid`, `title`, or `text` missing from body" });
 

@@ -49,7 +49,7 @@ export default function RequestList() {
             <div className={styles.user} key={`request-${request.id}`}>
               <Link href={`/user/${request.id}`}>
                 <div className={styles.userContainer}>
-                  <img className={styles.pic} src={request.image  ?? '/user.png'} />
+                  <img className={styles.pic} src={request.image ? request.image : '/user.png'} />
                   <p className={styles.username}>@{request.username}</p>
                 </div>
               </Link>
