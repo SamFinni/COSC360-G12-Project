@@ -142,6 +142,7 @@ export default function Post() {
       uid: auth.uid,
       body: body,
     });
+    getComments(post.pid);
     setCommentBody("");
   }
 
