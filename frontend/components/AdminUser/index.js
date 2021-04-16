@@ -31,7 +31,7 @@ export default function AdminUser({ data }) {
 
     function disabledChange(value){
         disabledValue = value;
-        if(confirm("Are you sure you wish to disable the user with ID = " + uid + "?"))
+        if(confirm("Are you sure you wish to alter the status of user " + uid + "?"))
         {
             // toggle disable user
             var disabled = !data.disabled;
@@ -45,7 +45,7 @@ export default function AdminUser({ data }) {
     }
     function adminChange(value){
         adminValue = value;
-        if(confirm("Are you sure you wish to give administrator status to the user with ID = " + uid + "?"))
+        if(confirm("Are you sure you wish to alter the status of user " + uid + "?"))
         {
             // toggle admin user
             var admin = !data.admin;
