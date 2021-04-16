@@ -36,7 +36,7 @@ export default function MessagesPage() {
     });
 
     await setData(messages.data.list);
-    selection(convo.uid);
+    if (convo.uid) selection(convo.uid);
   }
   useInterval(async () => {
     if (!auth.uid) return;
