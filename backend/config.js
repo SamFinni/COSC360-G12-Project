@@ -1,10 +1,10 @@
 // Frontend
 module.exports.FRONTEND_IP = 'blogaru.finnigan.me';
-module.exports.FRONTEND_PORT = 80;
+module.exports.FRONTEND_PORT = 443;
 
 // Backend
 module.exports.BACKEND_IP = 'blogaruapi.finnigan.me';
-module.exports.BACKEND_PORT = 80;
+module.exports.BACKEND_PORT = 443;
 
 // Database
 module.exports.DATABASE_IP = 'finnigan.me';
