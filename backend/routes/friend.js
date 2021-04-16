@@ -187,8 +187,6 @@ router.post('/check', async function (req, res) {
       }
     );
 
-    console.log(friendStatus);
-
     res.status(200).send({ id: 0, status: friendStatus.length > 0 });
   } catch (error) {
     return res.status(500).send({ id: 0, message: error.message });

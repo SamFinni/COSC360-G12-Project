@@ -22,12 +22,9 @@ export default function Profile({ data }) {
     const userData = await axios.post(backend + "/user/getUser", {
       uid: auth.uid,
     });
-    console.log(userData);
     setUsername(userData.data[0].username);
     setBio(userData.data[0].bio);
     setPic(userData.data[0].image);
-    
-    console.log(userData.data[0].image);
   }
   function fileToDataUri(file) {
     return new Promise((resolve, reject) => {
@@ -39,7 +36,6 @@ export default function Profile({ data }) {
     });
   }
   function handlePic(file) {
-    console.log(file);
     if (!file) {
       setPic("");
       return;
@@ -55,7 +51,6 @@ export default function Profile({ data }) {
       username,
       pic,
     });
-    console.log(userData);
     await setAuth({ ...auth, username });
     window.location.reload();
   }

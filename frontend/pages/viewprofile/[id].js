@@ -39,7 +39,6 @@ export default function Profile() {
   }, [router.isReady]);
 
   async function getUser() {
-    console.log(router.query.id);
     await axios
       .post(backend + "/user/getUser", {
         uid: parseInt(router.query.id),
@@ -55,7 +54,6 @@ export default function Profile() {
       uid: auth.uid,
       fuid: parseInt(router.query.id),
     });
-    //console.log(added);
     window.location.reload();
     alert("User added!");
   }

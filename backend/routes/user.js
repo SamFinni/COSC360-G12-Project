@@ -91,7 +91,6 @@ router.post("/login", async function (req, res) {
       }
     );
   } catch (error) {
-    console.log(error);
     res.status(500).send(error);
   }
 });
@@ -249,8 +248,6 @@ router.post("/insertUser", async function (req, res) {
 // search for user by username/email
 
 router.post("/checkExists", async function (req, res) {
-  console.log(req.body); // will display { blogID: 2632 } in console, as sent by frontend/pages/user in the selectAPI() function
-
   try {
     const userData = await sequelize.query(
       `SELECT * 
@@ -301,18 +298,14 @@ router.post("/updateUser", async function (req, res) {
         type: QueryTypes.UPDATE,
       }
     );
-    console.log(userData);
     res.status(200).send(userData);
   } catch (error) {
-    console.log(error);
     res.status(500).send(error);
   }
 });
 
 // Update admin
 router.post("/updateAdmin", async function (req, res) {
-  console.log(req.body); // will display { blogID: 2632 } in console, as sent by frontend/pages/user in the selectAPI() function
-
   try {
     const userData = await sequelize.query(
       `UPDATE users
@@ -325,10 +318,8 @@ router.post("/updateAdmin", async function (req, res) {
         type: QueryTypes.UPDATE,
       }
     );
-    console.log(userData);
     res.status(200).send(userData);
   } catch (error) {
-    console.log(error);
     res.status(500).send(error);
   }
 });
@@ -369,8 +360,6 @@ router.post("/delete", async function (req, res) {
 
 // search for user username/email
 router.post("/search", async function (req, res) {
-  console.log(req.body); // will display { blogID: 2632 } in console, as sent by frontend/pages/user in the selectAPI() function
-
   try {
     const userData = await sequelize.query(
       `SELECT * 
@@ -420,7 +409,6 @@ router.post("/searchLike", async function (req, res) {
 // get user data
 // used to return the admin and disabled status of a user by id
 router.post("/status", async function (req, res) {
-  console.log(req.body); // will display { blogID: 2632 } in console, as sent by frontend/pages/user in the selectAPI() function
   try {
     const userData = await sequelize.query(
       `SELECT admin, disabled 

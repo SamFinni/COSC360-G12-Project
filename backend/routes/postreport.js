@@ -22,8 +22,6 @@ router.post('/list', async function (req, res) {
 
 // select
 router.post('/select', async function (req, res) {
-    console.log(req.body); // will display { blogID: 2632 } in console, as sent by frontend/pages/postreport in the selectAPI() function
-  
     try {
       const test = await Report.findAll();
   

@@ -88,7 +88,6 @@ export default function Signup(props) {
     });
   }
   function handlePic(file) {
-    console.log(file);
     if (!file) {
       setPic("");
       return;

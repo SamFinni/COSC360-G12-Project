@@ -32,11 +32,10 @@ export default function Login(props) {
       setError(userData.data.message);
       return;
     }
-    console.log(userData);
     setAuth({email: userData.data[0].email, uid: userData.data[0].id, username: userData.data[0].username})
     router.push('/');
   }
-  console.log(auth);
+  
   function validateForm() {
     return username.length > 0 && password.length > 0;
   }
