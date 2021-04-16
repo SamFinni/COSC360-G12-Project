@@ -30,6 +30,7 @@ export default function Profile() {
   const [add, setAdded] = useState(false);
   const [uid, setUid] = useState("");
   const [vid, setVid] = useState("");
+  const [friends, setFriends] = useState(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -49,7 +50,16 @@ export default function Profile() {
         setUid(router.query.id);
         setVid(auth.uid);
       });
+      await axios
+      .post(backend + "/friend/check", {
+        uid: auth.uid,
+        fuid: parseInt(router.query.id),
+      })
+      .then((response) => {
+        setFriends(response.data.status);
+      });
   }
+  
   async function addUser() {
     const added = await axios.post(backend + "/friend/add", {
       uid: auth.uid,
@@ -58,7 +68,32 @@ export default function Profile() {
     window.location.reload();
     alert("User added!");
   }
-
+  async function removeUser() {
+    const added = await axios.post(backend + "/friend/remove", {
+      uid: auth.uid,
+      fuid: parseInt(router.query.id),
+    });
+    window.location.reload();
+    alert("User removed!");
+  }
+  let friendButton = <></>;
+  if(friends == true){
+    friendButton = (
+    <img
+    className={styles.add}
+    src={"/remove.png"}
+    onClick={removeUser}
+  />
+    );
+  }else{
+    friendButton = (
+      <img
+      className={styles.add}
+      src={"/add2.png"}
+      onClick={addUser}
+    />
+      );
+  }
   return (
     <div className={styles.page}>
       <Head>
@@ -78,11 +113,7 @@ export default function Profile() {
           <div className={styles.content}>
             {/* ADD LINK TO ADD FRIEND */}
             {parseInt(vid) !== parseInt(uid) ? (
-              <img
-                className={styles.add}
-                src={"/add2.png"}
-                onClick={addUser}
-              />
+             friendButton
             ) : (
               <></>
             )}
