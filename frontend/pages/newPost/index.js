@@ -47,7 +47,7 @@ export default function NewPostPage() {
 
     function redirect(data) {
         setPostId(data)
-        window.location.replace("http://" + cfg.FRONTEND_IP + ":" + cfg.FRONTEND_PORT + "/post/" + data);
+        window.location.replace("https://" + cfg.FRONTEND_IP + ":" + cfg.FRONTEND_PORT + "/post/" + data);
     }
     
     return (

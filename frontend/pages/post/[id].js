@@ -18,7 +18,7 @@ import axios from "axios";
 import useLocalStorage from "../../functions/useLocalStorage";
 import * as cfg from "../../config";
 
-const backend = "http://" + cfg.BACKEND_IP + ":" + cfg.BACKEND_PORT;
+const backend = "https://" + cfg.BACKEND_IP + ":" + cfg.BACKEND_PORT;
 
 const Header = dynamic(() => import("../../components/Header"), {
   ssr: false,
@@ -169,7 +169,7 @@ export default function Post() {
         id,
       });
       // force redirect
-      window.location.replace("http://" + cfg.FRONTEND_IP + ":" + cfg.FRONTEND_PORT);
+      window.location.replace("https://" + cfg.FRONTEND_IP + ":" + cfg.FRONTEND_PORT);
     }
   }
 

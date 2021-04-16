@@ -9,7 +9,7 @@ import Link from "next/link";
 import axios from "axios";
 import * as cfg from "../../config";
 import { BiSliderAlt } from "react-icons/bi";
-const backend = "http://" + cfg.BACKEND_IP + ":" + cfg.BACKEND_PORT;
+const backend = "https://" + cfg.BACKEND_IP + ":" + cfg.BACKEND_PORT;
 
 const Header = dynamic(() => import("../../components/Header"), {
   ssr: false,

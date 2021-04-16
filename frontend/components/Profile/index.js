@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import useLocalStorage from "../../functions/useLocalStorage";
 import styles from "../../styles/components/Profile.module.css";
 import * as cfg from "../../config";
-const backend = "http://" + cfg.BACKEND_IP + ":" + cfg.BACKEND_PORT;
+const backend = "https://" + cfg.BACKEND_IP + ":" + cfg.BACKEND_PORT;
 
 export default function Profile({ data }) {
   const [auth, setAuth] = useLocalStorage("auth", {
