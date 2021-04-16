@@ -29,14 +29,16 @@ export default function Profile() {
   const [username, setUsername] = useState("");
   const [bio, setBio] = useState("");
   const [pic, setPic] = useState("");
-  const [add, setAdded] = useState(false);
   const [uid, setUid] = useState("");
   const [vid, setVid] = useState("");
   const [friends, setFriends] = useState(null);
+  const [mounted, setMounted] = useState(false);
   const router = useRouter();
 
+  useEffect(() => setMounted(true), []);
+
   useEffect(() => {
-    if (!router.isReady || !auth || !auth.uid) return;
+    if (!router.isReady) return;
     getUser();
   }, [router.isReady, auth]);
 
@@ -46,21 +48,23 @@ export default function Profile() {
         uid: parseInt(router.query.id),
       })
       .then((response) => {
+        console.log(1);
         setUsername(response.data[0].username);
         setBio(response.data[0].bio);
         setPic(response.data[0].image);
         setUid(router.query.id);
-        setVid(auth.uid);
+        if (auth && auth.uid) setVid(auth.uid);
       });
 
-    await axios
-      .post(backend + "/friend/check", {
-        uid: auth.uid,
-        fuid: parseInt(router.query.id),
-      })
-      .then((response) => {
-        setFriends(response.data.status);
-      });
+    if (auth && auth.uid)
+      await axios
+        .post(backend + "/friend/check", {
+          uid: auth.uid,
+          fuid: parseInt(router.query.id),
+        })
+        .then((response) => {
+          setFriends(response.data.status);
+        });
   }
 
   async function addUser() {
@@ -82,11 +86,11 @@ export default function Profile() {
   }
 
   let friendButton = <></>;
-  if (friends) {
+  if (friends === true) {
     friendButton = (
       <AiOutlineUserDelete data-tip="Unfriend" data-for="profileTT" data-background-color="#222222" className={styles.add} size={'2em'} onClick={removeUser} />
     );
-  } else {
+  } else if (friends === false) {
     friendButton = (
       <AiOutlineUserAdd data-tip="Add friend" data-for="profileTT" data-background-color="#222222" className={styles.add} size={'2em'} onClick={addUser} />
     );
@@ -114,7 +118,7 @@ export default function Profile() {
         </Link>
         <div className={styles.friendlist}>
           <div className={styles.content}>
-            <ReactTooltip id="profileTT" />
+            {mounted ? <ReactTooltip id="profileTT" /> : null}
             {parseInt(vid) !== parseInt(uid) ? (
               friendButton
             ) : (
