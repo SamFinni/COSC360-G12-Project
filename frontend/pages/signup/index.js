@@ -5,10 +5,9 @@ import useLocalStorage from "../../functions/useLocalStorage";
 import dynamic from "next/dynamic";
 import styles from "../../styles/pages/NewAccountPage.module.css";
 import Footer from "../../components/Footer";
-import Link from "next/link";
 import axios from "axios";
+import { toast } from 'react-toastify';
 import * as cfg from "../../config";
-import { BiSliderAlt } from "react-icons/bi";
 const backend = "http://" + cfg.BACKEND_IP + ":" + cfg.BACKEND_PORT;
 
 const Header = dynamic(() => import("../../components/Header"), {
@@ -24,9 +23,8 @@ export default function Signup(props) {
   const [password, setPassword] = useState("");
   const [bio, setBio] = useState("");
   const [pic, setPic] = useState("");
-  const [error, setError] = useState("");
   const router = useRouter();
-  const [auth, setAuth] = useLocalStorage("auth", {
+  const [, setAuth] = useLocalStorage("auth", {
     email: null,
     username: null,
     authkey: null,
@@ -41,12 +39,12 @@ export default function Signup(props) {
     if (!userData.data) {
       addUser();
     } else {
-      alert("Username and/or email are already taken!");
+      toast("Username and/or email are already taken!");
     }
   }
 
   async function addUser() {
-    const userData = await axios.post(backend + "/user/insertUser", {
+    await axios.post(backend + "/user/insertUser", {
       email,
       username,
       bio,
@@ -63,7 +61,7 @@ export default function Signup(props) {
     });
 
     if (userData.data.message) {
-      setError(userData.data.message);
+      toast(userData.data.message);
       return;
     }
 
@@ -99,7 +97,7 @@ export default function Signup(props) {
 
   function submitHandler() {
     if (!validateForm()) {
-      alert("Please fill out the form!");
+      toast("Please fill out the form!");
       return;
     }
     checkExists();

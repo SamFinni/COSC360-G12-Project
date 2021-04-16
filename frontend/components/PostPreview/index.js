@@ -102,7 +102,7 @@ export default function PostPreview({ data }) {
   return (
     <div className={styles.container}>
       <div className={styles.left}>
-        <Link href={`/viewprofile/${data.uid}`}>
+        <Link href={`/profile/${data.uid}`}>
           <a>
             <div className={styles.user}>
               <img className={styles.pic} src={pic} />

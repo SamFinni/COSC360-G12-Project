@@ -35,7 +35,7 @@ export default function Searchbar() {
       { loggedIn
       ? <>
         <Link href='/'>
-          <div className={styles.circle} data-tip="Homepage">
+          <div className={styles.circle} data-tip="Home">
             <div className={styles.icon}>
               <AiOutlineHome size={'2.5em'} />
             </div>
@@ -84,7 +84,7 @@ export default function Searchbar() {
       </>
       : <>
         <Link href='/'>
-          <div className={styles.circle} data-tip="Homepage">
+          <div className={styles.circle} data-tip="Home">
             <div className={styles.icon}>
               <AiOutlineHome size={'2.5em'} />
             </div>

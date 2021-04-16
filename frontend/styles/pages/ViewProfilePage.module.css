@@ -40,8 +40,8 @@
 }
 .add{
   width: 40px;
-  float: left;
-  position:absolute;
+  color: #ee8e67;
+  position: absolute;
   cursor: pointer;
 }
 .username {

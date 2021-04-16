@@ -7,6 +7,7 @@ import styles from "../../styles/pages/LoginPage.module.css";
 import Footer from "../../components/Footer";
 import Link from 'next/link';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 import * as cfg from '../../config';
 const backend = 'http://' + cfg.BACKEND_IP + ':' + cfg.BACKEND_PORT;
 
@@ -42,12 +43,11 @@ export default function Login(props) {
 
   function submitHandler() {
     if (!validateForm()) {
-      alert("Please fill out the form!");
+      toast("Please fill out the form!");
       return;
     }
     
     login();
-    //router.push('/');
   }
  let errorElement = <></>;
  if(error != ""){

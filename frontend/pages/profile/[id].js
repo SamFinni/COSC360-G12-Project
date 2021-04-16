@@ -3,9 +3,11 @@ import dynamic from "next/dynamic";
 import Footer from "../../components/Footer";
 import Link from "next/link";
 import styles from "../../styles/pages/ViewProfilePage.module.css";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
+import ReactTooltip from 'react-tooltip';
+import { AiOutlineUserAdd, AiOutlineUserDelete } from 'react-icons/ai';
 import useLocalStorage from "../../functions/useLocalStorage";
 import * as cfg from "../../config";
 const backend = "http://" + cfg.BACKEND_IP + ":" + cfg.BACKEND_PORT;
@@ -34,9 +36,9 @@ export default function Profile() {
   const router = useRouter();
 
   useEffect(() => {
-    if (!router.isReady) return <></>;
+    if (!router.isReady || !auth || !auth.uid) return;
     getUser();
-  }, [router.isReady]);
+  }, [router.isReady, auth]);
 
   async function getUser() {
     await axios
@@ -50,7 +52,8 @@ export default function Profile() {
         setUid(router.query.id);
         setVid(auth.uid);
       });
-      await axios
+
+    await axios
       .post(backend + "/friend/check", {
         uid: auth.uid,
         fuid: parseInt(router.query.id),
@@ -59,14 +62,15 @@ export default function Profile() {
         setFriends(response.data.status);
       });
   }
-  
+
   async function addUser() {
     const added = await axios.post(backend + "/friend/add", {
       uid: auth.uid,
       fuid: parseInt(router.query.id),
     });
     window.location.reload();
-    alert("User added!");
+    if (added.data.id !== 3) alert("Friend request sent!");
+    else alert("Friend request already sent!");
   }
   async function removeUser() {
     const added = await axios.post(backend + "/friend/remove", {
@@ -74,26 +78,25 @@ export default function Profile() {
       fuid: parseInt(router.query.id),
     });
     window.location.reload();
-    alert("User removed!");
+    alert("Unfriended user!");
   }
+
   let friendButton = <></>;
-  if(friends == true){
+  if (friends) {
     friendButton = (
-    <img
-    className={styles.add}
-    src={"/remove.png"}
-    onClick={removeUser}
-  />
+      <AiOutlineUserDelete data-tip="Unfriend" data-for="profileTT" data-background-color="#222222" className={styles.add} size={'2em'} onClick={removeUser} />
     );
-  }else{
+  } else {
     friendButton = (
-      <img
-      className={styles.add}
-      src={"/add2.png"}
-      onClick={addUser}
-    />
-      );
+      <AiOutlineUserAdd data-tip="Add friend" data-for="profileTT" data-background-color="#222222" className={styles.add} size={'2em'} onClick={addUser} />
+    );
   }
+
+  useEffect(() => {
+    ReactTooltip.hide();
+    ReactTooltip.rebuild();
+  });
+
   return (
     <div className={styles.page}>
       <Head>
@@ -111,9 +114,9 @@ export default function Profile() {
         </Link>
         <div className={styles.friendlist}>
           <div className={styles.content}>
-            {/* ADD LINK TO ADD FRIEND */}
+            <ReactTooltip id="profileTT" />
             {parseInt(vid) !== parseInt(uid) ? (
-             friendButton
+              friendButton
             ) : (
               <></>
             )}

@@ -39,6 +39,7 @@
   border: 1px solid #ee8e67;
   border-radius: 4px;
   user-select: none;
+  z-index: 100;
 }
 
 .newNoti {

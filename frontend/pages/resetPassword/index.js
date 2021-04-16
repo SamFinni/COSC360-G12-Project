@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 import * as cfg from '../../config';
 const backend = 'http://' + cfg.BACKEND_IP + ':' + cfg.BACKEND_PORT;
 import dynamic from "next/dynamic";
@@ -23,29 +24,31 @@ export default function ResetPasswordPage() {
 
   async function resetPassword() {
     if (password.length == 0) {
-      alert("Please enter a password!");
+      toast("Please enter a password!");
       return;
     }
 
     await axios.post(backend + "/user/resetPassword", {
       key, uid, password,
     }).then((res) => {
-      if (res.status == 200 && res.data.id == 0) alert("Password successfully reset! You may now login.");
-      else alert("Error resetting password. Please try requesting a new email.");
+      if (res.status == 200 && res.data.id == 0) toast("Password successfully reset! You may now login.");
+      else toast("Error resetting password. Please try requesting a new email.");
     });
   }
 
   async function sendEmail() {
     if (email.length == 0) {
-      alert("Please enter an email!");
+      toast("Please enter an email!");
       return;
     }
 
     await axios.post(backend + "/user/forgotPassword", {
       email,
     }).then((res) => {
-      if (res.status == 200 && res.data.id == 0) alert("Password reset email sent.");
-      else alert("Error resetting password. Please try requesting a new email.");
+      if (res.status == 200 && res.data.id == 0) toast("Password reset email sent.");
+      else toast("Error resetting password. Please try requesting a new email.");
+    }).catch((err) => {
+      toast("Error resetting password. Please try requesting a new email.");
     });
   }
 
