@@ -168,7 +168,7 @@ export default function Post() {
         id,
       });
       // force redirect
-      window.location.replace("http://localhost:3000/");
+      window.location.replace("http://" + cfg.FRONTEND_IP + ":" + cfg.FRONTEND_PORT);
     }
   }
 
