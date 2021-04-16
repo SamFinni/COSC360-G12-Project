@@ -7,7 +7,7 @@ import axios from 'axios';
 import useLocalStorage from '../../functions/useLocalStorage';
 import * as cfg from '../../config';
 import { useState } from 'react';
-const backend = 'http://' + cfg.BACKEND_IP + ':' + cfg.BACKEND_PORT;
+const backend = 'https://' + cfg.BACKEND_IP + ':' + cfg.BACKEND_PORT;
 
 const Header = dynamic(() => import('../../components/Header'), {
     ssr: false

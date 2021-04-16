@@ -3,7 +3,7 @@ import Link from 'next/link';
 import styles from '../../styles/components/Comment.module.css';
 import axios from 'axios';
 import * as cfg from '../../config';
-const backend = 'http://' + cfg.BACKEND_IP + ':' + cfg.BACKEND_PORT;
+const backend = 'https://' + cfg.BACKEND_IP + ':' + cfg.BACKEND_PORT;
 
 export default function Comment({ data }) {
     const [pic, setPic] = useState("");

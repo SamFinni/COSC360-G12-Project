@@ -7,7 +7,7 @@ import { HiShare } from 'react-icons/hi';
 import { toast } from 'react-toastify';
 import * as cfg from '../../config';
 import useLocalStorage from '../../functions/useLocalStorage';
-const backend = 'http://' + cfg.BACKEND_IP + ':' + cfg.BACKEND_PORT;
+const backend = 'https://' + cfg.BACKEND_IP + ':' + cfg.BACKEND_PORT;
 
 
 // structure of a post:

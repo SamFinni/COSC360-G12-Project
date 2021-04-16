@@ -10,7 +10,7 @@ export default function TestPage() {
   const [clicked, setClicked] = useState(0); // initialize to 0
   const [error, setError] = useState(''); // initialize to ''
 
-  const backend = 'http://' + cfg.BACKEND_IP + ':' + cfg.BACKEND_PORT;
+  const backend = 'https://' + cfg.BACKEND_IP + ':' + cfg.BACKEND_PORT;
 
   // calls select api, then updates `data` state
   async function selectAPI() {

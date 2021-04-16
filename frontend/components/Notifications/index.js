@@ -7,7 +7,7 @@ import useLocalStorage from '../../functions/useLocalStorage';
 import styles from '../../styles/components/Notifications.module.css';
 import { FaRegBell } from 'react-icons/fa';
 import * as cfg from '../../config';
-const backend = 'http://' + cfg.BACKEND_IP + ':' + cfg.BACKEND_PORT;
+const backend = 'https://' + cfg.BACKEND_IP + ':' + cfg.BACKEND_PORT;
 
 export default function Notifications() {
   const [auth, ] = useLocalStorage('auth', { email: null, uid: null, username: null, authkey: null });

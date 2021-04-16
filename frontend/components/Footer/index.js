@@ -3,7 +3,7 @@ import styles from '../../styles/components/Footer.module.css';
 import { useEffect, useState } from "react";
 import useLocalStorage from '../../functions/useLocalStorage';
 import axios from 'axios';
-const backend = 'http://' + cfg.BACKEND_IP + ':' + cfg.BACKEND_PORT;
+const backend = 'https://' + cfg.BACKEND_IP + ':' + cfg.BACKEND_PORT;
 import * as cfg from '../../config';
 
 export default function Footer() {

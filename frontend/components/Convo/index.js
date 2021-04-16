@@ -7,7 +7,7 @@ import styles from '../../styles/components/Convo.module.css';
 import UserMessage from '../../components/UserMessage';
 import { MdAddCircleOutline } from 'react-icons/md';
 import * as cfg from '../../config';
-const backend = 'http://' + cfg.BACKEND_IP + ':' + cfg.BACKEND_PORT;
+const backend = 'https://' + cfg.BACKEND_IP + ':' + cfg.BACKEND_PORT;
 
 export default function MessagesPage() {
   const [auth, ] = useLocalStorage('auth', { email: null, uid: null, username: null, authkey: null });

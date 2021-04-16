@@ -5,7 +5,7 @@ import useLocalStorage from '../../functions/useLocalStorage';
 import styles from '../../styles/components/FriendList.module.css';
 import Friend from '../../components/Friend';
 import * as cfg from '../../config';
-const backend = 'http://' + cfg.BACKEND_IP + ':' + cfg.BACKEND_PORT;
+const backend = 'https://' + cfg.BACKEND_IP + ':' + cfg.BACKEND_PORT;
 
 export default function FriendList() {
   const [auth, ] = useLocalStorage('auth', { email: null, uid: null, username: null, authkey: null });
