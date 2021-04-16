@@ -7,7 +7,7 @@ import ReactTooltip from 'react-tooltip';
 import { BiMessageSquareAdd, BiSearch } from 'react-icons/bi';
 import { HiOutlineMail, HiOutlineUserGroup } from 'react-icons/hi';
 import { FiLogOut, FiLogIn } from 'react-icons/fi';
-import { AiOutlineUser, AiOutlineUserAdd } from 'react-icons/ai';
+import { AiOutlineHome, AiOutlineUser, AiOutlineUserAdd } from 'react-icons/ai';
 
 export default function Searchbar() {
   const [auth, setAuth] = useLocalStorage('auth', { email: null, uid: null, username: null, authkey: null });
@@ -34,6 +34,13 @@ export default function Searchbar() {
         : <></> }
       { loggedIn
       ? <>
+        <Link href='/'>
+          <div className={styles.circle} data-tip="Homepage">
+            <div className={styles.icon}>
+              <AiOutlineHome size={'2.5em'} />
+            </div>
+          </div>
+        </Link>
         <Link href='/profile'>
           <div className={styles.circle} data-tip="Profile">
             <div className={styles.icon}>
@@ -76,6 +83,13 @@ export default function Searchbar() {
           </div>
       </>
       : <>
+        <Link href='/'>
+          <div className={styles.circle} data-tip="Homepage">
+            <div className={styles.icon}>
+              <AiOutlineHome size={'2.5em'} />
+            </div>
+          </div>
+        </Link>
         <Link href='/signup'>
           <div className={styles.circle} data-tip="Sign Up">
             <div className={styles.icon}>
