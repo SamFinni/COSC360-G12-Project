@@ -173,14 +173,20 @@ export default function Post() {
   }
 
   function reportPost() {
-    const reason = prompt("Please give a reason for your report:");
-    // report post
-    axios.post(backend + "/postreport/insert", {
-      pid: post.pid,
-      uid: auth.uid,
-      reason: reason,
-    });
-    toast("Report submitted");
+    var reason;
+    if(reason = prompt("Please give a reason for your report:")){
+        // report post
+        axios.post(backend + "/postreport/insert", {
+        pid: post.pid,
+        uid: auth.uid,
+        reason: reason,
+        });
+        toast("Report submitted");
+    }
+    else
+    {
+        toast("Report cancelled");
+    }
   }
 
   return (
