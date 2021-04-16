@@ -32,7 +32,7 @@ router.post('/insert', async function (req, res) {
       { title: 'Best I can do', price: 3.50 },
     ];
     await Test.bulkCreate(data);
-    
+
     res.status(200).send();
   } catch (error) {
     res.status(500).send(error);
@@ -47,7 +47,7 @@ router.post('/update', async function (req, res) {
         title: 'Big Red Truck'
       }
     });
-    
+
     res.status(200).send();
   } catch (error) {
     res.status(500).send(error);

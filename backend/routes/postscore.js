@@ -59,12 +59,13 @@ router.post('/updatePostScore', async function (req, res) {
         const updateScore = await sequelize.query(
             `UPDATE postscores
             SET score = ` +
-              req.body.newScore +
-              `
+            req.body.newScore +
+            `
             WHERE pid = ` +
-              req.body.pid,
+            req.body.pid,
             {
-              type: QueryTypes.UPDATE,
+                logging: false,
+                type: QueryTypes.UPDATE,
             }
         );
         return res.status(200).send(updateScore);

@@ -62,7 +62,7 @@ export default function Profile({ data }) {
       <>
         <img className={styles.pic} src={pic != "" ? pic : "/user.png"} />
         <p id="un" className={styles.username}>
-          Username: @{username}
+          <b>@{username}</b>
         </p>
         <p id="bi" className={styles.bio}>
           Bio: {bio}

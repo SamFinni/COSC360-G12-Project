@@ -35,6 +35,7 @@ router.post('/list', async function (req, res) {
       WHERE M.fromUid = ` + uid + ` OR M.toUid = ` + uid + `
       ORDER BY createdAt ASC`,
       {
+        logging: false,
         type: QueryTypes.SELECT
       }
     );
@@ -44,6 +45,7 @@ router.post('/list', async function (req, res) {
       FROM messages M
       JOIN users U ON (M.fromUid != ` + uid + ` AND M.fromUid = U.id OR M.toUid != ` + uid + ` AND M.toUid = U.id)`,
       {
+        logging: false,
         type: QueryTypes.SELECT
       }
     );
@@ -59,7 +61,7 @@ router.post('/list', async function (req, res) {
         delete x.uid;
         return memo;
       },
-    {});
+      {});
 
     let temp = [];
 

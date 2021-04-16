@@ -61,46 +61,46 @@ export default function Profile() {
 
   return (
     <div className={styles.page}>
-    <Head>
-      <title>Blogaru - Profile</title>
-      <link rel="icon" href="/favicon.ico" />
-    </Head>
-    <Header />
-    <Navbar />
+      <Head>
+        <title>Blogaru - Profile</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
 
-    <div className={styles.container}>
-      <h1 className={styles.title}>Profile</h1>
-      <Link href="/">
+      <Header />
+      <Navbar />
+
+      <div className={styles.container}>
+        <h1 className={styles.title}>Profile</h1>
+        <Link href="/">
           <div className={styles.button} >Back</div>
-      </Link>
-      <div className={styles.friendlist}>
-      <div className={styles.content}>
-          {/* ADD LINK TO ADD FRIEND */}
-          {parseInt(vid) !== parseInt(uid) ? (
-            <img
-              className={styles.add}
-              src={"/add2.png"}
-              onClick={addUser}
-            />
-          ) : (
-            <></>
-          )}
-      <div className={styles.user}>
-     
-      <img className={styles.pic} src={pic != "" ? pic : "/user.png"} />
-        <p id="un" className={styles.username}>
-          Username: @{username}
-        </p>
-        <p id="bi" className={styles.bio}>
-          Bio: {bio}
-        </p>
-      </div>
-    </div>
-      
-        </div>
-    </div>
+        </Link>
+        <div className={styles.friendlist}>
+          <div className={styles.content}>
+            {/* ADD LINK TO ADD FRIEND */}
+            {parseInt(vid) !== parseInt(uid) ? (
+              <img
+                className={styles.add}
+                src={"/add2.png"}
+                onClick={addUser}
+              />
+            ) : (
+              <></>
+            )}
+            <div className={styles.user}>
 
-    <Footer />
-  </div>
+              <img className={styles.pic} src={pic != "" ? pic : "/user.png"} />
+              <p id="un" className={styles.username}>
+                <b>@{username}</b>
+              </p>
+              <p id="bi" className={styles.bio}>
+                Bio: {bio}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <Footer />
+    </div>
   );
 }

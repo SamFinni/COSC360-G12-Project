@@ -9,6 +9,7 @@
   box-shadow: 0 4px 3px -3px gray;
   justify-content: space-between;
   align-items: center;
+  z-index: 100;
 }
 
 .logo {

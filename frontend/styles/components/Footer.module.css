@@ -1,5 +1,6 @@
 .container {
-  position: relative;
+  position: absolute;
+  bottom: 0;
   display: flex;
   height: 5vh;
   min-height: 2em;
@@ -9,6 +10,7 @@
   box-shadow: 0 4px 3px -3px gray;
   align-items: center;
   user-select: none;
+  z-index: 99;
 }
 
 .container a {

@@ -1,5 +1,5 @@
 const express = require('express');
-const {QueryTypes } = require('sequelize');
+const { QueryTypes } = require('sequelize');
 const sequelize = require('../db/sequelize');
 const router = express.Router();
 const Comment = require('../models/comment.model');
@@ -14,6 +14,7 @@ router.post('/list', async function (req, res) {
             FROM comments C JOIN users U ON C.uid = U.id
             WHERE C.pid = ` + id + ``,
             {
+                logging: false,
                 type: QueryTypes.SELECT
             }
         );
@@ -24,18 +25,21 @@ router.post('/list', async function (req, res) {
 });
 
 // add a comment
-router.post('/add', async function (req, res){
+router.post('/add', async function (req, res) {
     const { pid, uid, body } = req.body;
     if (!pid || !uid || !body) return res.status(500).send({ id: 1, message: "`uid`, `pid`, or `body` missing from body" });
-    
+
     try {
         const commentData = await sequelize.query(
             `INSERT INTO comments (pid, uid, body)
-            VALUES (`+pid+`, "`+uid+`", "`+body+`")`,
-            { type: QueryTypes.INSERT }
+            VALUES (`+ pid + `, "` + uid + `", "` + body + `")`,
+            {
+                logging: false,
+                type: QueryTypes.INSERT
+            }
         );
 
-    return res.status(200).send(commentData);
+        return res.status(200).send(commentData);
     } catch (error) {
         res.status(500).send({ id: 0, message: error.message });
     }
@@ -56,7 +60,7 @@ router.post('/update', async function (req, res) {
 
 // remove a comment
 router.post('/remove', async function (req, res) {
-    const {id, uid} = req.body;
+    const { id, uid } = req.body;
 
     if (!uid || !id) return res.status(500).send({ id: 1, message: "`uid` or `id` missing from body" });
 
