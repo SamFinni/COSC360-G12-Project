@@ -1,54 +1,57 @@
- .user {
-    text-align: center;
-    display: inline;
-    cursor: pointer;
-    margin: 1em 1em;
-  }
-  
-  .pic {
-    display: inline;
-    width: 300px;
-    aspect-ratio: 1;
-    border-radius: 300px;
-    box-shadow: 1px 1px 6px gray;
-    margin-bottom: 0.5em;
-  }
-  
-  .username {
-    
-    word-wrap: break-word;
-  }
-  .edit{
-    width: 30px;
-    float: left;
-    position:absolute;
-  }
- 
-  .input input {
-    flex-grow: 1;
-  }
-  
-  .input {
-    display: flex;
-    margin-bottom: 2em;
-    margin-top: 2em;
-  }
-  .content {
-    display: inline-flex;
-    flex-wrap: wrap;
-    background: #FFFFFF;
-    border-radius: 16px;
-    margin: 4em auto;
-    padding: 2em;
-    box-shadow: 0 0 6px gray;
-    color: #616161;
-    min-width: 25em;
+.user {
+  text-align: center;
+  display: inline;
+  cursor: pointer;
+  margin: 1em 1em;
 }
+
+.pic {
+  display: inline;
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 100%;
+  box-shadow: 1px 1px 6px gray;
+  margin-bottom: 0.5em;
+}
+
+.username {
+  
+  word-wrap: break-word;
+}
+.edit{
+  width: 30px;
+  float: left;
+  position:absolute;
+}
+
+.input input {
+  flex-grow: 1;
+}
+
+.input {
+  display: flex;
+  margin-bottom: 2em;
+  margin-top: 2em;
+}
+
+.content {
+  display: inline-flex;
+  flex-wrap: wrap;
+  background: #FFFFFF;
+  border-radius: 16px;
+  margin: 4em auto;
+  padding: 2em;
+  box-shadow: 0 0 6px gray;
+  color: #616161;
+}
+
 .label {
   display: inline;
    width: 7em;
    text-align: left;
  }
+
 .button {
   display: inline-block;
   border: 2px solid #ee8e67;
@@ -56,12 +59,12 @@
   color: #ee8e67;
   padding: 0.5em 1em;
   margin-top: 1em;
-  float: center;
   border-radius: 2em;
   box-shadow: 0 0 6px gray;
   font-weight: bold;
   user-select: none;
 }
+
 .button:hover {
   background: rgb(255,255,255);
   background: linear-gradient(225deg, rgba(255,255,255,1) 0%, rgba(167,238,232,1) 75%);

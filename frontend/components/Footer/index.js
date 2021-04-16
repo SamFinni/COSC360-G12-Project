@@ -11,7 +11,7 @@ export default function Footer() {
   const [adminLink, setAdminLink] = useState([]);
 
   // Auth: check if user is an admin
-  const [auth, setAuth] = useLocalStorage('auth');  // auth info: { email, uid, username, authkey }
+  const [auth, setAuth] = useLocalStorage('auth', { email: null, uid: null, username: null, authkey: null });
   useEffect(() => getThisUser(), [auth]);
 
   function getThisUser(){

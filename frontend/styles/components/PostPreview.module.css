@@ -28,7 +28,9 @@
 
 .pic {
   width: 6em;
-  border-radius: 128px;
+  height: 6em;
+  object-fit: cover;
+  border-radius: 100%;
   box-shadow: 1px 1px 6px gray;
   margin-bottom: 0.5em;
 }
@@ -61,7 +63,7 @@
 
 .uparrow {
   color: #939d9e;
-  height: 2em;
+  height: 1.5em;
   cursor: pointer;
 }
 .uparrow:hover {
@@ -71,7 +73,7 @@
 
 .downarrow {
   color: #939d9e;
-  height: 2em;
+  height: 1.5em;
   cursor: pointer;
 }
 .downarrow:hover {
