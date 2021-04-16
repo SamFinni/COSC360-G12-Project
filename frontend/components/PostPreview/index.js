@@ -112,15 +112,15 @@ export default function PostPreview({ data }) {
         </Link>
         <div className={styles.interact}>
           <div className={styles.score}>
-            <div className={styles.uparrow} onClick={() => updateScore(true)}>
+            <div className={styles.uparrow} title="Upvote" onClick={() => updateScore(true)}>
               <IoIosArrowUp style={scoreChange == 1 ? scoreHighlightUp : {}} size={'1.5em'} />
             </div>
             <p className={styles.scoreText}>{data.score}</p>
-            <div className={styles.downarrow} onClick={() => updateScore(false)}>
+            <div className={styles.downarrow} title="Downvote" onClick={() => updateScore(false)}>
               <IoIosArrowDown style={scoreChange == -1 ? scoreHighlightDown : {}} size={'1.5em'} />
             </div>
           </div>
-          <div className={styles.share} onClick={() => getShareLink()}>
+          <div className={styles.share} title="Share Post" onClick={() => getShareLink()}>
             <HiShare size={'2em'} />
           </div>
         </div>

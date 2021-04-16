@@ -224,7 +224,7 @@ export default function Post() {
           </div>
           <div className={styles.interact}>
             <div className={styles.score}>
-              <div className={styles.uparrow} onClick={() => updateScore(true)}>
+              <div className={styles.uparrow} title="Upvote" onClick={() => updateScore(true)}>
                 <IoIosArrowUp
                   style={scoreChange == 1 ? scoreHighlightUp : {}}
                   size={"2em"}
@@ -233,6 +233,7 @@ export default function Post() {
               <p className={styles.scoreText}>{score}</p>
               <div
                 className={styles.downarrow}
+                title="Downvote"
                 onClick={() => updateScore(false)}
               >
                 <IoIosArrowDown
@@ -241,10 +242,10 @@ export default function Post() {
                 />
               </div>
             </div>
-            <div className={styles.share} onClick={() => getShareLink()}>
+            <div className={styles.share} title="Share Post" onClick={() => getShareLink()}>
               <HiShare size={"3em"} />
             </div>
-            <div className={styles.report} onClick={() => reportPost()}>
+            <div className={styles.report} title="Report Post" onClick={() => reportPost()}>
               <HiExclamation size={"3em"} />
             </div>
           </div>
