@@ -90,6 +90,13 @@ export default function Searchbar() {
             </div>
           </div>
         </Link>
+        <Link href='/search'>
+          <div className={styles.circle} data-tip="Search">
+            <div className={styles.icon}>
+              <BiSearch size={'2.5em'} />
+            </div>
+          </div>
+        </Link>
         <Link href='/signup'>
           <div className={styles.circle} data-tip="Sign Up">
             <div className={styles.icon}>

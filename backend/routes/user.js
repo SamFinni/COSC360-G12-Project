@@ -74,14 +74,14 @@ router.post("/login", async function (req, res) {
       FROM users 
       WHERE username = "` +
       req.body.username +
-      `"`,
+      `" AND disabled = false`,
       {
         logging: false,
         type: QueryTypes.SELECT,
       }
     );
     if (userData.length == 0) {
-      return res.status(200).send({ id: 0, message: "Invalid username" });
+      return res.status(200).send({ id: 0, message: "Invalid username, or account disabled" });
     }
     bcrypt.compare(
       req.body.password,
@@ -250,8 +250,8 @@ router.post("/insertUser", async function (req, res) {
     res.status(500).send(error);
   }
 });
-// search for user by username/email
 
+// search for user by username/email
 router.post("/checkExists", async function (req, res) {
   try {
     const userData = await sequelize.query(
@@ -268,18 +268,6 @@ router.post("/checkExists", async function (req, res) {
       }
     );
     return res.status(200).send(userData.length > 0);
-  } catch (error) {
-    res.status(500).send(error);
-  }
-});
-// select
-router.post("/select", async function (req, res) {
-  try {
-    const test = await User.findAll();
-
-    // can modify/parse/do whatever with 'user' here before sending it back
-
-    res.status(200).send(test);
   } catch (error) {
     res.status(500).send(error);
   }
@@ -348,20 +336,6 @@ router.post("/updateDisabled", async function (req, res) {
       }
     );
     res.status(200).send(userData);
-  } catch (error) {
-    res.status(500).send(error);
-  }
-});
-
-// delete
-router.post("/delete", async function (req, res) {
-  try {
-    await User.destroy({
-      where: {
-        title: "Big Red Truck",
-      },
-    });
-    res.status(200).send();
   } catch (error) {
     res.status(500).send(error);
   }

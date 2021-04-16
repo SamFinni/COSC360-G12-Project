@@ -21,60 +21,6 @@ router.post('/list', async function (req, res) {
   }
 });
 
-// select
-router.post('/select', async function (req, res) {
-  try {
-    const test = await Report.findAll();
-
-    // can modify/parse/do whatever with 'postreport' here before sending it back
-
-    res.status(200).send(test);
-  } catch (error) {
-    res.status(500).send(error);
-  }
-});
-
-// insert (single & multi)
-router.post('/insert', async function (req, res) {
-  try {
-    // single insert
-    await PostReport.create({ pid: req.body.pid, uid: req.body.uid, reason: req.body.reason });
-    res.status(200).send();
-  } catch (error) {
-    res.status(500).send(error);
-  }
-});
-
-// update
-router.post('/update', async function (req, res) {
-  try {
-    await PostReport.update({ price: 6000.00 }, {
-      where: {
-        title: 'Big Red Truck'
-      }
-    });
-
-    res.status(200).send();
-  } catch (error) {
-    res.status(500).send(error);
-  }
-});
-
-// delete
-router.post('/delete', async function (req, res) {
-  try {
-    await PostReport.destroy({
-      where: {
-        id: req.body.id
-      }
-    });
-    res.status(200).send();
-  } catch (error) {
-    res.status(500).send(error);
-  }
-});
-
-
 // search for report by *LIKE* reason/createdAt
 router.post('/searchLike', async function (req, res) {
   try {
