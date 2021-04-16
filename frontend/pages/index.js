@@ -90,7 +90,7 @@ export default function HomePage() {
           
           {posts.length > 0
           ? posts.map((post, idx) => (
-            <PostPreview key={`postpreview-${idx}`} data={post} />
+            <PostPreview key={`postpreview-${post.pid}`} data={post} />
           ))
           : <ClipLoader color={'#ee8e67'} loading={true} size={200} />
           }
