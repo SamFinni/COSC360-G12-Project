@@ -16,13 +16,12 @@
 .right {
     display: flex;
     flex-direction: column;
-    width: 80%;
+    width: 100%;
 }
 
 .username {
     word-wrap: break-word;
     cursor: pointer;
-    padding-top: 0.2em;
 }
 
 .date {
@@ -31,15 +30,20 @@
     text-align: right;
     font-size: 0.85em;
     font-weight: bold;
-    margin: 0.5em 2em 0 0;
+    margin: 0 2em 0 0;
     user-select: none;
+}
+
+.detailsContainer {
+    display: flex;
+    justify-content: space-between;
 }
 
 .bodyContainer {
     background: #FFFFFF;
     border-radius: 0.5em;
     padding: 0.8em 1em 1em 1em;
-    margin: 1em 1em 0 0;
+    margin: 0.2em 1em 0 0;
     border: 1px solid #e4e4e4;
 }
 
