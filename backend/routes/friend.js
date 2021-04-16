@@ -15,11 +15,11 @@ router.post('/add', async function (req, res) {
   try {
     // make sure uid and fuid users exist
     const uidUser = await User.findAll({
-      attributes: [ 'id' ],
+      attributes: ['id'],
       where: { id: uid },
     });
     const fuidUser = await User.findAll({
-      attributes: [ 'id' ],
+      attributes: ['id'],
       where: { id: fuid },
     });
     if (uidUser.length == 0) return res.status(500).send({ id: 3, message: "`uid` user does not exist" });
@@ -27,7 +27,7 @@ router.post('/add', async function (req, res) {
 
     // check if they've already added us
     const theyAdded = await Friend.findAll({
-      attributes: [ 'accepted' ],
+      attributes: ['accepted'],
       where: {
         uid: fuid,
         fuid: uid,
@@ -43,7 +43,7 @@ router.post('/add', async function (req, res) {
           },
         });
         return res.status(200).send({ id: 0, message: "Friend request accepted" });
-      // if we're already friends, return
+        // if we're already friends, return
       } else return res.status(200).send({ id: 2, message: "Friend request already accepted" });
 
     // now check if we've already added them
@@ -58,7 +58,7 @@ router.post('/add', async function (req, res) {
     else {
       // get our username
       const myUsername = await User.findAll({
-        attributes: [ 'username' ],
+        attributes: ['username'],
         where: { id: uid },
       });
 
@@ -94,11 +94,11 @@ router.post('/remove', async function (req, res) {
   try {
     // make sure uid and fuid users exist
     const uidUser = await User.findAll({
-      attributes: [ 'id' ],
+      attributes: ['id'],
       where: { id: uid },
     });
     const fuidUser = await User.findAll({
-      attributes: [ 'id' ],
+      attributes: ['id'],
       where: { id: fuid },
     });
     if (uidUser.length == 0) return res.status(500).send({ id: 3, message: "`uid` user does not exist" });
@@ -119,7 +119,7 @@ router.post('/remove', async function (req, res) {
         ]
       },
     });
-    
+
     // if friendship doesn't exist, return, else delete friendship
     if (friendship.length === 0) return res.status(200).send({ id: 1, message: "Friendship does not exist" });
     else {
@@ -142,11 +142,11 @@ router.post('/list', async function (req, res) {
   const { uid } = req.body;
 
   if (!uid) return res.status(500).send({ id: 1, message: "`uid` missing from body" });
-  
+
   try {
     // make sure uid user exists
     const uidUser = await User.findAll({
-      attributes: [ 'id' ],
+      attributes: ['id'],
       where: { id: uid },
     });
     if (uidUser.length == 0) return res.status(500).send({ id: 3, message: "`uid` user does not exist" });
@@ -157,6 +157,7 @@ router.post('/list', async function (req, res) {
       JOIN users U ON (F.uid = ` + uid + ` AND F.fuid = U.id OR F.fuid = ` + uid + ` AND F.uid = U.id)
       WHERE F.accepted = true`,
       {
+        logging: false,
         type: QueryTypes.SELECT
       }
     );
@@ -176,18 +177,17 @@ router.post('/check', async function (req, res) {
   const { uid, fuid } = req.body;
 
   if (!uid || !fuid) return res.status(500).send({ id: 1, message: "`uid` or `fuid` missing from body" });
-  
+
   try {
     const friendStatus = await sequelize.query(
       `SELECT 1
       FROM friends F
       WHERE F.accepted = true AND (F.uid = ` + uid + ` AND F.fuid = ` + fuid + ` OR F.fuid = ` + uid + ` AND F.uid = ` + fuid + `)`,
       {
+        logging: false,
         type: QueryTypes.SELECT
       }
     );
-
-    console.log(friendStatus);
 
     res.status(200).send({ id: 0, status: friendStatus.length > 0 });
   } catch (error) {
@@ -200,11 +200,11 @@ router.post('/requests', async function (req, res) {
   const { uid } = req.body;
 
   if (!uid) return res.status(500).send({ id: 1, message: "`uid` missing from body" });
-  
+
   try {
     // make sure uid user exists
     const uidUser = await User.findAll({
-      attributes: [ 'id' ],
+      attributes: ['id'],
       where: { id: uid },
     });
     if (uidUser.length == 0) return res.status(500).send({ id: 3, message: "`uid` user does not exist" });
@@ -215,10 +215,11 @@ router.post('/requests', async function (req, res) {
       JOIN users U ON (F.uid = U.id)
       WHERE F.fuid = ` + uid + ` AND F.accepted = false`,
       {
+        logging: false,
         type: QueryTypes.SELECT
       }
     );
-    
+
     friendList.forEach((x) => {
       x.image = x.image.toString();
     });
@@ -239,19 +240,19 @@ router.post('/remove', async function (req, res) {
   try {
     // make sure uid and fuid users exist
     const uidUser = await User.findAll({
-      attributes: [ 'id' ],
+      attributes: ['id'],
       where: { id: uid },
     });
     const fuidUser = await User.findAll({
-      attributes: [ 'id' ],
+      attributes: ['id'],
       where: { id: fuid },
     });
     if (uidUser.length == 0) return res.status(500).send({ id: 3, message: "`uid` user does not exist" });
     if (fuidUser.length == 0) return res.status(500).send({ id: 4, message: "`fuid` user does not exist" });
-  
+
     // check if users are friends
     const friends = await Friend.findAll({
-      attributes: [ 'uid', 'fuid' ],
+      attributes: ['uid', 'fuid'],
       where: {
         [Op.or]: [
           {

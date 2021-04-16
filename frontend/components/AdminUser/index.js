@@ -39,7 +39,6 @@ export default function AdminUser({ data }) {
                 uid,
                 disabled,
             });
-            console.log(userData);
             // force reload page
             window.location.reload();
         }
@@ -54,7 +53,6 @@ export default function AdminUser({ data }) {
                 uid,
                 admin,
             });
-            console.log(userData);
             // force reload page
             window.location.reload();
         }

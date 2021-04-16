@@ -202,9 +202,9 @@ export default function Post() {
       <Navbar />
 
       <div className={styles.holder}>
-       <Link href="/">
+        <Link href="/">
           <div className={styles.button} >Back</div>
-          </Link>
+        </Link>
         <div className={styles.content}>
           <span className={styles.date}>
             {!post.createdAt ? "" : post.createdAt.substring(0, 10)}
@@ -274,9 +274,11 @@ export default function Post() {
                 value={commentBody}
                 onChange={(e) => setCommentBody(e.target.value)}
               ></textarea>
-              <a className={styles.addCommentButton} onClick={addComment}>
-                Add a comment
-              </a>
+              <div className={styles.addButtonHolder}>
+                <div className={styles.addCommentButton} onClick={addComment}>
+                  Add a comment
+                </div>
+              </div>
             </div>
           ) : (
             <p>Sign up to leave a comment!</p>

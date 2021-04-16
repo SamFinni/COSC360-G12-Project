@@ -18,6 +18,7 @@ router.post("/list", async function (req, res) {
       `SELECT * 
       FROM users`,
       {
+        logging: false,
         type: QueryTypes.SELECT,
       }
     );
@@ -37,6 +38,7 @@ router.post("/listDisabledAndAdmin", async function (req, res) {
       ORDER BY admin DESC, disabled DESC 
       LIMIT 10`,
       {
+        logging: false,
         type: QueryTypes.SELECT,
       }
     );
@@ -54,6 +56,7 @@ router.post("/getUser", async function (req, res) {
       FROM users 
       WHERE id = ` + req.body.uid,
       {
+        logging: false,
         type: QueryTypes.SELECT,
       }
     );
@@ -70,9 +73,10 @@ router.post("/login", async function (req, res) {
       `SELECT username, password, email, id
       FROM users 
       WHERE username = "` +
-        req.body.username +
-        `"`,
+      req.body.username +
+      `"`,
       {
+        logging: false,
         type: QueryTypes.SELECT,
       }
     );
@@ -91,7 +95,6 @@ router.post("/login", async function (req, res) {
       }
     );
   } catch (error) {
-    console.log(error);
     res.status(500).send(error);
   }
 });
@@ -128,6 +131,7 @@ router.post("/forgotPassword", async function (req, res) {
       VALUES (?, ?)`,
       {
         replacements: [user[0].id, key],
+        logging: false,
         type: QueryTypes.INSERT,
       }
     );
@@ -222,16 +226,16 @@ router.post("/insertUser", async function (req, res) {
       const userData = await sequelize.query(
         `INSERT INTO users (email, username, bio, image, password)
         VALUES ("` +
-          req.body.email +
-          `", "` +
-          req.body.username +
-          `", "` +
-          req.body.bio +
-          `", "` +
-          req.body.pic +
-          `","` +
-          hash +
-          `");`,
+        req.body.email +
+        `", "` +
+        req.body.username +
+        `", "` +
+        req.body.bio +
+        `", "` +
+        req.body.pic +
+        `","` +
+        hash +
+        `");`,
         {
           logging: false,
           type: QueryTypes.INSERT,
@@ -249,18 +253,17 @@ router.post("/insertUser", async function (req, res) {
 // search for user by username/email
 
 router.post("/checkExists", async function (req, res) {
-  console.log(req.body); // will display { blogID: 2632 } in console, as sent by frontend/pages/user in the selectAPI() function
-
   try {
     const userData = await sequelize.query(
       `SELECT * 
       FROM users 
       WHERE username ="` +
-        req.body.username +
-        `" OR email = "` +
-        req.body.email +
-        `";`,
+      req.body.username +
+      `" OR email = "` +
+      req.body.email +
+      `";`,
       {
+        logging: false,
         type: QueryTypes.SELECT,
       }
     );
@@ -289,46 +292,42 @@ router.post("/updateUser", async function (req, res) {
     const userData = await sequelize.query(
       `UPDATE users
       SET username = "` +
-        req.body.username +
-        `",  bio= "` +
-        req.body.bio +
-        `", image= "` +
-        req.body.pic +
-        `"
+      req.body.username +
+      `",  bio= "` +
+      req.body.bio +
+      `", image= "` +
+      req.body.pic +
+      `"
       WHERE id = ` +
-        req.body.uid,
+      req.body.uid,
       {
+        logging: false,
         type: QueryTypes.UPDATE,
       }
     );
-    console.log(userData);
     res.status(200).send(userData);
   } catch (error) {
-    console.log(error);
     res.status(500).send(error);
   }
 });
 
 // Update admin
 router.post("/updateAdmin", async function (req, res) {
-  console.log(req.body); // will display { blogID: 2632 } in console, as sent by frontend/pages/user in the selectAPI() function
-
   try {
     const userData = await sequelize.query(
       `UPDATE users
       SET admin = ` +
-        req.body.admin +
-        `
+      req.body.admin +
+      `
       WHERE id = ` +
-        req.body.uid,
+      req.body.uid,
       {
+        logging: false,
         type: QueryTypes.UPDATE,
       }
     );
-    console.log(userData);
     res.status(200).send(userData);
   } catch (error) {
-    console.log(error);
     res.status(500).send(error);
   }
 });
@@ -339,11 +338,12 @@ router.post("/updateDisabled", async function (req, res) {
     const userData = await sequelize.query(
       `UPDATE users
       SET disabled = ` +
-        req.body.disabled +
-        `
+      req.body.disabled +
+      `
       WHERE id = ` +
-        req.body.uid,
+      req.body.uid,
       {
+        logging: false,
         type: QueryTypes.UPDATE,
       }
     );
@@ -369,18 +369,17 @@ router.post("/delete", async function (req, res) {
 
 // search for user username/email
 router.post("/search", async function (req, res) {
-  console.log(req.body); // will display { blogID: 2632 } in console, as sent by frontend/pages/user in the selectAPI() function
-
   try {
     const userData = await sequelize.query(
       `SELECT * 
       FROM users 
       WHERE username ="` +
-        req.body.username +
-        `" OR email = "` +
-        req.body.email +
-        `";`,
+      req.body.username +
+      `" OR email = "` +
+      req.body.email +
+      `";`,
       {
+        logging: false,
         type: QueryTypes.SELECT,
       }
     );
@@ -398,12 +397,13 @@ router.post("/searchLike", async function (req, res) {
       `SELECT * 
       FROM users 
       WHERE username LIKE "%` +
-        req.body.username +
-        `%" OR email LIKE "%` +
-        req.body.email +
-        `%" 
+      req.body.username +
+      `%" OR email LIKE "%` +
+      req.body.email +
+      `%" 
       ORDER BY admin DESC, disabled DESC`,
       {
+        logging: false,
         type: QueryTypes.SELECT,
       }
     );
@@ -420,13 +420,13 @@ router.post("/searchLike", async function (req, res) {
 // get user data
 // used to return the admin and disabled status of a user by id
 router.post("/status", async function (req, res) {
-  console.log(req.body); // will display { blogID: 2632 } in console, as sent by frontend/pages/user in the selectAPI() function
   try {
     const userData = await sequelize.query(
       `SELECT admin, disabled 
       FROM users 
       WHERE id = ` + req.body.uid,
       {
+        logging: false,
         type: QueryTypes.SELECT,
       }
     );

@@ -175,15 +175,30 @@
     margin: 0;
 }
 
+.addButtonHolder {
+    display: flex;
+    justify-content: flex-end;
+}
+
 .addCommentButton {
     font-weight: 600;
     font-size: smaller;
     cursor: pointer;
-    display: flex;
-    flex-direction: inherit;
-    align-items: flex-end;
     white-space: nowrap;
-}
+    width: 10.5em;
+    border: 2px solid #ee8e67;
+    background-color: white;
+    color: #ee8e67;
+    padding: 0.5em 1em;
+    margin-top: 0.5em;
+    border-radius: 2em;
+    box-shadow: 0 0 6px gray;
+    user-select: none;
+  }
+  .addCommentButton:hover {
+    background: rgb(255,255,255);
+    background: linear-gradient(225deg, rgba(255,255,255,1) 0%, rgba(167,238,232,1) 75%);
+  }
 
 .addComment {
     border-top: 1px solid #CCCCCC;

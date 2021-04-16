@@ -12,7 +12,7 @@ router.post('/select', async function (req, res) {
     try {
         // make sure uid user exists
         const cidUser = await User.findAll({
-            attributes: [ 'id' ],
+            attributes: ['id'],
             where: { id: cid },
         });
         if (cidUser.length == 0) return res.status(500).send({ id: 3, message: "`cid` user does not exist" });
@@ -21,14 +21,14 @@ router.post('/select', async function (req, res) {
             //TODO
         );
 
-        res.status(200).send({id: 0, list: commentScoreList});
+        res.status(200).send({ id: 0, list: commentScoreList });
     } catch (error) {
-        res.status(500).send({id: 0, message: error});
+        res.status(500).send({ id: 0, message: error });
     }
 });
 
 // add a score
-router.post('/add', async function (req, res){
+router.post('/add', async function (req, res) {
     const { cid } = req.body;
 
     if (!cid) return res.status(500).send({ id: 1, message: "`cid` missing from body" });
@@ -61,7 +61,7 @@ router.post('/update', async function (req, res) {
 
 // remove a comment
 router.post('/remove', async function (req, res) {
-    const {id, cid} = req.body;
+    const { id, cid } = req.body;
 
     if (!cid || !id) return res.status(500).send({ id: 1, message: "`cid` or `id` missing from body" });
 

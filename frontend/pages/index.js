@@ -12,6 +12,7 @@ import styles from '../styles/pages/HomePage.module.css';
 import Footer from '../components/Footer';
 import PostPreview from '../components/PostPreview';
 import axios from 'axios';
+import ClipLoader from "react-spinners/ClipLoader";
 import { useEffect, useState } from "react";
 import * as cfg from '../config';
 const backend = 'https://' + cfg.BACKEND_IP + ':' + cfg.BACKEND_PORT;
@@ -81,15 +82,18 @@ export default function HomePage() {
           </select>
           </span>
         </div>
-        <span className={styles.count}>{posts.length}</span><span className={styles.count2}>&nbsp;Posts</span>
+        <span className={styles.count}>{posts.length > 0 ? posts.length : 'Loading'}</span><span className={styles.count2}>&nbsp;Posts</span>
       </div>
 
-      <div className={styles.container}>
+      <div className={styles.container} style={posts.length == 0 ? { padding: '2em' } : null}>
         <div className={styles.postlist}>
           
-          {posts.map((post, idx) => (
+          {posts.length > 0
+          ? posts.map((post, idx) => (
             <PostPreview key={`postpreview-${idx}`} data={post} />
-          ))}
+          ))
+          : <ClipLoader color={'#ee8e67'} loading={true} size={200} />
+          }
           
         </div>
       </div>
