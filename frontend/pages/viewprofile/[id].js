@@ -4,10 +4,7 @@ import Footer from "../../components/Footer";
 import Link from "next/link";
 import styles from "../../styles/pages/ViewProfilePage.module.css";
 import { useEffect, useState } from "react";
-import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
-import { HiShare } from "react-icons/hi";
 import { useRouter } from "next/router";
-import { toast } from "react-toastify";
 import axios from "axios";
 import useLocalStorage from "../../functions/useLocalStorage";
 import * as cfg from "../../config";
@@ -29,8 +26,10 @@ export default function Profile() {
   });
   const [username, setUsername] = useState("");
   const [bio, setBio] = useState("");
-  const [pic, setPic] = useState(""); // auth info: { email, uid, username, authkey }
+  const [pic, setPic] = useState("");
   const [add, setAdded] = useState(false);
+  const [uid, setUid] = useState("");
+  const [vid, setVid] = useState("");
   const router = useRouter();
 
   useEffect(() => {
@@ -47,6 +46,8 @@ export default function Profile() {
         setUsername(response.data[0].username);
         setBio(response.data[0].bio);
         setPic(response.data[0].image);
+        setUid(router.query.id);
+        setVid(auth.uid);
       });
   }
   async function addUser() {
@@ -75,11 +76,15 @@ export default function Profile() {
       <div className={styles.friendlist}>
       <div className={styles.content}>
           {/* ADD LINK TO ADD FRIEND */}
-      <img
-          className={styles.add}
-          src={"/add2.png"}
-          onClick={addUser}
-        />
+          {parseInt(vid) !== parseInt(uid) ? (
+            <img
+              className={styles.add}
+              src={"/add2.png"}
+              onClick={addUser}
+            />
+          ) : (
+            <></>
+          )}
       <div className={styles.user}>
      
       <img className={styles.pic} src={pic != "" ? pic : "/user.png"} />
