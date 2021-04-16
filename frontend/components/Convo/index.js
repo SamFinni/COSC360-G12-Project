@@ -10,11 +10,12 @@ import * as cfg from '../../config';
 const backend = 'https://' + cfg.BACKEND_IP + ':' + cfg.BACKEND_PORT;
 
 export default function MessagesPage() {
-  const [auth, ] = useLocalStorage('auth', { email: null, uid: null, username: null, authkey: null });
+  const [auth,] = useLocalStorage('auth', { email: null, uid: null, username: null, authkey: null });
   const [data, setData] = useState([]);
   const [convo, setConvo] = useState({});
   const [sendMsg, setSendMsg] = useState('');
   const [searchUser, setSearchUser] = useState('');
+  const [userList, setUserList] = useState([]);
   const pollTime = 1000;
 
   // scroll last message of convo into view
@@ -29,60 +30,31 @@ export default function MessagesPage() {
     setData(messages.data.list);
   }
   useEffect(getConvos, [auth]);
-  
+
   async function pollGetConvos() {
     const messages = await axios.post(backend + '/message/list', {
       uid: auth.uid
     });
 
-    await setData(messages.data.list);
-    if (convo.uid) selection(convo.uid);
+    let found = false;
+    messages.data.list.filter((x) => {
+      if (x.uid == convo.uid) {
+        x = convo;
+        found = true;
+      }
+    });
+    if (!found && convo.uid) messages.data.list.push(convo);
+
+    setData(messages.data.list);
   }
   useInterval(async () => {
     if (!auth.uid) return;
     pollGetConvos();
   }, pollTime);
-  
-  let convoElement = <></>;
-  if (!convo || Object.keys(convo).length === 0) convoElement = (
-    <div className={styles.choose}>
-      <p>Choose something on the left first!</p>
-    </div>
-  );
-  else if (convo.new) convoElement = (
-    <div className={styles.new} ref={convoRef}>
-      <p className={styles.searchText}>Search for a user to message</p>
-      <input type="text" value={searchUser} onChange={(e) => setSearchUser(e.target.value)} className={styles.search} />
-      <button className={styles.go} onClick={startConvo}>Go</button>
-    </div>
-  );
-  else convoElement = (
-    <div className={styles.convoContainer}>
-      <div className={styles.convo} ref={convo.messages.length == 0 ? convoRef : null}>
-        {convo.messages.length == 0 ? <p>Start the conversation!</p> : null}
-        {convo.messages.map((message, idx) => {
-          const r = idx == convo.messages.length-1 ?  convoRef : null;
-          const dt = new Date(message.createdAt);
-          if (message.sender == 0) return (
-            <div key={`convo-${idx}`} className={`${styles.bothMsg} ${styles.fromMsg}`} ref={r}>
-              {message.text}
-              <p className={styles.date}>{dt.toLocaleString()}</p>
-            </div>
-            );
-          else return (
-            <div key={`convo-${idx}`} className={`${styles.bothMsg} ${styles.toMsg}`} ref={r}>
-              {message.text}
-              <p className={styles.date}>{dt.toLocaleString()}</p>
-            </div>
-            );
-        })}
-      </div>
-      <div className={styles.send}>
-        <button className={styles.sendButton} onClick={sendMessage}>Send</button>
-        <textarea className={styles.sendText} value={sendMsg} onChange={(e) => setSendMsg(e.target.value)} onKeyDown={(e) => { if (e.key == 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } }} />
-      </div>
-    </div>
-  );
+
+  useEffect(() => {
+    if (convo.uid) selection(convo.uid);
+  }, [data]);
 
   function selection(uid) {
     if (uid === -1) setConvo({ new: true });
@@ -100,18 +72,102 @@ export default function MessagesPage() {
     });
 
     let temp = convo.messages;
-    temp.push({ from: false, text: msg });
+    temp.push({ from: false, text: msg, createdAt: new Date() });
     setConvo({ ...convo, messages: temp });
     setSendMsg('');
   }
 
-  function startConvo() {
-    // todo: get actual uid & image. also add logic to update a dropdown list of existing users under search input
-    temp = update(data, {$push: [{ uid: 1, username: searchUser, image: null, messages: [] }]});
+  async function findUsers() {
+    const res = await axios.post(backend + "/user/searchLike", {
+      username: searchUser,
+      email: searchUser,
+    });
+
+    let userList = [];
+    if (res.data.message !== "No users found") userList = res.data.slice(0, 10);
+    setUserList(userList);
+  }
+  useEffect(findUsers, [searchUser]);
+
+  async function startConvo(uid, username, image) {
+    const temp = update(data, { $push: [{ uid, username, image, messages: [] }] });
     setData(temp);
-    setConvo(temp.messages[temp.messages.length-1]);
+    setConvo(temp[temp.length - 1]);
     setSearchUser('');
   }
+
+  let searchList = <></>;
+  if (searchUser && userList.length > 0) {
+    searchList = (
+      <div className={styles.searchList}>
+        {userList.map((x) =>
+          <div
+            className={styles.searchUser}
+            onClick={() => startConvo(x.id, x.username, x.image)}
+          >
+            {x.username}
+          </div>
+        )}
+      </div>
+    );
+  } else if (searchUser && userList.length == 0) {
+    searchList = (
+      <div className={styles.searchList}>
+        <div className={styles.noSearchUser}>
+          No users found!
+        </div>
+      </div>
+    );
+  }
+
+  let convoElement = <></>;
+  if (!convo || Object.keys(convo).length === 0) convoElement = (
+    <div className={styles.choose}>
+      <p>Choose something on the left first!</p>
+    </div>
+  );
+  else if (convo.new) convoElement = (
+    <div
+      className={styles.new}
+      ref={convoRef}
+    >
+      <p className={styles.searchText}>Search for a user to message</p>
+      <input
+        type="text"
+        value={searchUser}
+        onChange={(e) => setSearchUser(e.target.value)}
+        className={styles.search}
+      />
+      {searchList}
+    </div>
+  );
+  else convoElement = (
+    <div className={styles.convoContainer}>
+      <div className={styles.convo} ref={convo.messages.length == 0 ? convoRef : null}>
+        {convo.messages.length == 0 ? <p>Start the conversation!</p> : null}
+        {convo.messages.map((message, idx) => {
+          const r = idx == convo.messages.length - 1 ? convoRef : null;
+          const dt = new Date(message.createdAt);
+          if (message.sender == 0) return (
+            <div key={`convo-${idx}`} className={`${styles.bothMsg} ${styles.fromMsg}`} ref={r}>
+              {message.text}
+              <p className={styles.date}>{dt.toLocaleString()}</p>
+            </div>
+          );
+          else return (
+            <div key={`convo-${idx}`} className={`${styles.bothMsg} ${styles.toMsg}`} ref={r}>
+              {message.text}
+              <p className={styles.date}>{dt.toLocaleString()}</p>
+            </div>
+          );
+        })}
+      </div>
+      <div className={styles.send}>
+        <button className={styles.sendButton} onClick={sendMessage}>Send</button>
+        <textarea className={styles.sendText} value={sendMsg} onChange={(e) => setSendMsg(e.target.value)} onKeyDown={(e) => { if (e.key == 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } }} />
+      </div>
+    </div>
+  );
 
   return (
     <div className={styles.messages}>

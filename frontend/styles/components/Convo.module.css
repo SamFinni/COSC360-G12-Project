@@ -132,7 +132,8 @@
 .send {
   display: flex;
   width: 100%;
-  height: 4em;
+  min-height: 4em;
+  max-height: 4em;
   border-top: 1px solid #CCCCCC;
 }
 
@@ -170,4 +171,28 @@
   padding: 0;
   font-size: 0.6em;
   margin: 0.5em 0 0 0;
+}
+
+.searchList {
+  display: flex;
+  flex-direction: column;
+  background-color: #333333;
+  padding: 0 0.5em;
+}
+
+.searchUser {
+  padding: 0.25em;
+  color: #AAAAAA;
+  cursor: pointer;
+  border-bottom: 1px solid #AAAAAA;
+}
+
+.searchUser:hover {
+  background-color: rgb(167,238,232);
+  color: #ee8e67;
+}
+
+.noSearchUser {
+  padding: 0.25em;
+  color: #AAAAAA;
 }

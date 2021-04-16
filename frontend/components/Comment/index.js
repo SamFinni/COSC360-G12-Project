@@ -22,11 +22,11 @@ export default function Comment({ data }) {
     return (
         <div className={styles.comment}>
             <div className={styles.left}>
-                <Link href={`/viewprofile/` + data.uid}><img className={styles.pic} src={pic} /></Link>
+                <Link href={`/profile/` + data.uid}><img className={styles.pic} src={pic} /></Link>
             </div>
             <div className={styles.right}>
                 <div className={styles.detailsContainer}>
-                    <Link href={`/viewprofile/` + data.uid}><span className={styles.username}>@{data.username}</span></Link>
+                    <Link href={`/profile/` + data.uid}><span className={styles.username}>@{data.username}</span></Link>
                     <span className={styles.date}>{data.createdAt.substring(0, 10)}</span>
                 </div>
                 <div className={styles.bodyContainer}>

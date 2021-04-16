@@ -410,6 +410,9 @@ router.post("/searchLike", async function (req, res) {
     if (userData.length == 0) {
       return res.status(200).send({ id: 0, message: "No users found" });
     } else {
+      userData.forEach((x) => {
+        x.image = x.image.toString();
+      });
       return res.status(200).send(userData);
     }
   } catch (error) {

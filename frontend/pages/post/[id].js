@@ -210,10 +210,10 @@ export default function Post() {
             {!post.createdAt ? "" : post.createdAt.substring(0, 10)}
           </span>
           <div className={styles.user}>
-            <Link href={`/viewprofile/` + post.uid}>
+            <Link href={`/profile/` + post.uid}>
               <img className={styles.pic} src={pic} />
             </Link>
-            <Link href={`/viewprofile/` + post.uid}>
+            <Link href={`/profile/` + post.uid}>
               <p className={styles.username}>@{post.username}</p>
             </Link>
           </div>
