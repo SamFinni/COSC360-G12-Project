@@ -98,39 +98,40 @@ export default function AdminUser({ data }) {
     <div>
       <div className={styles.user} style={{border: currentBorderColor, backgroundColor: currentBackgroundColor}}>
         <table className={styles.table}>
-            <tr className={styles.tablerow}>
-                <td rowSpan="4"><img className={styles.pic} src={pic} /></td>
-                <td className={styles.tabletext}>
-                    <div className={styles.text}>Username:</div>
-                </td>
-                <td className={styles.tabletext}>
-                    <div className={styles.text}><span className={styles.emphasis}>{data.username}</span></div><img className={styles.crownpic} src={splashPic} title={splashTitle}></img>
-                </td>
+            <tbody>
+                <tr className={styles.tablerow}>
+                    <td rowSpan="4"><img className={styles.pic} src={pic} /></td>
+                    <td className={styles.tabletext}>
+                        <div className={styles.text}>Username:</div>
+                    </td>
+                    <td className={styles.tabletext}>
+                        <div className={styles.text}><span className={styles.emphasis}>{data.username}</span></div><img className={styles.crownpic} src={splashPic} title={splashTitle}></img>
+                    </td>
 
-                <td className={styles.tableCheckbox}>
-                    <button className={styles.button} // Toggle button for disabled value
-                        onClick={()=> disabledChange(!disabledValue)}
-                        name="disabled"
-                    ><span>{disableButtonText}</span></button>
-                </td>
+                    <td className={styles.tableCheckbox}>
+                        <button className={styles.button} // Toggle button for disabled value
+                            onClick={()=> disabledChange(!disabledValue)}
+                            name="disabled"
+                        ><span>{disableButtonText}</span></button>
+                    </td>
 
-            </tr>
-            <tr className={styles.tablerow}>
-                <td className={styles.tabletext}>
-                    <div className={styles.text}>Email:</div>
-                </td>
-                <td className={styles.tabletext}>
-                    <div className={styles.text}><span className={styles.emphasis}>{data.email}</span></div>
-                </td>
+                </tr>
+                <tr className={styles.tablerow}>
+                    <td className={styles.tabletext}>
+                        <div className={styles.text}>Email:</div>
+                    </td>
+                    <td className={styles.tabletext}>
+                        <div className={styles.text}><span className={styles.emphasis}>{data.email}</span></div>
+                    </td>
 
-                <td className={styles.tableCheckbox}>
-                    <button className={styles.button} // Toggle button for admin value
-                        onClick={()=> adminChange(!adminValue)}
-                        name="admin"
-                    ><span>{adminButtonText}</span></button>
-                </td>
-            </tr>
-            
+                    <td className={styles.tableCheckbox}>
+                        <button className={styles.button} // Toggle button for admin value
+                            onClick={()=> adminChange(!adminValue)}
+                            name="admin"
+                        ><span>{adminButtonText}</span></button>
+                    </td>
+                </tr>
+            </tbody>
         </table>
             <hr className={styles.separator}></hr>
             <p className={styles.date}>ID: <span className={styles.emphasis}>{uid}</span> &nbsp; Created: {data.createdAt.substring(0,10)}</p>

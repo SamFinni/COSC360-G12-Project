@@ -23,8 +23,10 @@ export default function Footer() {
     }).then(data => authenticate(data.data[0].admin));
   }
   function authenticate(admin){
-    console.log(admin);
-    if(admin == 1) setAdminLink("Admin");
+    if(admin == 1){
+      console.warn("You are logged in with ADMIN privileges!");
+      setAdminLink("Admin");
+    }
   }
 
   return(
