@@ -6,7 +6,7 @@ import styles from "../../styles/components/Profile.module.css";
 import * as cfg from "../../config";
 const backend = "http://" + cfg.BACKEND_IP + ":" + cfg.BACKEND_PORT;
 
-export default function Profile({ data }) {
+export default function Profile() {
   const [auth, setAuth] = useLocalStorage("auth", {
     email: null,
     uid: null,
@@ -65,7 +65,7 @@ export default function Profile({ data }) {
           <b>@{username}</b>
         </p>
         <p id="bi" className={styles.bio}>
-          Bio: {bio}
+          {bio}
         </p>
       </>
     );

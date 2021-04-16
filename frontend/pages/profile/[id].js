@@ -127,7 +127,7 @@ export default function Profile() {
                 <b>@{username}</b>
               </p>
               <p id="bi" className={styles.bio}>
-                Bio: {bio}
+                {bio}
               </p>
             </div>
           </div>

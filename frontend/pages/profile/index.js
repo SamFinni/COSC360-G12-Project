@@ -10,7 +10,7 @@ const Navbar = dynamic(() => import('../../components/Navbar'), {
   ssr: false
 });
 
-export default function ProfilePage(props) {
+export default function ProfilePage() {
   return (
     <div className={styles.page}>
       <Head>
@@ -25,21 +25,11 @@ export default function ProfilePage(props) {
       <div className={styles.container}>
         <h1 className={styles.title}>Profile</h1>
         <div className={styles.friendlist}>
-          <Profile data={props.user} />
+          <Profile />
         </div>
       </div>
 
       <Footer />
     </div>
   )
-}
-
-export async function getStaticProps() {
-  const user = { uid: 132624, username: 'KangaRupert', pic: '/pic1.png', bio: 'I\'m a cool dude, and I like to blog!' };
-
-  return {
-    props: {
-      user
-    }
-  }
 }
