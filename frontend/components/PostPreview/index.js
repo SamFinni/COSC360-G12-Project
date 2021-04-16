@@ -19,7 +19,7 @@ export default function PostPreview({ data }) {
   const [initialScore, setInitialScore] = useState(0);
 
   // Auth: check if user is signed in
-  const [auth, setAuth] = useLocalStorage('auth');  // auth info: { email, uid, username, authkey }
+  const [auth, setAuth] = useLocalStorage('auth', { email: null, uid: null, username: null, authkey: null });
   const [pic, setPic] = useState("");
 
 

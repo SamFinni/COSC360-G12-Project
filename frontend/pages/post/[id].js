@@ -35,7 +35,7 @@ export default function Post() {
   const [comments, setComments] = useState([]);
   const [commentBody, setCommentBody] = useState("");
   const [pic, setPic] = useState("");
-  const [auth, setAuth] = useLocalStorage("auth"); // auth info: { email, uid, username, authkey }
+  const [auth, setAuth] = useLocalStorage('auth', { email: null, uid: null, username: null, authkey: null });
   const [userAdmin, setUserAdmin] = useState(false);
   const [user, setUser] = useState(false);
   const router = useRouter();
