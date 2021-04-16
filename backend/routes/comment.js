@@ -45,19 +45,6 @@ router.post('/add', async function (req, res) {
     }
 });
 
-// update a comment
-router.post('/update', async function (req, res) {
-    const { uid } = req.body;
-
-    if (!uid || !id) return res.status(500).send({ id: 1, message: "`uid` or `id` missing from body" });
-
-    try {
-        //TODO
-    } catch (error) {
-        res.status(500).send(error);
-    }
-});
-
 // remove a comment
 router.post('/remove', async function (req, res) {
     const { id, uid } = req.body;

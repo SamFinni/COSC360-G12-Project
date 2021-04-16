@@ -36,9 +36,6 @@ app.use('/test', testRouter);
 const commentRouter = require('./routes/comment');
 app.use('/comment', commentRouter);
 
-const commentscoreRouter = require('./routes/commentscore');
-app.use('/commentscore', commentscoreRouter);
-
 const userRouter = require('./routes/user');
 app.use('/user', userRouter);
 
