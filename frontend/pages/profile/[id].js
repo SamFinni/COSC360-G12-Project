@@ -48,7 +48,6 @@ export default function Profile() {
         uid: parseInt(router.query.id),
       })
       .then((response) => {
-        console.log(1);
         setUsername(response.data[0].username);
         setBio(response.data[0].bio);
         setPic(response.data[0].image);
