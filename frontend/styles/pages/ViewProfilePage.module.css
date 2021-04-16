@@ -25,7 +25,6 @@
 .user {
   text-align: center;
   display: inline;
-  cursor: pointer;
   margin: 1em 1em;
 }
 
@@ -67,10 +66,27 @@
   box-shadow: 0 0 6px gray;
   color: #616161;
   min-width: 25em;
-  
+  cursor: pointer;
 }
 .label {
 display: inline;
  width: 7em;
  text-align: left;
+}
+.button {
+  display: inline-block;
+  border: 2px solid #ee8e67;
+  background-color: white;
+  color: #ee8e67;
+  padding: 0.5em 1em;
+  margin-top: 1em;
+  float: left;
+  border-radius: 2em;
+  box-shadow: 0 0 6px gray;
+  font-weight: bold;
+  user-select: none;
+}
+.button:hover {
+  background: rgb(255,255,255);
+  background: linear-gradient(225deg, rgba(255,255,255,1) 0%, rgba(167,238,232,1) 75%);
 }

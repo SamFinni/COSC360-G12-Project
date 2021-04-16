@@ -30,7 +30,7 @@ export default function Profile() {
   const [username, setUsername] = useState("");
   const [bio, setBio] = useState("");
   const [pic, setPic] = useState(""); // auth info: { email, uid, username, authkey }
-
+  const [add, setAdded] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -50,7 +50,15 @@ export default function Profile() {
         setPic(response.data[0].image);
       });
   }
-
+  async function addUser() {
+    const added = await axios.post(backend + "/friend/add", {
+      uid: auth.uid,
+      fuid: parseInt(router.query.id),
+    });
+    //console.log(added);
+    window.location.reload();
+    alert("User added!");
+  }
 
   return (
     <div className={styles.page}>
@@ -63,12 +71,16 @@ export default function Profile() {
 
     <div className={styles.container}>
       <h1 className={styles.title}>Profile</h1>
+      <Link href="/">
+          <div className={styles.button} >Back</div>
+      </Link>
       <div className={styles.friendlist}>
       <div className={styles.content}>
           {/* ADD LINK TO ADD FRIEND */}
       <img
           className={styles.add}
           src={"/add2.png"}
+          onClick={addUser}
         />
       <div className={styles.user}>
      
