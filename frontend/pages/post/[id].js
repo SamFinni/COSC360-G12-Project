@@ -195,9 +195,9 @@ export default function Post() {
       <Navbar />
 
       <div className={styles.holder}>
-       {/* <Link href="/"> */}
+       <Link href="/">
           <div className={styles.button} >Back</div>
-          {/* </Link> */}
+          </Link>
         <div className={styles.content}>
           <span className={styles.date}>
             {!post.createdAt ? "" : post.createdAt.substring(0, 10)}
