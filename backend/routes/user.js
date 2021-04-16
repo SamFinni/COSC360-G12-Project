@@ -74,14 +74,14 @@ router.post("/login", async function (req, res) {
       FROM users 
       WHERE username = "` +
       req.body.username +
-      `"`,
+      `" AND disabled = false`,
       {
         logging: false,
         type: QueryTypes.SELECT,
       }
     );
     if (userData.length == 0) {
-      return res.status(200).send({ id: 0, message: "Invalid username" });
+      return res.status(200).send({ id: 0, message: "Invalid username, or account disabled" });
     }
     bcrypt.compare(
       req.body.password,
