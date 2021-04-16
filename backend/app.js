@@ -7,9 +7,8 @@ const morgan = require('morgan');
 const uest = require('uest');
 
 // config
-const cfg = require('./config');
-const ip = cfg.BACKEND_IP;
-const port = cfg.BACKEND_PORT;
+const ip = 'localhost';
+const port = 3001;
 
 // define the Express app
 const app = express();
